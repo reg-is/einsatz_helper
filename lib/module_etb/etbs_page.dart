@@ -6,7 +6,10 @@ class ETBsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int numberOfItems = 10;
+
     return Scaffold(
+      //backgroundColor: Theme.of(context).indicatorColor.withOpacity(0.1),
       appBar: AppBar(
         title: const Text('Einsatztagebücher'),
         actions: [
@@ -18,15 +21,20 @@ class ETBsPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: buildETBOverviewCard(context),
+      //body: buildETBOverviewCard(context),
+      body: ListView.builder(
+        padding: EdgeInsets.all(0),
+        itemCount: numberOfItems,
+        itemBuilder: (BuildContext context, int index){
+          return buildETBOverviewCard(context, numberOfItems - index, index.isEven);
+        }),
     );
   }
 }
 
 // Builds a Card Widget for an ETB Overview
-Widget buildETBOverviewCard(context) => Card(
-      elevation: 8,
-      margin: const EdgeInsets.all(8),
+Widget buildETBOverviewCard(context, int etbID, bool finished) => Card(
+      elevation: 2,
       child: Container(
         padding: const EdgeInsets.all(8.0),
         child: Wrap(
@@ -40,9 +48,10 @@ Widget buildETBOverviewCard(context) => Card(
                 Chip(
                   visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
                   padding: const EdgeInsets.all(0),
-                  label: Text('42'),
-                  labelStyle: TextStyle(color: Colors.white),
-                  backgroundColor: Theme.of(context).unselectedWidgetColor,
+                  label: Text('$etbID'),
+                  labelStyle:
+                      TextStyle(color: Theme.of(context).indicatorColor),
+                  backgroundColor: Theme.of(context).dividerColor,
                   elevation: 1.0,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
@@ -50,7 +59,7 @@ Widget buildETBOverviewCard(context) => Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Einsatzname',
+                      'Einsatzname Nr. $etbID',
                       style: Theme.of(context).textTheme.titleMedium,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
@@ -58,7 +67,7 @@ Widget buildETBOverviewCard(context) => Card(
                   ),
                 ),
                 //Spacer(),
-                buildETBStatusChip(true, context),
+                buildETBStatusChip(finished, context),
               ],
             ),
             //SizedBox(height: 8,),
@@ -90,9 +99,8 @@ Widget buildETBOverviewCard(context) => Card(
               ],
             ),
             SizedBox(
-              height: 8,
+              height: 24,
             ),
-
             Wrap(
               spacing: 8,
               runSpacing: 4,
@@ -104,7 +112,7 @@ Widget buildETBOverviewCard(context) => Card(
                   //padding: EdgeInsets.all(0),
                   avatar: Icon(
                     Ionicons.file_tray_full,
-                    color: Theme.of(context).indicatorColor,
+                    color: Theme.of(context).indicatorColor.withOpacity(0.8),
                     size: 16,
                   ),
                   label: Text('4 Einträge'),
@@ -121,7 +129,7 @@ Widget buildETBOverviewCard(context) => Card(
                   //padding: EdgeInsets.all(0),
                   avatar: Icon(
                     Ionicons.attach,
-                    color: Theme.of(context).indicatorColor,
+                    color: Theme.of(context).indicatorColor.withOpacity(0.8),
                     size: 16,
                   ),
                   label: Text('2 Anlagen'),
