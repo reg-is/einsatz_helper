@@ -18,8 +18,7 @@ class ETBsPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: Center(
-          child: buildETBOverviewCard(context)),
+      body: buildETBOverviewCard(context),
     );
   }
 }
@@ -27,11 +26,13 @@ class ETBsPage extends StatelessWidget {
 Widget buildETBOverviewCard(context) => Card(
       elevation: 8,
       margin: const EdgeInsets.all(8),
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Wrap(
+          spacing: 4,
+          runSpacing: 1,
+          //mainAxisSize: MainAxisSize.min,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
@@ -47,40 +48,73 @@ Widget buildETBOverviewCard(context) => Card(
                   elevation: 1.0,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                Text(
-                  'Einsatz Petresweg 32',
-                  style: Theme.of(context).textTheme.titleMedium,
+                Flexible(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      'Einsatzname',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
-                Chip(
+                //Spacer(),
+                const Chip(
                   visualDensity: VisualDensity(horizontal: 0, vertical: -4),
                   padding: EdgeInsets.all(2),
-                  label: Text('Laufender Einsatz'),
+                  label: Text('Laufend'),
                   elevation: 1.0,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ],
             ),
+            //SizedBox(height: 8,),
             Row(
               children: [
                 Text(
                   'Einsatzbeginn: ',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
-                Text('261814Feb22')
+                Text('261814Feb22'),
               ],
             ),
-            Row(
-              children: [Text('Einsatzleitung: '), Text('Manuela Musterfrau')],
+            Wrap(
+              children: [
+                Text(
+                  'Einsatzleitung: ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text('Manuela Musterfrau')
+              ],
             ),
-            Row(
-              children: [Text('ETB-Führung: '), Text('Max Mustermann')],
+            Wrap(
+              children: [
+                Text(
+                  'ETB-Führung: ',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text('Max Mustermann')
+              ],
             ),
-            Row(
+            SizedBox(
+              height: 8,
+            ),
+
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
               children: [
                 Chip(
                   visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                  padding: EdgeInsets.all(2),
-
+                  labelPadding:
+                      EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
+                  //padding: EdgeInsets.all(0),
+                  avatar: Icon(
+                    Ionicons.file_tray_full,
+                    color: Colors.white,
+                    size: 16,
+                  ),
                   label: Text('4 Einträge'),
                   labelStyle: TextStyle(color: Colors.white),
                   backgroundColor: Theme.of(context).unselectedWidgetColor,
@@ -89,8 +123,14 @@ Widget buildETBOverviewCard(context) => Card(
                 ),
                 Chip(
                   visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                  padding: EdgeInsets.all(2),
-
+                  labelPadding:
+                      EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
+                  //padding: EdgeInsets.all(0),
+                  avatar: Icon(
+                    Ionicons.attach,
+                    color: Colors.white,
+                    size: 16,
+                  ),
                   label: Text('2 Anlagen'),
                   labelStyle: TextStyle(color: Colors.white),
                   backgroundColor: Theme.of(context).unselectedWidgetColor,
@@ -99,16 +139,20 @@ Widget buildETBOverviewCard(context) => Card(
                 ),
                 Chip(
                   visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                  padding: EdgeInsets.all(2),
-
-                  label: Text('4 Einträge'),
-                  labelStyle: TextStyle(color: Colors.white),
-                  backgroundColor: Theme.of(context).unselectedWidgetColor,
+                  labelPadding:
+                      EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
+                  avatar: Icon(
+                    Ionicons.share,
+                    size: 16,
+                  ),
+                  label: Text('Exportiren'),
+                  //labelStyle: TextStyle(color: Colors.white),
+                  //backgroundColor: Theme.of(context).unselectedWidgetColor,
                   elevation: 1.0,
                   //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
