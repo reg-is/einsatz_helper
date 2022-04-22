@@ -1,49 +1,34 @@
+import 'package:einsatz_helper/module_etb/entries_page.dart';
+import 'package:einsatz_helper/module_etb/etbs_page.dart';
+import 'package:einsatz_helper/module_etb/settings_page.dart';
+import 'package:einsatz_helper/module_etb/templates_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 class ETBStartPage extends StatefulWidget {
-  const ETBStartPage({ Key? key }) : super(key: key);
+  const ETBStartPage({Key? key}) : super(key: key);
 
   @override
   State<ETBStartPage> createState() => _ETBStartPageState();
 }
 
 class _ETBStartPageState extends State<ETBStartPage> {
-    int currentIdx = 0;
+  int currentIdx = 0;
   final screens = const [
-    Center(
-      child: Text(
-        'ETB',
-        style: TextStyle(fontSize: 60),
-      ),
-    ),
-    Center(
-      child: Text(
-        'Einträge',
-        style: TextStyle(fontSize: 60),
-      ),
-    ),
-    Center(
-      child: Text(
-        'Vorlagen',
-        style: TextStyle(fontSize: 60),
-      ),
-    ),
-    Center(
-      child: Text(
-        'Einstellungen',
-        style: TextStyle(fontSize: 60),
-      ),
-    ),
+    ETBsPage(),
+    EntriesPage(),
+    TemplatesPage(),
+    SettingsPage(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Title')),
       body: screens[currentIdx],
       bottomNavigationBar: BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
+          //elevation: 8,
+          type: BottomNavigationBarType.fixed,
           //backgroundColor: Color.fromARGB(255, 220, 219, 219),
           currentIndex: currentIdx,
           onTap: (index) => setState(() {
@@ -53,7 +38,7 @@ class _ETBStartPageState extends State<ETBStartPage> {
             BottomNavigationBarItem(
               icon: Icon(Ionicons.book_outline),
               activeIcon: Icon(Ionicons.book),
-              label: 'ETB',
+              label: 'ETBs',
               // backgroundColor: Colors.yellow,
             ),
             BottomNavigationBarItem(
