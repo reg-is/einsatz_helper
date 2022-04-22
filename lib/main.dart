@@ -1,5 +1,5 @@
+import 'package:einsatz_helper/theme.dart';
 import 'package:flutter/material.dart';
-
 import 'module_etb/etb_start_page.dart';
 
 void main() {
@@ -13,9 +13,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: MyThemes.lightTheme,
+      darkTheme: MyThemes.darkTheme,
+      themeMode: ThemeMode.system,
       home: const ETBStartPage(),
     );
   }
