@@ -23,6 +23,7 @@ class ETBsPage extends StatelessWidget {
   }
 }
 
+// Builds a Card Widget for an ETB Overview
 Widget buildETBOverviewCard(context) => Card(
       elevation: 8,
       margin: const EdgeInsets.all(8),
@@ -31,9 +32,6 @@ Widget buildETBOverviewCard(context) => Card(
         child: Wrap(
           spacing: 4,
           runSpacing: 1,
-          //mainAxisSize: MainAxisSize.min,
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Row(
               mainAxisSize: MainAxisSize.max,
