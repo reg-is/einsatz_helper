@@ -112,12 +112,13 @@ Widget buildETBOverviewCard(context) => Card(
                   //padding: EdgeInsets.all(0),
                   avatar: Icon(
                     Ionicons.file_tray_full,
-                    color: Colors.white,
+                    color: Theme.of(context).indicatorColor,
                     size: 16,
                   ),
                   label: Text('4 Einträge'),
-                  labelStyle: TextStyle(color: Colors.white),
-                  backgroundColor: Theme.of(context).unselectedWidgetColor,
+                  labelStyle:
+                      TextStyle(color: Theme.of(context).indicatorColor),
+                  backgroundColor: Theme.of(context).dividerColor,
                   elevation: 1.0,
                   //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
@@ -128,12 +129,13 @@ Widget buildETBOverviewCard(context) => Card(
                   //padding: EdgeInsets.all(0),
                   avatar: Icon(
                     Ionicons.attach,
-                    color: Colors.white,
+                    color: Theme.of(context).indicatorColor,
                     size: 16,
                   ),
                   label: Text('2 Anlagen'),
-                  labelStyle: TextStyle(color: Colors.white),
-                  backgroundColor: Theme.of(context).unselectedWidgetColor,
+                  labelStyle:
+                      TextStyle(color: Theme.of(context).indicatorColor),
+                  backgroundColor: Theme.of(context).dividerColor,
                   elevation: 1.0,
                   //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
