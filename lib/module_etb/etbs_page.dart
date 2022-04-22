@@ -60,13 +60,7 @@ Widget buildETBOverviewCard(context) => Card(
                   ),
                 ),
                 //Spacer(),
-                const Chip(
-                  visualDensity: VisualDensity(horizontal: 0, vertical: -4),
-                  padding: EdgeInsets.all(2),
-                  label: Text('Laufend'),
-                  elevation: 1.0,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
+                buildETBStatusChip(true, context),
               ],
             ),
             //SizedBox(height: 8,),
@@ -159,3 +153,28 @@ Widget buildETBOverviewCard(context) => Card(
         ),
       ),
     );
+
+// Build a Chip depending on the current status ('Laufend' or 'Abgeschlossen') of the ETB
+Widget buildETBStatusChip(bool finished, context) {
+  if (finished) {
+    return Chip(
+      label: Text('Abgeschlossen'),
+      labelStyle: TextStyle(color: Colors.white),
+      backgroundColor: Theme.of(context).errorColor.withOpacity(0.7),
+      visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      padding: EdgeInsets.all(2),
+      elevation: 1.0,
+    );
+  } else {
+    return Chip(
+      label: Text('Laufend'),
+      labelStyle: TextStyle(color: Colors.white),
+      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
+      visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      padding: EdgeInsets.all(2),
+      elevation: 1.0,
+    );
+  }
+}
