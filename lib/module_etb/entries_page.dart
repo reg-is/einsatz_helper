@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 class EntriesPage extends StatelessWidget {
   const EntriesPage({Key? key}) : super(key: key);
@@ -8,6 +9,20 @@ class EntriesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Einträge'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Filter pressed')));
+              },
+              icon: Icon(Ionicons.funnel)),
+          IconButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Search pressed')));
+              },
+              icon: Icon(Ionicons.search)),
+        ],
       ),
       body: const Center(
         child: Text(

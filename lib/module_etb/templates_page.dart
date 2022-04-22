@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 class TemplatesPage extends StatelessWidget {
   const TemplatesPage({Key? key}) : super(key: key);
@@ -8,6 +9,14 @@ class TemplatesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vorlagen'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Search pressed')));
+              },
+              icon: Icon(Ionicons.search)),
+        ],
       ),
       body: const Center(
         child: Text(
