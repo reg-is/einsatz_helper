@@ -6,6 +6,8 @@ class TemplatesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int numberOfItems = 10;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vorlagen'),
@@ -18,15 +20,24 @@ class TemplatesPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: const Center(
-        child: Text(
-          'Vorlagen',
-          style: TextStyle(fontSize: 60),
-        ),
+      body: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) =>
+            const Divider(height: 1, thickness: 2),
+        padding: EdgeInsets.all(0),
+        itemCount: numberOfItems,
+        itemBuilder: (BuildContext context, int index) {
+          return ListTile(
+            title: Text('Vorlage Name'),
+            trailing: Icon(Ionicons.chevron_forward),
+            onTap: () {
+              // ToDo
+            },
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Todo
+          // ToDo
         },
         child: const Icon(Icons.add),
       ),
