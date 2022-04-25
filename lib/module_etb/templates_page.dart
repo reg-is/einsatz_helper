@@ -24,6 +24,12 @@ class TemplatesPage extends StatelessWidget {
           style: TextStyle(fontSize: 60),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Todo
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

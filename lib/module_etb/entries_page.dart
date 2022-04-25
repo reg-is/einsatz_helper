@@ -30,6 +30,15 @@ class EntriesPage extends StatelessWidget {
           style: TextStyle(fontSize: 60),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Todo
+        },
+        child: const Icon(Icons.add),
+        //child: const Icon(Feather.plus),
+        //child: const Icon(Ionicons.add),
+        //child: const Icon(Fontisto.bookmark),
+      ),
     );
   }
 }

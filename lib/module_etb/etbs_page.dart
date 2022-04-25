@@ -23,11 +23,18 @@ class ETBsPage extends StatelessWidget {
       ),
       //body: buildETBOverviewCard(context),
       body: ListView.builder(
-        padding: EdgeInsets.all(0),
-        itemCount: numberOfItems,
-        itemBuilder: (BuildContext context, int index){
-          return buildETBOverviewCard(context, numberOfItems - index, index.isEven);
-        }),
+          padding: EdgeInsets.all(0),
+          itemCount: numberOfItems,
+          itemBuilder: (BuildContext context, int index) {
+            return buildETBOverviewCard(
+                context, numberOfItems - index, index.isEven);
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Todo
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
