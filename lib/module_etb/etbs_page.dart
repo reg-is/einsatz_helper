@@ -21,7 +21,6 @@ class ETBsPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      //body: buildETBOverviewCard(context),
       body: ListView.builder(
           padding: EdgeInsets.all(0),
           itemCount: numberOfItems,
@@ -168,7 +167,7 @@ Widget buildETBOverviewCard(context, int etbID, bool finished) => Card(
     );
 
 // Build a Chip depending on the current status ('Laufend' or 'Abgeschlossen') of the ETB
-Widget buildETBStatusChip(bool finished, context) {
+Chip buildETBStatusChip(bool finished, context) {
   if (finished) {
     return Chip(
       label: Text('Abgeschlossen'),
