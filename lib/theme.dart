@@ -12,7 +12,7 @@ class MyThemes {
   subThemesData: const FlexSubThemesData(
     blendOnLevel: 22,
     blendOnColors: false,
-    defaultRadius: 10.0,
+    defaultRadius: 5.0,
     inputDecoratorIsFilled: false,
     inputDecoratorUnfocusedBorderIsColored: false,
     fabRadius: 40.0,
@@ -36,7 +36,7 @@ class MyThemes {
     tooltipsMatchBackground: true,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 28,
-      defaultRadius: 10.0,
+      defaultRadius: 5.0,
       inputDecoratorIsFilled: false,
       inputDecoratorUnfocusedBorderIsColored: false,
       fabRadius: 40.0,
