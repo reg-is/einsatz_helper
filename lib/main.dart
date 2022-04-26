@@ -1,8 +1,12 @@
 import 'package:einsatz_helper/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'module_etb/etb_start_page.dart';
 
-void main() {
+late Box box;
+Future<void> main() async {
+  await Hive.initFlutter();
+  box = await Hive.openBox('etbBox');
   runApp(const MyApp());
 }
 
