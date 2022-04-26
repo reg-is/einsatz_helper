@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:einsatz_helper/module_etb/entry_details_page.dart';
 
 class EntriesPage extends StatelessWidget {
   const EntriesPage({Key? key}) : super(key: key);
@@ -53,50 +54,56 @@ class EntriesPage extends StatelessWidget {
 // Builds a Card Widget for an ETB Entry
 Widget buildEntryCard(BuildContext context, int entryID, String tacticalTime,
         String content, int attachments) =>
-    Card(
-      elevation: 2,
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        child: Wrap(
-          spacing: 4,
-          runSpacing: 1,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // Chip with the number of the ETB-Entry
-                Chip(
-                  visualDensity:
-                      const VisualDensity(horizontal: 0.0, vertical: -4),
-                  padding: const EdgeInsets.all(0),
-                  label: Text('$entryID'),
-                  labelStyle:
-                      TextStyle(color: Theme.of(context).indicatorColor),
-                  backgroundColor: Theme.of(context).dividerColor,
-                  elevation: 1.0,
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                // Text box with the date and time of the entry
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    tacticalTime,
-                    style: Theme.of(context).textTheme.titleMedium,
+    InkWell(
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => EntryDetailsPage(entryID, tacticalTime, content)));
+      },
+      child: Card(
+        elevation: 2,
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            spacing: 4,
+            runSpacing: 1,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // Chip with the number of the ETB-Entry
+                  Chip(
+                    visualDensity:
+                        const VisualDensity(horizontal: 0.0, vertical: -4),
+                    padding: const EdgeInsets.all(0),
+                    label: Text('$entryID'),
+                    labelStyle:
+                        TextStyle(color: Theme.of(context).indicatorColor),
+                    backgroundColor: Theme.of(context).dividerColor,
+                    elevation: 1.0,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
-                ),
-                const Spacer(),
-                // Chip with the number of attachments of the entry
-                buildAttachmentsChip(attachments),
-              ],
-            ),
-            // Text box with the content of the entry
-            Text(
-              content,
-              maxLines: 10,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+                  // Text box with the date and time of the entry
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      tacticalTime,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ),
+                  const Spacer(),
+                  // Chip with the number of attachments of the entry
+                  buildAttachmentsChip(attachments),
+                ],
+              ),
+              // Text box with the content of the entry
+              Text(
+                content,
+                maxLines: 10,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
     );
