@@ -16,6 +16,7 @@ class EntryDetailsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Eintrag Details'),
+          
           actions: [
             IconButton(
                 onPressed: () {}, icon: const Icon(Ionicons.color_palette))
@@ -25,7 +26,7 @@ class EntryDetailsPage extends StatelessWidget {
           children: [
             buildDetailsCard(
               title: Row(children: [
-                const Text('Laufende-Nummer: '),
+                const Text('Laufende Nummer: '),
                 // Chip with the number of the ETB-Entry
                 Chip(
                   visualDensity:
@@ -41,14 +42,14 @@ class EntryDetailsPage extends StatelessWidget {
               ]),
             ),
             buildDetailsCard(
-                title: const Text('Zeitpunkt'),
+                title: const Text('Datum / Uhrzeit'),
                 details: Text(
                     'Erfassungszeit: 261840Feb22\nEreignisszeit: 261820Feb22')),
             buildDetailsCard(
                 title: const Text('Gegenstelle'),
                 details: Text('Erkundungstrupp')),
             buildDetailsCard(
-                title: const Text('Darstellung des Ereigniss'),
+                title: const Text('Darstellung des Ereignis'),
                 details: Text(content)),
             buildDetailsCard(
                 title: const Text('Bemerkung'),
