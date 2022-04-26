@@ -44,7 +44,7 @@ Widget buildETBOverviewCard(context, int etbID, bool finished) => Card(
       child: Container(
         padding: const EdgeInsets.all(8.0),
         child: Wrap(
-          spacing: 4,
+          spacing: 8,
           runSpacing: 1,
           children: [
             Row(
