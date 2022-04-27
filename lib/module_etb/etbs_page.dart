@@ -63,7 +63,7 @@ class ETBsPage extends StatelessWidget {
       );
     } else {
       return ListView.builder(
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           itemCount: etbs.length,
           itemBuilder: (BuildContext context, int index) {
             return buildETBOverviewCard(context, etbs[index]);
@@ -74,7 +74,7 @@ class ETBsPage extends StatelessWidget {
   Future addETB(String name, double amount, bool isExpense) async {
     final etb = ETBData()
       ..name = name
-      ..attachmentsCount = 2
+      ..attachmentsCount = 0
       ..finished = isExpense
       ..id = amount.toInt()
       ..leader = 'Max Mustermann'
@@ -257,22 +257,22 @@ class ETBsPage extends StatelessWidget {
   Chip buildETBStatusChip(bool finished, context) {
     if (finished) {
       return Chip(
-        label: Text('Abgeschlossen'),
-        labelStyle: TextStyle(color: Colors.white),
+        label: const Text('Abgeschlossen'),
+        labelStyle: const TextStyle(color: Colors.white),
         backgroundColor: Theme.of(context).errorColor.withOpacity(0.7),
-        visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+        visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: EdgeInsets.all(2),
+        padding: const EdgeInsets.all(2),
         elevation: 1.0,
       );
     } else {
       return Chip(
-        label: Text('Laufend'),
-        labelStyle: TextStyle(color: Colors.white),
+        label: const Text('Laufend'),
+        labelStyle: const TextStyle(color: Colors.white),
         backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
-        visualDensity: VisualDensity(horizontal: 0, vertical: -4),
+        visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: EdgeInsets.all(2),
+        padding: const EdgeInsets.all(2),
         elevation: 1.0,
       );
     }
