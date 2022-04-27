@@ -1,5 +1,9 @@
+import 'package:einsatz_helper/module_etb/data_box.dart';
+import 'package:einsatz_helper/module_etb/etb_dialog.dart';
+import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
@@ -21,25 +25,58 @@ class ETBsPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: ListView.builder(
-          padding: EdgeInsets.all(0),
-          itemCount: numberOfItems,
-          itemBuilder: (BuildContext context, int index) {
-            return buildETBOverviewCard(
-                context, numberOfItems - index, index.isEven);
-          }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Todo
+      body: ValueListenableBuilder<Box<ETBData>>(
+        valueListenable: DataBox.getETBs().listenable(),
+        builder: (context, box, _) {
+          final etbs = box.values.toList().cast<ETBData>();
+          return buildETBListView(etbs);
         },
+      ),
+      floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
+        onPressed: () => showDialog(
+            context: context,
+            builder: (context) => ETBDialog(onClickedDone: addETB)),
       ),
     );
+  }
+
+  Widget buildETBListView(List<ETBData> etbs) {
+    if (etbs.isEmpty) {
+      return Center(
+        child: Text(
+          'Noch kein ETB vorhanden.',
+          style: TextStyle(fontSize: 24),
+        ),
+      );
+    } else {
+      return ListView.builder(
+          padding: EdgeInsets.all(0),
+          itemCount: etbs.length,
+          itemBuilder: (BuildContext context, int index) {
+            return buildETBOverviewCard(
+                context, etbs[index].id, etbs[index].finished, etbs[index].name);
+          });
+    }
+  }
+
+  Future addETB(String name, double amount, bool isExpense) async {
+    final etb = ETBData()
+      ..name = name
+      ..attachmentsCount = 2
+      ..finished = isExpense
+      ..id = amount.toInt()
+      ..leader = 'Max Mustermann'
+      ..etbWriter = 'Maxi Musterschreiber'
+      ..startedDate = DateTime(2022, 05, 24);
+    final etbDB = DataBox.getETBs();
+    etbDB.add(etb); // Auto key
+    //box.put('mykey', etb) // Indivdiual key
   }
 }
 
 // Builds a Card Widget for an ETB Overview
-Widget buildETBOverviewCard(context, int etbID, bool finished) => Card(
+Widget buildETBOverviewCard(context, int etbID, bool finished, String name) => Card(
       elevation: 2,
       child: Container(
         padding: const EdgeInsets.all(8.0),
@@ -65,7 +102,7 @@ Widget buildETBOverviewCard(context, int etbID, bool finished) => Card(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Einsatzname Nr. $etbID',
+                      name,
                       style: Theme.of(context).textTheme.titleMedium,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
