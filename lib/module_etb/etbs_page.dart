@@ -63,11 +63,12 @@ class ETBsPage extends StatelessWidget {
         ),
       );
     } else {
+      var etbsReversed = List<ETBData>.from(etbs.reversed);
       return ListView.builder(
           padding: const EdgeInsets.all(0),
           itemCount: etbs.length,
           itemBuilder: (BuildContext context, int index) {
-            return buildETBOverviewCard(context, etbs[index]);
+            return buildETBOverviewCard(context, etbsReversed[index]);
           });
     }
   }
