@@ -28,4 +28,9 @@ class ETBData extends HiveObject {
 
   @HiveField(7)
   List<ETBEntryData>? entries;
+
+  @override
+  String toString() {
+    return '{id=$id, name=$name, leader=$leader, etbWriter=$etbWriter, finished=$finished, startedDate=$startedDate, attachmentsSum=$attachmentsSum, entries=${entries.toString()}}';
+  }
 }

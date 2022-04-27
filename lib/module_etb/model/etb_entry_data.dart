@@ -27,4 +27,9 @@ class ETBEntryData extends HiveObject {
 
   // @HiveField(7)
   // List? attachments;
+
+  @override
+  String toString() {
+    return '{id=$id, captureTime=$captureTime, counterpart=$counterpart, description=$description, comment=$comment, reference=$reference}';
+  }
 }
