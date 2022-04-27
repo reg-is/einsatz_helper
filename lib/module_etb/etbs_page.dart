@@ -1,6 +1,7 @@
 import 'package:einsatz_helper/module_etb/data_box.dart';
 import 'package:einsatz_helper/module_etb/etb_dialog.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
+import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -72,6 +73,16 @@ class ETBsPage extends StatelessWidget {
   }
 
   Future addETB(String name, double amount, bool isExpense) async {
+    final firstEntry = ETBEntryData()
+      ..id = 0
+      ..captureTime = DateTime.now()
+      ..eventTime = null
+      ..counterpart = null
+      ..description = 'Einsatzbeginn\nTodo'
+      ..comment = null
+      ..reference = null;
+    final entriesList = <ETBEntryData>[firstEntry];
+
     final etb = ETBData()
       ..name = name
       ..attachmentsSum = 0
@@ -79,7 +90,9 @@ class ETBsPage extends StatelessWidget {
       ..id = amount.toInt()
       ..leader = 'Max Mustermann'
       ..etbWriter = 'Maxi Musterschreiber'
-      ..startedDate = DateTime(2022, 05, 24);
+      ..startedDate = DateTime(2022, 05, 24)
+      ..entries = null;
+
     final etbDB = DataBox.getETBs();
     etbDB.add(etb); // Auto key
     //box.put('myKey', etb) // Individual key
@@ -193,7 +206,7 @@ class ETBsPage extends StatelessWidget {
                       color: Theme.of(context).indicatorColor.withOpacity(0.8),
                       size: 16,
                     ),
-                    label: Text('4 Einträge'),
+                    label: Text('${etb.entries?.length} Einträge'),
                     labelStyle:
                         TextStyle(color: Theme.of(context).indicatorColor),
                     backgroundColor: Theme.of(context).dividerColor,

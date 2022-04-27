@@ -24,7 +24,7 @@ class ETBDataAdapter extends TypeAdapter<ETBData> {
       ..finished = fields[4] as bool
       ..startedDate = fields[5] as DateTime
       ..attachmentsSum = fields[6] as int
-      ..entries = (fields[7] as List).cast<ETBEntryData>();
+      ..entries = (fields[7] as List?)?.cast<ETBEntryData>();
   }
 
   @override

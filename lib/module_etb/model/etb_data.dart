@@ -27,5 +27,5 @@ class ETBData extends HiveObject {
   int attachmentsSum = 0;
 
   @HiveField(7)
-  late List<ETBEntryData> entries;
+  List<ETBEntryData>? entries;
 }
