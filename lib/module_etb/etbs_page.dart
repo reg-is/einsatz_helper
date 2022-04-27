@@ -73,6 +73,11 @@ class ETBsPage extends StatelessWidget {
     etbDB.add(etb); // Auto key
     //box.put('mykey', etb) // Indivdiual key
   }
+
+  // Delete a ETB with all its entries
+  void deleteETB(ETBData etb) {
+    etb.delete();
+  }
 }
 
 // Builds a Card Widget for an ETB Overview
@@ -196,6 +201,10 @@ Widget buildETBOverviewCard(context, int etbID, bool finished, String name) => C
                   elevation: 1.0,
                   //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
+                ActionChip(
+                  label: Text('Löschen'),
+                  onPressed: () => deleteETB(),
+                  ),
               ],
             ),
           ],
