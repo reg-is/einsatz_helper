@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'etb_entry_data.dart';
 
 part 'etb_data.g.dart';
 
@@ -24,4 +25,7 @@ class ETBData extends HiveObject {
 
   @HiveField(6)
   int attachmentsSum = 0;
+
+  @HiveField(7)
+  late List<ETBEntryData> entries;
 }

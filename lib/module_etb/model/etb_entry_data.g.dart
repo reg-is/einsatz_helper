@@ -1,52 +1,49 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'etb_data.dart';
+part of 'etb_entry_data.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ETBDataAdapter extends TypeAdapter<ETBData> {
+class ETBEntryDataAdapter extends TypeAdapter<ETBEntryData> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
-  ETBData read(BinaryReader reader) {
+  ETBEntryData read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ETBData()
+    return ETBEntryData()
       ..id = fields[0] as int
-      ..name = fields[1] as String
-      ..leader = fields[2] as String
-      ..etbWriter = fields[3] as String
-      ..finished = fields[4] as bool
-      ..startedDate = fields[5] as DateTime
-      ..attachmentsSum = fields[6] as int
-      ..entries = (fields[7] as List).cast<ETBEntryData>();
+      ..captureTime = fields[1] as DateTime
+      ..eventTime = fields[2] as DateTime?
+      ..counterpart = fields[3] as String?
+      ..description = fields[4] as String
+      ..comment = fields[5] as String?
+      ..reference = fields[6] as int?;
   }
 
   @override
-  void write(BinaryWriter writer, ETBData obj) {
+  void write(BinaryWriter writer, ETBEntryData obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.name)
+      ..write(obj.captureTime)
       ..writeByte(2)
-      ..write(obj.leader)
+      ..write(obj.eventTime)
       ..writeByte(3)
-      ..write(obj.etbWriter)
+      ..write(obj.counterpart)
       ..writeByte(4)
-      ..write(obj.finished)
+      ..write(obj.description)
       ..writeByte(5)
-      ..write(obj.startedDate)
+      ..write(obj.comment)
       ..writeByte(6)
-      ..write(obj.attachmentsSum)
-      ..writeByte(7)
-      ..write(obj.entries);
+      ..write(obj.reference);
   }
 
   @override
@@ -55,7 +52,7 @@ class ETBDataAdapter extends TypeAdapter<ETBData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ETBDataAdapter &&
+      other is ETBEntryDataAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
