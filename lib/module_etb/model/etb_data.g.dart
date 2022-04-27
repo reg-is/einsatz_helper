@@ -23,7 +23,7 @@ class ETBDataAdapter extends TypeAdapter<ETBData> {
       ..etbWriter = fields[3] as String
       ..finished = fields[4] as bool
       ..startedDate = fields[5] as DateTime
-      ..attachmentsCount = fields[6] as int;
+      ..attachmentsSum = fields[6] as int;
   }
 
   @override
@@ -43,7 +43,7 @@ class ETBDataAdapter extends TypeAdapter<ETBData> {
       ..writeByte(5)
       ..write(obj.startedDate)
       ..writeByte(6)
-      ..write(obj.attachmentsCount);
+      ..write(obj.attachmentsSum);
   }
 
   @override

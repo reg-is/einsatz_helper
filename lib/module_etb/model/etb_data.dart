@@ -23,5 +23,5 @@ class ETBData extends HiveObject {
   late DateTime startedDate;
 
   @HiveField(6)
-  int attachmentsCount = 0;
+  int attachmentsSum = 0;
 }

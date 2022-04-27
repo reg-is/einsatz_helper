@@ -74,7 +74,7 @@ class ETBsPage extends StatelessWidget {
   Future addETB(String name, double amount, bool isExpense) async {
     final etb = ETBData()
       ..name = name
-      ..attachmentsCount = 0
+      ..attachmentsSum = 0
       ..finished = isExpense
       ..id = amount.toInt()
       ..leader = 'Max Mustermann'
@@ -211,7 +211,7 @@ class ETBsPage extends StatelessWidget {
                       color: Theme.of(context).indicatorColor.withOpacity(0.8),
                       size: 16,
                     ),
-                    label: Text('${etb.attachmentsCount} Anlagen'),
+                    label: Text('${etb.attachmentsSum} Anlagen'),
                     labelStyle:
                         TextStyle(color: Theme.of(context).indicatorColor),
                     backgroundColor: Theme.of(context).dividerColor,

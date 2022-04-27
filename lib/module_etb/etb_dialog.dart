@@ -31,7 +31,7 @@ class _ETBDialogState extends State<ETBDialog> {
       final transaction = widget.etb!;
 
       nameController.text = transaction.name;
-      amountController.text = transaction.attachmentsCount.toString();
+      amountController.text = transaction.attachmentsSum.toString();
       isExpense = transaction.finished;
     }
   }
