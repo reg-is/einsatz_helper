@@ -75,7 +75,7 @@ class ETBsPage extends StatelessWidget {
 
   Future addETB(String name, double amount, bool isExpense) async {
     final firstEntry = ETBEntryData()
-      ..id = 0
+      ..id = 1
       ..captureTime = DateTime.now()
       ..description = 'Einsatzbeginn\nTodo';
     //..eventTime = DateTime.now()
