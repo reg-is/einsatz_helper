@@ -53,86 +53,89 @@ class EntriesPage extends StatelessWidget {
               index);
         });
   }
-}
 
 // Builds a Card Widget for an ETB Entry
-Widget buildEntryCard(BuildContext context, int entryID, String tacticalTime,
-        String content, int attachments) =>
-    InkWell(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EntryDetailsPage(entryID, tacticalTime, content)));
-      },
-      child: Card(
-        elevation: 2,
-        child: Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            spacing: 4,
-            runSpacing: 1,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  // Chip with the number of the ETB-Entry
-                  Chip(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0.0, vertical: -4),
-                    padding: const EdgeInsets.all(0),
-                    label: Text('$entryID'),
-                    labelStyle:
-                        TextStyle(color: Theme.of(context).indicatorColor),
-                    backgroundColor: Theme.of(context).dividerColor,
-                    elevation: 1.0,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  // Text box with the date and time of the entry
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      tacticalTime,
-                      style: Theme.of(context).textTheme.titleMedium,
+  Widget buildEntryCard(BuildContext context, int entryID, String tacticalTime,
+          String content, int attachments) =>
+      InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      EntryDetailsPage(entryID, tacticalTime, content)));
+        },
+        child: Card(
+          elevation: 2,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              spacing: 4,
+              runSpacing: 1,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    // Chip with the number of the ETB-Entry
+                    Chip(
+                      visualDensity:
+                          const VisualDensity(horizontal: 0.0, vertical: -4),
+                      padding: const EdgeInsets.all(0),
+                      label: Text('$entryID'),
+                      labelStyle:
+                          TextStyle(color: Theme.of(context).indicatorColor),
+                      backgroundColor: Theme.of(context).dividerColor,
+                      elevation: 1.0,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                  ),
-                  const Spacer(),
-                  // Chip with the number of attachments of the entry
-                  buildAttachmentsChip(attachments),
-                ],
-              ),
-              // Text box with the content of the entry
-              Text(
-                content,
-                maxLines: 10,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+                    // Text box with the date and time of the entry
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        tacticalTime,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                    ),
+                    const Spacer(),
+                    // Chip with the number of attachments of the entry
+                    buildAttachmentsChip(attachments),
+                  ],
+                ),
+                // Text box with the content of the entry
+                Text(
+                  content,
+                  maxLines: 10,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
 
 // Build a Chip depending on number of attachments an entry has
-Widget buildAttachmentsChip(int attachments) {
-  if (attachments > 0) {
-    return Chip(
-      visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
-      labelPadding:
-          const EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
-      avatar: const Icon(
-        Ionicons.attach,
-        size: 16,
-      ),
-      label: (attachments == 1)
-          ? Text(attachments.toString() + ' Anlage')
-          : Text(attachments.toString() + ' Anlagen'),
-      //labelStyle: TextStyle(color: Colors.white),
-      //backgroundColor: Theme.of(context).unselectedWidgetColor,
-      elevation: 1.0,
-      //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-    );
-  } else {
-    // Display no Attachment Chip if there are no Attachments
-    return const SizedBox.shrink();
+  Widget buildAttachmentsChip(int attachments) {
+    if (attachments > 0) {
+      return Chip(
+        visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
+        labelPadding:
+            const EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
+        avatar: const Icon(
+          Ionicons.attach,
+          size: 16,
+        ),
+        label: (attachments == 1)
+            ? Text(attachments.toString() + ' Anlage')
+            : Text(attachments.toString() + ' Anlagen'),
+        //labelStyle: TextStyle(color: Colors.white),
+        //backgroundColor: Theme.of(context).unselectedWidgetColor,
+        elevation: 1.0,
+        //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      );
+    } else {
+      // Display no Attachment Chip if there are no Attachments
+      return const SizedBox.shrink();
+    }
   }
 }
