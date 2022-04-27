@@ -5,7 +5,7 @@ part 'etb_data.g.dart';
 @HiveType(typeId: 0)
 class ETBData extends HiveObject {
   @HiveField(0)
-  late String id;
+  late int id;
 
   @HiveField(1)
   late String name;

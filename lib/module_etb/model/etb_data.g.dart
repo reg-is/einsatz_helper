@@ -17,7 +17,7 @@ class ETBDataAdapter extends TypeAdapter<ETBData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ETBData()
-      ..id = fields[0] as String
+      ..id = fields[0] as int
       ..name = fields[1] as String
       ..leader = fields[2] as String
       ..etbWriter = fields[3] as String
