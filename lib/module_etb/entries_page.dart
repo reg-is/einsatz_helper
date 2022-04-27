@@ -27,17 +27,7 @@ class EntriesPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: ListView.builder(
-          padding: EdgeInsets.all(0),
-          itemCount: numberOfItems,
-          itemBuilder: (BuildContext context, int index) {
-            return buildEntryCard(
-                context,
-                numberOfItems - index,
-                '261814Feb22',
-                'Platzhalter Inhat des Eintrages, Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden. Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden. Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden. Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden.',
-                index);
-          }),
+      body: buildEntriesListView(numberOfItems),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Todo
@@ -48,6 +38,20 @@ class EntriesPage extends StatelessWidget {
         //child: const Icon(Fontisto.bookmark),
       ),
     );
+  }
+
+  ListView buildEntriesListView(int numberOfItems) {
+    return ListView.builder(
+        padding: EdgeInsets.all(0),
+        itemCount: numberOfItems,
+        itemBuilder: (BuildContext context, int index) {
+          return buildEntryCard(
+              context,
+              numberOfItems - index,
+              '261814Feb22',
+              'Platzhalter Inhat des Eintrages, Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden. Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden. Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden. Erkundung des Einsatzortes. Gefahrenquelle im Keller gefunden.',
+              index);
+        });
   }
 }
 
