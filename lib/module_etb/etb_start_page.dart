@@ -5,6 +5,7 @@ import 'package:einsatz_helper/module_etb/templates_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class ETBStartPage extends StatefulWidget {
   const ETBStartPage({Key? key}) : super(key: key);
@@ -21,6 +22,15 @@ class _ETBStartPageState extends State<ETBStartPage> {
     TemplatesPage(),
     SettingsPage(),
   ];
+  
+  // Method runs when ETB-App is closed
+  @override
+  void dispose(){
+    // Close ETB box/database
+    Hive.box('etbBox').close();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
