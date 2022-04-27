@@ -76,12 +76,11 @@ class ETBsPage extends StatelessWidget {
     final firstEntry = ETBEntryData()
       ..id = 0
       ..captureTime = DateTime.now()
-      ..eventTime = null
-      ..counterpart = null
-      ..description = 'Einsatzbeginn\nTodo'
-      ..comment = null
-      ..reference = null;
-    final entriesList = <ETBEntryData>[firstEntry];
+      ..description = 'Einsatzbeginn\nTodo';
+    //..eventTime = DateTime.now()
+    //..counterpart = ''
+    //..comment = ''
+    //..reference = 0
 
     final etb = ETBData()
       ..name = name
@@ -90,8 +89,8 @@ class ETBsPage extends StatelessWidget {
       ..id = amount.toInt()
       ..leader = 'Max Mustermann'
       ..etbWriter = 'Maxi Musterschreiber'
-      ..startedDate = DateTime(2022, 05, 24)
-      ..entries = null;
+      ..startedDate = DateTime.now()
+      ..entries = <ETBEntryData>[firstEntry];
 
     final etbDB = DataBox.getETBs();
     etbDB.add(etb); // Auto key
