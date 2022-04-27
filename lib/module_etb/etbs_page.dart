@@ -54,7 +54,7 @@ class ETBsPage extends StatelessWidget {
           padding: EdgeInsets.all(0),
           itemCount: etbs.length,
           itemBuilder: (BuildContext context, int index) {
-            return buildETBOverviewCard(context, etbs[index].id,
+            return buildETBOverviewCard(context, etbs[index], etbs[index].id,
                 etbs[index].finished, etbs[index].name);
           });
     }
@@ -71,16 +71,37 @@ class ETBsPage extends StatelessWidget {
       ..startedDate = DateTime(2022, 05, 24);
     final etbDB = DataBox.getETBs();
     etbDB.add(etb); // Auto key
-    //box.put('mykey', etb) // Indivdiual key
+    //box.put('myKey', etb) // Individual key
   }
 
   // Delete a ETB with all its entries
-  void deleteETB(ETBData etb) {
-    etb.delete();
+  Future deleteETB(context, ETBData etb) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Einsatztagebuch löschen?'),
+        content: Text(
+            'Wollen Sie wirklich das Einsatztagebuch "${etb.name}" löschen?'),
+        actions: <Widget>[
+          OutlinedButton(
+            onPressed: () {
+              etb.delete();
+              Navigator.pop(context, 'OK');
+            },
+            child: const Text('Löschen'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Abbrechen'),
+          ),
+        ],
+      ),
+    );
   }
 
 // Builds a Card Widget for an ETB Overview
-  Widget buildETBOverviewCard(context, int etbID, bool finished, String name) =>
+  Widget buildETBOverviewCard(
+          context, ETBData etb, int etbID, bool finished, String name) =>
       Card(
         elevation: 2,
         child: Container(
@@ -191,7 +212,7 @@ class ETBsPage extends StatelessWidget {
                     visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
                     labelPadding:
                         EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
-                    avatar: Icon(
+                    avatar: const Icon(
                       Ionicons.share,
                       size: 16,
                     ),
@@ -202,8 +223,17 @@ class ETBsPage extends StatelessWidget {
                     //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   ActionChip(
-                    label: Text('Löschen'),
-                    onPressed: () => deleteETB(),
+                    label: const Text('Löschen'),
+                    onPressed: () => deleteETB(context, etb),
+                    visualDensity:
+                        const VisualDensity(horizontal: 0.0, vertical: -4),
+                    labelPadding: const EdgeInsets.all(1)
+                        .copyWith(right: 8, top: 0, bottom: 0),
+                    avatar: const Icon(
+                      Ionicons.trash,
+                      //Icons.delete,
+                      size: 16,
+                    ),
                   ),
                 ],
               ),
