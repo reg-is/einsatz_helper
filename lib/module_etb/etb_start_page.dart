@@ -3,7 +3,6 @@ import 'package:einsatz_helper/module_etb/etbs_page.dart';
 import 'package:einsatz_helper/module_etb/settings_page.dart';
 import 'package:einsatz_helper/module_etb/templates_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
