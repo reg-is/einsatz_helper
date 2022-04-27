@@ -10,8 +10,6 @@ class ETBsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int numberOfItems = 10;
-
     return Scaffold(
       //backgroundColor: Theme.of(context).indicatorColor.withOpacity(0.1),
       appBar: AppBar(
@@ -22,14 +20,14 @@ class ETBsPage extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Search pressed')));
               },
-              icon: Icon(Ionicons.search)),
+              icon: const Icon(Ionicons.search)),
         ],
       ),
       body: ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
           final etbs = box.values.toList().cast<ETBData>();
-          return buildETBListView(etbs);
+          return buildETBListView(context, etbs);
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -41,12 +39,26 @@ class ETBsPage extends StatelessWidget {
     );
   }
 
-  Widget buildETBListView(List<ETBData> etbs) {
+  Widget buildETBListView(context, List<ETBData> etbs) {
     if (etbs.isEmpty) {
-      return Center(
-        child: Text(
-          'Noch kein ETB vorhanden.',
-          style: TextStyle(fontSize: 24),
+      return Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Es wurden noch kein Einsatztagebücher erstellt.',
+              style: TextStyle(fontSize: 18),
+              textAlign: TextAlign.center,
+            ),
+            OutlinedButton.icon(
+              label: const Text('ETB erstellen'),
+              icon: const Icon(Icons.add_outlined),
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => ETBDialog(onClickedDone: addETB)),
+            )
+          ],
         ),
       );
     } else {
@@ -54,8 +66,7 @@ class ETBsPage extends StatelessWidget {
           padding: EdgeInsets.all(0),
           itemCount: etbs.length,
           itemBuilder: (BuildContext context, int index) {
-            return buildETBOverviewCard(context, etbs[index], etbs[index].id,
-                etbs[index].finished, etbs[index].name);
+            return buildETBOverviewCard(context, etbs[index]);
           });
     }
   }
@@ -100,9 +111,7 @@ class ETBsPage extends StatelessWidget {
   }
 
 // Builds a Card Widget for an ETB Overview
-  Widget buildETBOverviewCard(
-          context, ETBData etb, int etbID, bool finished, String name) =>
-      Card(
+  Widget buildETBOverviewCard(context, ETBData etb) => Card(
         elevation: 2,
         child: Container(
           padding: const EdgeInsets.all(8.0),
@@ -117,7 +126,7 @@ class ETBsPage extends StatelessWidget {
                   Chip(
                     visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
                     padding: const EdgeInsets.all(0),
-                    label: Text('$etbID'),
+                    label: Text(etb.id.toString()),
                     labelStyle:
                         TextStyle(color: Theme.of(context).indicatorColor),
                     backgroundColor: Theme.of(context).dividerColor,
@@ -128,7 +137,7 @@ class ETBsPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        name,
+                        etb.name,
                         style: Theme.of(context).textTheme.titleMedium,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -136,13 +145,13 @@ class ETBsPage extends StatelessWidget {
                     ),
                   ),
                   //Spacer(),
-                  buildETBStatusChip(finished, context),
+                  buildETBStatusChip(etb.finished, context),
                 ],
               ),
               //SizedBox(height: 8,),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Einsatzbeginn: ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
@@ -151,23 +160,23 @@ class ETBsPage extends StatelessWidget {
               ),
               Wrap(
                 children: [
-                  Text(
+                  const Text(
                     'Einsatzleitung: ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text('Manuela Musterfrau')
+                  Text(etb.leader)
                 ],
               ),
               Wrap(
                 children: [
-                  Text(
+                  const Text(
                     'ETB-Führung: ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text('Max Mustermann')
+                  Text(etb.etbWriter)
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               Wrap(
@@ -192,16 +201,17 @@ class ETBsPage extends StatelessWidget {
                     //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   Chip(
-                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                    labelPadding:
-                        EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
+                    visualDensity:
+                        const VisualDensity(horizontal: 0.0, vertical: -4),
+                    labelPadding: const EdgeInsets.all(1)
+                        .copyWith(right: 8, top: 0, bottom: 0),
                     //padding: EdgeInsets.all(0),
                     avatar: Icon(
                       Ionicons.attach,
                       color: Theme.of(context).indicatorColor.withOpacity(0.8),
                       size: 16,
                     ),
-                    label: Text('2 Anlagen'),
+                    label: Text('${etb.attachmentsCount} Anlagen'),
                     labelStyle:
                         TextStyle(color: Theme.of(context).indicatorColor),
                     backgroundColor: Theme.of(context).dividerColor,
@@ -209,14 +219,15 @@ class ETBsPage extends StatelessWidget {
                     //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   Chip(
-                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                    labelPadding:
-                        EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
+                    visualDensity:
+                        const VisualDensity(horizontal: 0.0, vertical: -4),
+                    labelPadding: const EdgeInsets.all(1)
+                        .copyWith(right: 8, top: 0, bottom: 0),
                     avatar: const Icon(
                       Ionicons.share,
                       size: 16,
                     ),
-                    label: Text('Exportiren'),
+                    label: const Text('Exportiren'),
                     //labelStyle: TextStyle(color: Colors.white),
                     //backgroundColor: Theme.of(context).unselectedWidgetColor,
                     elevation: 1.0,
