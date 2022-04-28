@@ -19,24 +19,44 @@ class AddEntryPage extends StatelessWidget {
               onPressed: () {}, icon: const Icon(Ionicons.checkmark_circle)),
         ],
       ),
-      body: ListView(children: [
+      body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
         Center(
             child: ElevatedButton(
-                onPressed: () {}, child: Text('Aus Vorlage erstellen'))),
+                onPressed: () {}, child: const Text('Aus Vorlage erstellen'))),
         TextFormField(
-          decoration: InputDecoration(
-            labelText: 'Name',
+          decoration: const InputDecoration(
+            labelText: 'Erfassungszeit',
             hintText: 'Hint',
-            //label: Text('Label'),
+          ),
+          keyboardType: TextInputType.datetime,
+        ),
+        TextFormField(
+          decoration: const InputDecoration(
+            labelText: 'Gegenstelle',
+            //hintText: 'Hint',
           ),
         ),
         TextFormField(
-          decoration: InputDecoration(
-            //labelText: 'Name',
-            hintText: 'Hint',
-            label: Text('Label'),
+          decoration: const InputDecoration(
+            labelText: 'Darstellung des Ereignis',
+            //hintText: 'Hint',
           ),
-        )
+        ),
+        Center(
+            child: ElevatedButton(
+                onPressed: () {}, child: const Text('Anlage hinzufügen'))),
+        TextFormField(
+          decoration: const InputDecoration(
+            labelText: 'Bemerkung',
+            //hintText: 'Hint',
+          ),
+        ),
+        TextFormField(
+          decoration: const InputDecoration(
+            labelText: 'Referenz',
+            //hintText: 'Hint',
+          ),
+        ),
       ]),
     );
   }
