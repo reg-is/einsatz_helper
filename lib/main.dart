@@ -1,8 +1,19 @@
+import 'package:einsatz_helper/module_etb/model/etb_data.dart';
+import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:einsatz_helper/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'module_etb/etb_start_page.dart';
 
-void main() {
+late Box box;
+Future<void> main() async {
+
+  // Initiate and create Hive database for ETBs
+  await Hive.initFlutter();
+  Hive.registerAdapter(ETBDataAdapter());
+  Hive.registerAdapter(ETBEntryDataAdapter());
+  await Hive.openBox<ETBData>('etbBox');
+
   runApp(const MyApp());
 }
 
