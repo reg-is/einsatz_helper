@@ -35,8 +35,8 @@ class EntriesPage extends StatelessWidget {
       body: buildEntriesListView(context, numberOfItems),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddEntryPage()));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddEntryPage()));
           // Todo
         },
         child: const Icon(Icons.add),
@@ -49,27 +49,37 @@ class EntriesPage extends StatelessWidget {
 
   Widget buildEntriesListView(context, int numberOfItems) {
     return ValueListenableBuilder<Box<ETBData>>(
-      valueListenable: DataBox.getETBs().listenable(),
-      builder: (context, box, _) {
-        final entries = box.values.last.entries?.cast<ETBEntryData>();
-        if (entries == null || entries.isEmpty) {
-          return const Center(
-            child: Text(
-              'Es wurden noch kein Einsatztagebücher erstellt.',
-              style: TextStyle(fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-          );
-        } else {
-          return ListView.builder(
-              padding: const EdgeInsets.all(0),
-              itemCount: entries.length,
-              itemBuilder: (BuildContext context, int index) {
-                return buildEntryCard(context, entries[index]);
-              });
-        }
-      },
-    );
+        valueListenable: DataBox.getETBs().listenable(),
+        builder: (context, box, _) {
+          final etbs = box.values.toList().cast<ETBData>();
+          if (etbs.isEmpty) {
+            return const Center(
+              child: Text(
+                'Es wurde noch kein Einsatztagebuch erstellt.',
+                style: TextStyle(fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
+            );
+          } else {
+            final entries = etbs.last.entries?.cast<ETBEntryData>();
+            if (entries == null || entries.isEmpty) {
+              return const Center(
+                child: Text(
+                  'Einsatztagebuch enthält noch keine Einträge.',
+                  style: TextStyle(fontSize: 18),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            } else {
+              return ListView.builder(
+                  padding: const EdgeInsets.all(0),
+                  itemCount: entries.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return buildEntryCard(context, entries[index]);
+                  });
+            }
+          }
+        });
   }
 
 // Builds a Card Widget for an ETB Entry
