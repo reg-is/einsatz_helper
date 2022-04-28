@@ -32,4 +32,31 @@ class ETBEntryData extends HiveObject {
   String toString() {
     return '{id=$id, captureTime=$captureTime, counterpart=$counterpart, description=$description, comment=$comment, reference=$reference}';
   }
+
+  // Get captureTime in Date Time Group (DTG) format
+  String get captureTimeAsDTG => toDTG(captureTime);
+
+  // Get eventTime in Date Time Group (DTG) format
+  String get eventTimeAsDTG {
+    return (eventTime != null) ? toDTG(eventTime!) : '';
+  }
+}
+
+// Converts a DateTime object to a String in Date Time Group (DTG) format
+String toDTG(DateTime dateTime) {
+  List<String> months = [
+    'jan',
+    'feb',
+    'mar',
+    'apr',
+    'may',
+    'jun',
+    'jul',
+    'aug',
+    'sep',
+    'oct',
+    'nov',
+    'dec'
+  ];
+  return '${dateTime.day} ${dateTime.hour}${dateTime.minute}${months[dateTime.month - 1]}${dateTime.year.toString().substring(2, 4)}';
 }

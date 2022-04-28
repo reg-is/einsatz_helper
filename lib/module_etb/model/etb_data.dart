@@ -33,4 +33,7 @@ class ETBData extends HiveObject {
   String toString() {
     return '{id=$id, name=$name, leader=$leader, etbWriter=$etbWriter, finished=$finished, startedDate=$startedDate, attachmentsSum=$attachmentsSum, entries=${entries.toString()}}';
   }
+
+  // Get startedDate in Date Time Group (DTG) format
+  String get startedDateAsDTG => toDTG(startedDate);
 }
