@@ -1,6 +1,7 @@
 import 'package:einsatz_helper/module_etb/data_box.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
+import 'package:einsatz_helper/module_etb/pages/add_entry_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:einsatz_helper/module_etb/entry_details_page.dart';
@@ -34,6 +35,8 @@ class EntriesPage extends StatelessWidget {
       body: buildEntriesListView(context, numberOfItems),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddEntryPage()));
           // Todo
         },
         child: const Icon(Icons.add),
