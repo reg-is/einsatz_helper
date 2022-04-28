@@ -37,10 +37,14 @@ class EntryDetailsPage extends StatelessWidget {
                 ),
               ]),
             ),
-            buildDetailsCard(
-                title: const Text('Datum / Uhrzeit'),
-                details: Text(
-                    'Erfassungszeit: ${entry.captureTimeAsDTG}\nEreignisszeit: ${entry.eventTimeAsDTG}')),
+            (entry.eventTimeAsDTG != '')
+                ? buildDetailsCard(
+                    title: const Text('Datum / Uhrzeit'),
+                    details: Text('Erfassungszeit: ${entry.captureTimeAsDTG}'
+                        '\nEreignisszeit: ${entry.eventTimeAsDTG}'))
+                : buildDetailsCard(
+                    title: const Text('Datum / Uhrzeit'),
+                    details: Text('Erfassungszeit: ${entry.captureTimeAsDTG}')),
             if (entry.counterpart != null)
               buildDetailsCard(
                 title: const Text('Gegenstelle'),
