@@ -40,7 +40,7 @@ class EntryDetailsPage extends StatelessWidget {
             buildDetailsCard(
                 title: const Text('Datum / Uhrzeit'),
                 details: Text(
-                    'Erfassungszeit: 261840Feb22\nEreignisszeit: 261820Feb22')),
+                    'Erfassungszeit: ${entry.captureTimeAsDTG}\nEreignisszeit: ${entry.eventTimeAsDTG}')),
             if (entry.counterpart != null)
               buildDetailsCard(
                 title: const Text('Gegenstelle'),

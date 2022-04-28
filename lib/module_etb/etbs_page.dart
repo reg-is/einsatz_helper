@@ -168,7 +168,7 @@ class ETBsPage extends StatelessWidget {
                     'Einsatzbeginn: ',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text('261814Feb22'),
+                  Text(etb.startedDateAsDTG),
                 ],
               ),
               Wrap(

@@ -104,7 +104,7 @@ class EntriesPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          entry.captureTime.toString(),
+                          entry.captureTimeAsDTG,
                           style: Theme.of(context).textTheme.titleMedium,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
