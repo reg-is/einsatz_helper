@@ -41,6 +41,7 @@ dependencies:
   # hive database
   hive: ^2.1.0
   hive_flutter: ^1.1.0
+  form_builder_extra_fields: ^7.1.0
 
 dev_dependencies:
   flutter_test:
