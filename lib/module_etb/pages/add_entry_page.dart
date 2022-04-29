@@ -8,7 +8,7 @@ class AddEntryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateTime captureTime = DateTime.now();
-    String captureTimeAsString = captureTime.toIso8601String();
+    String captureTimeAsString = captureTime.toString().substring(0,16);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +34,7 @@ class AddEntryPage extends StatelessWidget {
               labelText: 'Ereigniszeit',
             ),
             enabled: false,
-            initialValue: 'initial value ',
+            initialValue: captureTimeAsString,
           ),
           TextFormField(
             decoration: const InputDecoration(
