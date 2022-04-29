@@ -3,9 +3,13 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 
 class AddEntryPage extends StatelessWidget {
   const AddEntryPage({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {
+    DateTime captureTime = DateTime.now();
+    String captureTimeAsString = captureTime.toIso8601String();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Eintrag anlegen'),
@@ -20,43 +24,83 @@ class AddEntryPage extends StatelessWidget {
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
-        Center(
-            child: ElevatedButton(
-                onPressed: () {}, child: const Text('Aus Vorlage erstellen'))),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Erfassungszeit',
-            hintText: 'Hint',
+        Wrap(spacing: 8, runSpacing: 8, children: [
+          Center(
+              child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Aus Vorlage erstellen'))),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Ereigniszeit',
+            ),
+            enabled: false,
+            initialValue: 'initial value ',
           ),
-          keyboardType: TextInputType.datetime,
-        ),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Gegenstelle',
-            //hintText: 'Hint',
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Erfassungszeit',
+              hintText: 'Hint',
+            ),
+            keyboardType: TextInputType.datetime,
           ),
-        ),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Darstellung des Ereignis',
-            //hintText: 'Hint',
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Gegenstelle',
+              //hintText: 'Hint',
+            ),
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
           ),
-        ),
-        Center(
-            child: ElevatedButton(
-                onPressed: () {}, child: const Text('Anlage hinzufügen'))),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Bemerkung',
-            //hintText: 'Hint',
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Darstellung des Ereignis',
+              //hintText: 'Hint',
+            ),
+            minLines: 4,
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
+            validator: (description) =>
+                description != null && description.isEmpty
+                    ? 'Füge eine Beschreibung hinzu'
+                    : null,
           ),
-        ),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Referenz',
-            //hintText: 'Hint',
+          Center(
+              child: ElevatedButton(
+                  onPressed: () {}, child: const Text('Anlage hinzufügen'))),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Bemerkung',
+              //hintText: 'Hint',
+            ),
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
           ),
-        ),
+          TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'Referenz',
+              //hintText: 'Hint',
+            ),
+          ),
+          Center(
+            child: Wrap(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              runSpacing: 8,
+              spacing: 8,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'Cancel');
+                  },
+                  child: const Text('Verwerfen'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.pop(context, 'Save'),
+                  child: const Text('Eintrag speichern'),
+                ),
+              ],
+            ),
+          )
+        ])
       ]),
     );
   }
