@@ -36,7 +36,8 @@ class AddEntryPage extends StatelessWidget {
             icon: const Icon(Ionicons.close_circle)),
         actions: [
           IconButton(
-              onPressed: () {}, icon: const Icon(Ionicons.checkmark_circle)),
+              onPressed: onPressAccept,
+              icon: const Icon(Ionicons.checkmark_circle)),
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
@@ -81,30 +82,30 @@ class AddEntryPage extends StatelessWidget {
               labelText: 'Gegenstelle',
             ),
           ),
-        //   FormBuilderTypeAhead<String>(
-        //   decoration: const InputDecoration(
-        //       labelText: 'Gegenstelle',
-        //       ),
-        //   name: 'counterpart2',
-        //   itemBuilder: (context, continent) {
-        //     return ListTile(title: Text(continent));
-        //   },
-        //   suggestionsCallback: (query) {
-        //     if (query.isNotEmpty) {
-        //       var lowercaseQuery = query.toLowerCase();
-        //       return continents.where((continent) {
-        //         return continent.toLowerCase().contains(lowercaseQuery);
-        //       }).toList(growable: false)
-        //         ..sort((a, b) => a
-        //             .toLowerCase()
-        //             .indexOf(lowercaseQuery)
-        //             .compareTo(
-        //                 b.toLowerCase().indexOf(lowercaseQuery)));
-        //     } else {
-        //       return continents;
-        //     }
-        //   },
-        // ),
+          //   FormBuilderTypeAhead<String>(
+          //   decoration: const InputDecoration(
+          //       labelText: 'Gegenstelle',
+          //       ),
+          //   name: 'counterpart2',
+          //   itemBuilder: (context, continent) {
+          //     return ListTile(title: Text(continent));
+          //   },
+          //   suggestionsCallback: (query) {
+          //     if (query.isNotEmpty) {
+          //       var lowercaseQuery = query.toLowerCase();
+          //       return continents.where((continent) {
+          //         return continent.toLowerCase().contains(lowercaseQuery);
+          //       }).toList(growable: false)
+          //         ..sort((a, b) => a
+          //             .toLowerCase()
+          //             .indexOf(lowercaseQuery)
+          //             .compareTo(
+          //                 b.toLowerCase().indexOf(lowercaseQuery)));
+          //     } else {
+          //       return continents;
+          //     }
+          //   },
+          // ),
           FormBuilderTextField(
             name: 'description',
             decoration: const InputDecoration(
@@ -148,15 +149,7 @@ class AddEntryPage extends StatelessWidget {
                   child: const Text('Verwerfen'),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    _formKey.currentState!.save();
-                    if (_formKey.currentState!.validate()) {
-                      print(_formKey.currentState!.value);
-                      //Navigator.pop(context, 'Save');
-                    } else {
-                      print("validation failed");
-                    }
-                  },
+                  onPressed: onPressAccept,
                   child: const Text('Eintrag speichern'),
                 ),
               ],
@@ -166,6 +159,16 @@ class AddEntryPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void onPressAccept() {
+    _formKey.currentState!.save();
+    if (_formKey.currentState!.validate()) {
+      print(_formKey.currentState!.value);
+      //Navigator.pop(context, 'Save');
+    } else {
+      print("validation failed");
+    }
   }
 
   Wrap buildNewEntryFormOld(String captureTimeAsString, BuildContext context,
