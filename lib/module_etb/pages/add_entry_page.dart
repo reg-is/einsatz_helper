@@ -3,12 +3,14 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-//import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 
 class AddEntryPage extends StatelessWidget {
   AddEntryPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
+  final _formKey2 = GlobalKey<FormBuilderState>();
+
   final continents = [
     'Africa',
     'Asia',
@@ -38,106 +40,217 @@ class AddEntryPage extends StatelessWidget {
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
-        buildNewEntryForm2(captureTimeAsString, context, genderOptions),
-        buildFormExample(genderOptions, context),
+        buildNewEntryForm(context, captureTime),
+        //buildNewEntryForm2(captureTimeAsString, context, genderOptions),
+        //buildFormExample(genderOptions, context),
       ]),
     );
   }
 
-  Widget buildNewEntryForm(){
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: [
-
-      ],);
+  Widget buildNewEntryForm(BuildContext context, DateTime captureTime) {
+    return FormBuilder(
+      key: _formKey,
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 16,
+        children: [
+          Center(
+              child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Aus Vorlage erstellen'))),
+          FormBuilderDateTimePicker(
+            name: 'capture_time',
+            inputType: InputType.both,
+            decoration: const InputDecoration(
+              labelText: 'Erfassungszeit',
+            ),
+            initialValue: captureTime,
+            enabled: false,
+          ),
+          FormBuilderCupertinoDateTimePicker(
+            name: 'event_time',
+            alwaysUse24HourFormat: true,
+            decoration: const InputDecoration(
+              labelText: 'Ereigniszeit',
+            ),
+            initialValue: DateTime.now(),
+          ),
+          FormBuilderTextField(
+            name: 'counterpart',
+            decoration: const InputDecoration(
+              labelText: 'Gegenstelle',
+            ),
+          ),
+        //   FormBuilderTypeAhead<String>(
+        //   decoration: const InputDecoration(
+        //       labelText: 'Gegenstelle',
+        //       ),
+        //   name: 'counterpart2',
+        //   itemBuilder: (context, continent) {
+        //     return ListTile(title: Text(continent));
+        //   },
+        //   suggestionsCallback: (query) {
+        //     if (query.isNotEmpty) {
+        //       var lowercaseQuery = query.toLowerCase();
+        //       return continents.where((continent) {
+        //         return continent.toLowerCase().contains(lowercaseQuery);
+        //       }).toList(growable: false)
+        //         ..sort((a, b) => a
+        //             .toLowerCase()
+        //             .indexOf(lowercaseQuery)
+        //             .compareTo(
+        //                 b.toLowerCase().indexOf(lowercaseQuery)));
+        //     } else {
+        //       return continents;
+        //     }
+        //   },
+        // ),
+          FormBuilderTextField(
+            name: 'description',
+            decoration: const InputDecoration(
+              labelText: 'Darstellung des Ereignis',
+            ),
+            minLines: 4,
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
+            validator: FormBuilderValidators.required(),
+            // validator: (description) =>
+            //     description != null && description.isEmpty
+            //         ? 'Füge eine Beschreibung hinzu'
+            //         : null,
+          ),
+          Center(
+              child: ElevatedButton(
+                  onPressed: () {}, child: const Text('Anlage hinzufügen'))),
+          FormBuilderTextField(
+            name: 'comment',
+            decoration: const InputDecoration(
+              labelText: 'Bemerkung',
+            ),
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
+          ),
+          FormBuilderTextField(
+            name: 'reference',
+            decoration: const InputDecoration(
+              labelText: 'Referenz',
+            ),
+          ),
+          Center(
+            child: Wrap(
+              runSpacing: 8,
+              spacing: 8,
+              children: [
+                OutlinedButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'Cancel');
+                  },
+                  child: const Text('Verwerfen'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    _formKey.currentState!.save();
+                    if (_formKey.currentState!.validate()) {
+                      print(_formKey.currentState!.value);
+                      //Navigator.pop(context, 'Save');
+                    } else {
+                      print("validation failed");
+                    }
+                  },
+                  child: const Text('Eintrag speichern'),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
   }
 
-
-  Wrap buildNewEntryForm2(String captureTimeAsString, BuildContext context, List<String> genderOptions) {
+  Wrap buildNewEntryFormOld(String captureTimeAsString, BuildContext context,
+      List<String> genderOptions) {
     return Wrap(spacing: 8, runSpacing: 8, children: [
-        Center(
-            child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('Aus Vorlage erstellen'))),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Ereigniszeit',
-          ),
-          enabled: false,
-          initialValue: captureTimeAsString,
+      Center(
+          child: ElevatedButton(
+              onPressed: () {}, child: const Text('Aus Vorlage erstellen'))),
+      TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Ereigniszeit',
         ),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Erfassungszeit',
-            hintText: 'Hint',
-          ),
-          keyboardType: TextInputType.datetime,
+        enabled: false,
+        initialValue: captureTimeAsString,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Erfassungszeit',
+          hintText: 'Hint',
         ),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Gegenstelle',
-            //hintText: 'Hint',
-          ),
-          maxLines: null,
-          keyboardType: TextInputType.multiline,
+        keyboardType: TextInputType.datetime,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Gegenstelle',
+          //hintText: 'Hint',
         ),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Darstellung des Ereignis',
-            //hintText: 'Hint',
-          ),
-          minLines: 4,
-          maxLines: null,
-          keyboardType: TextInputType.multiline,
-          validator: (description) =>
-              description != null && description.isEmpty
-                  ? 'Füge eine Beschreibung hinzu'
-                  : null,
+        maxLines: null,
+        keyboardType: TextInputType.multiline,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Darstellung des Ereignis',
+          //hintText: 'Hint',
         ),
-        Center(
-            child: ElevatedButton(
-                onPressed: () {}, child: const Text('Anlage hinzufügen'))),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Bemerkung',
-            //hintText: 'Hint',
-          ),
-          maxLines: null,
-          keyboardType: TextInputType.multiline,
+        minLines: 4,
+        maxLines: null,
+        keyboardType: TextInputType.multiline,
+        validator: (description) => description != null && description.isEmpty
+            ? 'Füge eine Beschreibung hinzu'
+            : null,
+      ),
+      Center(
+          child: ElevatedButton(
+              onPressed: () {}, child: const Text('Anlage hinzufügen'))),
+      TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Bemerkung',
+          //hintText: 'Hint',
         ),
-        TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Referenz',
-            //hintText: 'Hint',
-          ),
+        maxLines: null,
+        keyboardType: TextInputType.multiline,
+      ),
+      TextFormField(
+        decoration: const InputDecoration(
+          labelText: 'Referenz',
+          //hintText: 'Hint',
         ),
-        Center(
-          child: Wrap(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            runSpacing: 8,
-            spacing: 8,
-            children: [
-              OutlinedButton(
-                onPressed: () {
-                  Navigator.pop(context, 'Cancel');
-                },
-                child: const Text('Verwerfen'),
-              ),
-              ElevatedButton(
-                onPressed: () => Navigator.pop(context, 'Save'),
-                child: const Text('Eintrag speichern'),
-              ),
-            ],
-          ),
-        ),        
-      ]);
+      ),
+      Center(
+        child: Wrap(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          runSpacing: 8,
+          spacing: 8,
+          children: [
+            OutlinedButton(
+              onPressed: () {
+                Navigator.pop(context, 'Cancel');
+              },
+              child: const Text('Verwerfen'),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context, 'Save'),
+              child: const Text('Eintrag speichern'),
+            ),
+          ],
+        ),
+      ),
+    ]);
   }
 
   FormBuilder buildFormExample(
       List<String> genderOptions, BuildContext context) {
     return FormBuilder(
-        key: _formKey,
+        key: _formKey2,
         child: Wrap(
           spacing: 8,
           runSpacing: 16,
@@ -266,9 +379,9 @@ class AddEntryPage extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
-                      _formKey.currentState!.save();
-                      if (_formKey.currentState!.validate()) {
-                        print(_formKey.currentState!.value);
+                      _formKey2.currentState!.save();
+                      if (_formKey2.currentState!.validate()) {
+                        print(_formKey2.currentState!.value);
                       } else {
                         print("validation failed");
                       }
