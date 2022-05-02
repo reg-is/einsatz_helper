@@ -5,6 +5,9 @@ import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 
+import '../data_box.dart';
+import '../model/etb_entry_data.dart';
+
 class AddEntryPage extends StatelessWidget {
   AddEntryPage({Key? key}) : super(key: key);
 
@@ -60,7 +63,7 @@ class AddEntryPage extends StatelessWidget {
                   onPressed: () {},
                   child: const Text('Aus Vorlage erstellen'))),
           FormBuilderDateTimePicker(
-            name: 'capture_time',
+            name: 'captureTime',
             inputType: InputType.both,
             decoration: const InputDecoration(
               labelText: 'Erfassungszeit',
@@ -69,7 +72,7 @@ class AddEntryPage extends StatelessWidget {
             enabled: false,
           ),
           FormBuilderCupertinoDateTimePicker(
-            name: 'event_time',
+            name: 'eventTime',
             alwaysUse24HourFormat: true,
             decoration: const InputDecoration(
               labelText: 'Ereigniszeit',
@@ -165,10 +168,27 @@ class AddEntryPage extends StatelessWidget {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
       print(_formKey.currentState!.value);
+      addEntry();
       //Navigator.pop(context, 'Save');
     } else {
       print("validation failed");
     }
+  }
+
+  Future addEntry() async {
+    Map formInput = _formKey.currentState!.value;
+    final entry = ETBEntryData()
+      ..id = 42
+      ..captureTime = formInput['captureTime']
+      ..eventTime = formInput['eventTime']
+      ..counterpart = formInput['counterpart']
+      ..description = formInput['description']
+      ..comment = formInput['comment']
+      ..reference = formInput['reference'];
+
+    final etbDB = DataBox.getETBs();
+    //etbDB.add(entry);
+    print(entry.toString());
   }
 
   Wrap buildNewEntryFormOld(String captureTimeAsString, BuildContext context,
