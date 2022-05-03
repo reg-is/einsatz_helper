@@ -3,8 +3,10 @@ import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class DataBox {
+  // Gets the box containing all ETBs
   static Box<ETBData> getETBs() => Hive.box<ETBData>('etbBox');
 
+  // Adds [entry] to the etb with the key: [etbKey[]
   static void appendEntry(dynamic etbKey, ETBEntryData entry) {
     final etbBox = DataBox.getETBs();
     ETBData? etb = etbBox.get(etbKey);
