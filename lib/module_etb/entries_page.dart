@@ -12,6 +12,8 @@ class EntriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  
+  dynamic etbKey = DataBox.getETBs().values.last.key;
 
     return Scaffold(
       appBar: AppBar(
@@ -35,7 +37,7 @@ class EntriesPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddEntryPage()));
+              context, MaterialPageRoute(builder: (context) => AddEntryPage(etbKey)));
           // Todo
         },
         child: const Icon(Icons.add),

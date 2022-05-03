@@ -8,8 +8,10 @@ import 'package:intl/intl.dart';
 import '../data_box.dart';
 import '../model/etb_entry_data.dart';
 
-class AddEntryPage extends StatelessWidget {
-  AddEntryPage({Key? key}) : super(key: key);
+class inputted extends StatelessWidget {
+  final dynamic etbKey;
+
+  inputted(this.etbKey, {Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
   final _formKey2 = GlobalKey<FormBuilderState>();
@@ -175,8 +177,12 @@ class AddEntryPage extends StatelessWidget {
     }
   }
 
+  // Get user input data from form, create a new entry with them and append them to the etb in the database
   Future addEntry() async {
-    Map formInput = _formKey.currentState!.value;
+    // Get user input data from form
+    final Map formInput = _formKey.currentState!.value;
+
+    // Create a new entry with input from form
     final entry = ETBEntryData()
       ..id = 42
       ..captureTime = formInput['captureTime']
@@ -186,9 +192,8 @@ class AddEntryPage extends StatelessWidget {
       ..comment = formInput['comment']
       ..reference = formInput['reference'];
 
-    final etbDB = DataBox.getETBs();
-    //etbDB.add(entry);
-    print(entry.toString());
+    // Append new entry to the etb in the database
+    DataBox.appendEntry(etbKey, entry);
   }
 
   Wrap buildNewEntryFormOld(String captureTimeAsString, BuildContext context,
