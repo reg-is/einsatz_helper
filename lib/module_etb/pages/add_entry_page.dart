@@ -8,10 +8,10 @@ import 'package:intl/intl.dart';
 import '../data_box.dart';
 import '../model/etb_entry_data.dart';
 
-class inputted extends StatelessWidget {
+class AddEntryPage extends StatelessWidget {
   final dynamic etbKey;
 
-  inputted(this.etbKey, {Key? key}) : super(key: key);
+  AddEntryPage(this.etbKey, {Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
   final _formKey2 = GlobalKey<FormBuilderState>();
@@ -41,7 +41,12 @@ class inputted extends StatelessWidget {
             icon: const Icon(Ionicons.close_circle)),
         actions: [
           IconButton(
-              onPressed: onPressAccept,
+              onPressed: () {
+                    bool result = onPressAccept();
+                    if (result) {
+                      Navigator.pop(context, 'Save');
+                    }
+                  },
               icon: const Icon(Ionicons.checkmark_circle)),
         ],
       ),
@@ -154,7 +159,12 @@ class inputted extends StatelessWidget {
                   child: const Text('Verwerfen'),
                 ),
                 ElevatedButton(
-                  onPressed: onPressAccept,
+                  onPressed: () {
+                    bool result = onPressAccept();
+                    if (result) {
+                      Navigator.pop(context, 'Save');
+                    }
+                  },
                   child: const Text('Eintrag speichern'),
                 ),
               ],
@@ -166,14 +176,17 @@ class inputted extends StatelessWidget {
     );
   }
 
-  void onPressAccept() {
+  // Is called when user accepts the inputted data.
+  // Checks if inputted data is valid then adds a new entry in database.
+  bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
       print(_formKey.currentState!.value);
       addEntry();
-      //Navigator.pop(context, 'Save');
+      return true;
     } else {
       print("validation failed");
+      return false;
     }
   }
 
