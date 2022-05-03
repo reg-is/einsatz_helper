@@ -41,7 +41,7 @@ class EntryDetailsPage extends StatelessWidget {
                 ? buildDetailsCard(
                     title: const Text('Datum / Uhrzeit'),
                     details: Text('Erfassungszeit: ${entry.captureTimeAsDTG}'
-                        '\nEreignisszeit: ${entry.eventTimeAsDTG}'))
+                        '\nEreigniszeit: ${entry.eventTimeAsDTG}'))
                 : buildDetailsCard(
                     title: const Text('Datum / Uhrzeit'),
                     details: Text('Erfassungszeit: ${entry.captureTimeAsDTG}')),
@@ -67,7 +67,7 @@ class EntryDetailsPage extends StatelessWidget {
                       'Neuen Eintrag erstellen und diesen referenzieren.'),
                   OutlinedButton(
                     onPressed: () {},
-                    child: const Text('Referenziern'),
+                    child: const Text('Referenzieren'),
                   ),
                 ],
               ),
