@@ -44,6 +44,7 @@ class ETBEntryData extends HiveObject {
 
 // Converts a DateTime object to a String in Date Time Group (DTG) format
 String toDTG(DateTime dateTime) {
+  dateTime.toUtc();
   List<String> months = [
     'jan',
     'feb',
@@ -58,5 +59,5 @@ String toDTG(DateTime dateTime) {
     'nov',
     'dec'
   ];
-  return '${dateTime.day} ${dateTime.hour}${dateTime.minute}${months[dateTime.month - 1]}${dateTime.year.toString().substring(2, 4)}';
+  return '${dateTime.day.toString().padLeft(2,'0')} ${dateTime.hour.toString().padLeft(2,'0')}${dateTime.minute.toString().padLeft(2,'0')}${months[dateTime.month - 1]}${dateTime.year.toString().substring(2, 4)}';
 }
