@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'pages/add_etb_page.dart';
+
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
 
@@ -17,10 +19,9 @@ class ETBsPage extends StatelessWidget {
         title: const Text('Einsatztagebücher'),
         actions: [
           IconButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Search pressed')));
-              },
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => ETBDialog(onClickedDone: addETB)),
               icon: const Icon(Ionicons.search)),
         ],
       ),
@@ -33,9 +34,8 @@ class ETBsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => showDialog(
-            context: context,
-            builder: (context) => ETBDialog(onClickedDone: addETB)),
+        onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddETBPage()))
       ),
     );
   }
