@@ -1,10 +1,11 @@
 import 'package:einsatz_helper/module_etb/data_box.dart';
-import 'package:einsatz_helper/module_etb/etb_dialog.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'pages/add_etb_page.dart';
 
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
@@ -16,12 +17,7 @@ class ETBsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Einsatztagebücher'),
         actions: [
-          IconButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Search pressed')));
-              },
-              icon: const Icon(Ionicons.search)),
+          IconButton(onPressed: () {}, icon: const Icon(Ionicons.search)),
         ],
       ),
       body: ValueListenableBuilder<Box<ETBData>>(
@@ -32,11 +28,9 @@ class ETBsPage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => showDialog(
-            context: context,
-            builder: (context) => ETBDialog(onClickedDone: addETB)),
-      ),
+          child: const Icon(Icons.add),
+          onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddETBPage()))),
     );
   }
 
@@ -55,9 +49,8 @@ class ETBsPage extends StatelessWidget {
             OutlinedButton.icon(
               label: const Text('ETB erstellen'),
               icon: const Icon(Icons.add_outlined),
-              onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => ETBDialog(onClickedDone: addETB)),
+              onPressed: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddETBPage())),
             )
           ],
         ),

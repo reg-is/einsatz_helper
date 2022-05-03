@@ -12,7 +12,11 @@ class EntriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int numberOfItems = 10;
+
+    final etbs = DataBox.getETBs().values.toList().cast<ETBData>();
+    final bool noETBs = etbs.isEmpty;
+    dynamic etbKey = (noETBs) ? null : DataBox.getETBs().values.last.key;
+    dynamic finished = (noETBs) ? true : DataBox.getETBs().values.last.finished;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,22 +36,25 @@ class EntriesPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: buildEntriesListView(context, numberOfItems),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddEntryPage()));
-          // Todo
-        },
-        child: const Icon(Icons.add),
-        //child: const Icon(Feather.plus),
-        //child: const Icon(Ionicons.add),
-        //child: const Icon(Fontisto.bookmark),
+      body: buildEntriesListView(context),
+      floatingActionButton: 
+      Visibility(
+        visible: (!noETBs && !finished),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddEntryPage(etbKey)));
+          },
+          child: const Icon(Icons.add),
+          //child: const Icon(Feather.plus),
+          //child: const Icon(Ionicons.add),
+          //child: const Icon(Fontisto.bookmark),
+        ),
       ),
     );
   }
 
-  Widget buildEntriesListView(context, int numberOfItems) {
+  Widget buildEntriesListView(context) {
     return ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
@@ -61,7 +68,8 @@ class EntriesPage extends StatelessWidget {
               ),
             );
           } else {
-            final entries = etbs.last.entries?.cast<ETBEntryData>();
+            final entries =
+                etbs.last.entries?.cast<ETBEntryData>().reversed.toList();
             if (entries == null || entries.isEmpty) {
               return const Center(
                 child: Text(
@@ -126,7 +134,7 @@ class EntriesPage extends StatelessWidget {
                     ),
                     //const Spacer(),
                     // Chip with the number of attachments of the entry
-                    buildAttachmentsChip(42),
+                    buildAttachmentsChip(0),
                   ],
                 ),
                 // Text box with the content of the entry
