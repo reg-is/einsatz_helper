@@ -197,7 +197,7 @@ class AddEntryPage extends StatelessWidget {
 
     // Create a new entry with input from form
     final entry = ETBEntryData()
-      ..id = 42
+      ..id = DataBox.getNextEntryID(etbKey)
       ..captureTime = formInput['captureTime']
       ..eventTime = formInput['eventTime']
       ..counterpart = formInput['counterpart']
