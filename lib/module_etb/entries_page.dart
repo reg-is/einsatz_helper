@@ -62,7 +62,7 @@ class EntriesPage extends StatelessWidget {
               ),
             );
           } else {
-            final entries = etbs.last.entries?.cast<ETBEntryData>();
+            final entries = etbs.last.entries?.cast<ETBEntryData>().reversed.toList();
             if (entries == null || entries.isEmpty) {
               return const Center(
                 child: Text(
