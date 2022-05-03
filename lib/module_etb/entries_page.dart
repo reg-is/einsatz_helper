@@ -12,7 +12,6 @@ class EntriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int numberOfItems = 10;
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +31,7 @@ class EntriesPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: buildEntriesListView(context, numberOfItems),
+      body: buildEntriesListView(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -47,7 +46,7 @@ class EntriesPage extends StatelessWidget {
     );
   }
 
-  Widget buildEntriesListView(context, int numberOfItems) {
+  Widget buildEntriesListView(context) {
     return ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
