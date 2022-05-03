@@ -12,8 +12,11 @@ class EntriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-  dynamic etbKey = DataBox.getETBs().values.last.key;
+
+    final etbs = DataBox.getETBs().values.toList().cast<ETBData>();
+    final bool noETBs = etbs.isEmpty;
+    dynamic etbKey = (noETBs) ? null : DataBox.getETBs().values.last.key;
+    dynamic finished = (noETBs) ? true : DataBox.getETBs().values.last.finished;
 
     return Scaffold(
       appBar: AppBar(
@@ -34,16 +37,19 @@ class EntriesPage extends StatelessWidget {
         ],
       ),
       body: buildEntriesListView(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddEntryPage(etbKey)));
-          // Todo
-        },
-        child: const Icon(Icons.add),
-        //child: const Icon(Feather.plus),
-        //child: const Icon(Ionicons.add),
-        //child: const Icon(Fontisto.bookmark),
+      floatingActionButton: 
+      Visibility(
+        visible: (!noETBs && !finished),
+        child: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddEntryPage(etbKey)));
+          },
+          child: const Icon(Icons.add),
+          //child: const Icon(Feather.plus),
+          //child: const Icon(Ionicons.add),
+          //child: const Icon(Fontisto.bookmark),
+        ),
       ),
     );
   }
@@ -62,7 +68,8 @@ class EntriesPage extends StatelessWidget {
               ),
             );
           } else {
-            final entries = etbs.last.entries?.cast<ETBEntryData>().reversed.toList();
+            final entries =
+                etbs.last.entries?.cast<ETBEntryData>().reversed.toList();
             if (entries == null || entries.isEmpty) {
               return const Center(
                 child: Text(
