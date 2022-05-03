@@ -127,7 +127,7 @@ class EntriesPage extends StatelessWidget {
                     ),
                     //const Spacer(),
                     // Chip with the number of attachments of the entry
-                    buildAttachmentsChip(42),
+                    buildAttachmentsChip(0),
                   ],
                 ),
                 // Text box with the content of the entry
