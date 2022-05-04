@@ -98,7 +98,7 @@ class ConfirmNewETBPage extends StatelessWidget {
                       Navigator.pop(context, 'Save');
                     }
                   },
-                  child: const Text('ETB speichern'),
+                  child: const Text('ETB beginnen'),
                 ),
               ],
             ),
