@@ -10,14 +10,18 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'etbs_page.dart';
 
 class EntriesPage extends StatelessWidget {
-  const EntriesPage({Key? key}) : super(key: key);
+  late dynamic etbKey;
+
+  EntriesPage({Key? key, this.etbKey}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final etbs = DataBox.getETBs().values.toList().cast<ETBData>();
-    final bool noETBs = etbs.isEmpty;
-    dynamic etbKey = (noETBs) ? null : DataBox.getETBs().values.last.key;
-    dynamic finished = (noETBs) ? true : DataBox.getETBs().values.last.finished;
+    etbKey = (DataBox.isEmpty || etbKey != null)
+        ? etbKey
+        : DataBox.getETBs().values.last.key;
+    final ETBData? etb = DataBox.getETBByKey(etbKey);
+
+    bool finished = (DataBox.isEmpty || etb == null) ? true : etb.finished;
 
     return Scaffold(
       appBar: AppBar(
@@ -29,18 +33,18 @@ class EntriesPage extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Filter pressed')));
               },
-              icon: Icon(Ionicons.funnel)),
+              icon: const Icon(Ionicons.funnel)),
           IconButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Search pressed')));
               },
-              icon: Icon(Ionicons.search)),
+              icon: const Icon(Ionicons.search)),
         ],
       ),
       body: buildEntriesListView(context, etbKey),
       floatingActionButton: Visibility(
-        visible: (!noETBs && !finished),
+        visible: (!DataBox.isEmpty && !finished),
         child: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
@@ -59,8 +63,7 @@ class EntriesPage extends StatelessWidget {
     return ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
-          final etbs = box.values.toList().cast<ETBData>();
-          if (etbs.isEmpty) {
+          if (DataBox.isEmpty) {
             return const Center(
               child: Text(
                 'Es wurde noch kein Einsatztagebuch erstellt.',
@@ -69,9 +72,10 @@ class EntriesPage extends StatelessWidget {
               ),
             );
           } else {
+            final ETBData? etb = DataBox.getETBByKey(etbKey);
             final entries =
-                etbs.last.entries?.cast<ETBEntryData>().reversed.toList();
-            if (entries == null || entries.isEmpty) {
+                etb?.entries?.cast<ETBEntryData>().reversed.toList();
+            if (etb == null || entries == null || entries.isEmpty) {
               return const Center(
                 child: Text(
                   'Einsatztagebuch enthält noch keine Einträge.',
@@ -86,23 +90,21 @@ class EntriesPage extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     if (index == 0) {
                       return Container(
-                        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 12, right: 12),
+                        padding: const EdgeInsets.only(
+                            top: 8, bottom: 8, left: 12, right: 12),
                         color: Theme.of(context).cardColor,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Flexible(
                               child: Text(
-                                'ETB: ' + etbs.last.name,
-                                style:
-                                    Theme.of(context).textTheme.titleMedium,
+                                'ETB: ' + etb.name,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 8),
-                              child: buildETBStatusChip(
-                                  DataBox.getETBs().get(etbKey)!.finished,
-                                  context),
+                              child: buildETBStatusChip(etb.finished, context),
                             ),
                           ],
                         ),

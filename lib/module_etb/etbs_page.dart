@@ -1,4 +1,5 @@
 import 'package:einsatz_helper/module_etb/data_box.dart';
+import 'package:einsatz_helper/module_etb/entries_page.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,8 @@ class ETBsPage extends StatelessWidget {
           padding: const EdgeInsets.all(0),
           itemCount: etbs.length,
           itemBuilder: (BuildContext context, int index) {
-            return buildETBOverviewCard(context, etbsReversed[index]);
+            return buildETBOverviewCard(
+                context, etbsReversed[index], etbsReversed[index].key);
           });
     }
   }
@@ -117,144 +119,158 @@ class ETBsPage extends StatelessWidget {
   }
 
 // Builds a Card Widget for an ETB Overview
-  Widget buildETBOverviewCard(context, ETBData etb) => Card(
-        elevation: 2,
-        child: Container(
-          padding: const EdgeInsets.all(8.0),
-          child: Wrap(
-            spacing: 8,
-            runSpacing: 1,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Chip(
-                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                    padding: const EdgeInsets.all(0),
-                    label: Text(etb.id.toString()),
-                    labelStyle:
-                        TextStyle(color: Theme.of(context).indicatorColor),
-                    backgroundColor: Theme.of(context).dividerColor,
-                    elevation: 1.0,
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  Flexible(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        etb.name,
-                        style: Theme.of(context).textTheme.titleMedium,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
+  Widget buildETBOverviewCard(context, ETBData etb, dynamic etbKey) => InkWell(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EntriesPage(
+                        etbKey: etbKey,
+                      )));
+        },
+        child: Card(
+          elevation: 2,
+          child: Container(
+            padding: const EdgeInsets.all(8.0),
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 1,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Chip(
+                      visualDensity:
+                          VisualDensity(horizontal: 0.0, vertical: -4),
+                      padding: const EdgeInsets.all(0),
+                      label: Text(etb.id.toString()),
+                      labelStyle:
+                          TextStyle(color: Theme.of(context).indicatorColor),
+                      backgroundColor: Theme.of(context).dividerColor,
+                      elevation: 1.0,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          etb.name,
+                          style: Theme.of(context).textTheme.titleMedium,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
-                  ),
-                  //Spacer(),
-                  buildETBStatusChip(etb.finished, context),
-                ],
-              ),
-              //SizedBox(height: 8,),
-              Row(
-                children: [
-                  const Text(
-                    'Einsatzbeginn: ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(etb.startedDateAsDTG),
-                ],
-              ),
-              Wrap(
-                children: [
-                  const Text(
-                    'Einsatzleitung: ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(etb.leader)
-                ],
-              ),
-              Wrap(
-                children: [
-                  const Text(
-                    'ETB-Führung: ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  Text(etb.etbWriter)
-                ],
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Wrap(
-                spacing: 8,
-                runSpacing: 4,
-                children: [
-                  Chip(
-                    visualDensity: VisualDensity(horizontal: 0.0, vertical: -4),
-                    labelPadding:
-                        EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
-                    //padding: EdgeInsets.all(0),
-                    avatar: Icon(
-                      Ionicons.file_tray_full,
-                      color: Theme.of(context).indicatorColor.withOpacity(0.8),
-                      size: 16,
+                    //Spacer(),
+                    buildETBStatusChip(etb.finished, context),
+                  ],
+                ),
+                //SizedBox(height: 8,),
+                Row(
+                  children: [
+                    const Text(
+                      'Einsatzbeginn: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    label: Text('${etb.entries?.length} Einträge'),
-                    labelStyle:
-                        TextStyle(color: Theme.of(context).indicatorColor),
-                    backgroundColor: Theme.of(context).dividerColor,
-                    elevation: 1.0,
-                    //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  Chip(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0.0, vertical: -4),
-                    labelPadding: const EdgeInsets.all(1)
-                        .copyWith(right: 8, top: 0, bottom: 0),
-                    //padding: EdgeInsets.all(0),
-                    avatar: Icon(
-                      Ionicons.attach,
-                      color: Theme.of(context).indicatorColor.withOpacity(0.8),
-                      size: 16,
+                    Text(etb.startedDateAsDTG),
+                  ],
+                ),
+                Wrap(
+                  children: [
+                    const Text(
+                      'Einsatzleitung: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    label: Text('${etb.attachmentsSum} Anlagen'),
-                    labelStyle:
-                        TextStyle(color: Theme.of(context).indicatorColor),
-                    backgroundColor: Theme.of(context).dividerColor,
-                    elevation: 1.0,
-                    //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  Chip(
-                    visualDensity:
-                        const VisualDensity(horizontal: 0.0, vertical: -4),
-                    labelPadding: const EdgeInsets.all(1)
-                        .copyWith(right: 8, top: 0, bottom: 0),
-                    avatar: const Icon(
-                      Ionicons.share,
-                      size: 16,
+                    Text(etb.leader)
+                  ],
+                ),
+                Wrap(
+                  children: [
+                    const Text(
+                      'ETB-Führung: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    label: const Text('Exportiren'),
-                    //labelStyle: TextStyle(color: Colors.white),
-                    //backgroundColor: Theme.of(context).unselectedWidgetColor,
-                    elevation: 1.0,
-                    //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  ActionChip(
-                    label: const Text('Löschen'),
-                    onPressed: () => deleteETB(context, etb),
-                    visualDensity:
-                        const VisualDensity(horizontal: 0.0, vertical: -4),
-                    labelPadding: const EdgeInsets.all(1)
-                        .copyWith(right: 8, top: 0, bottom: 0),
-                    avatar: const Icon(
-                      Ionicons.trash,
-                      //Icons.delete,
-                      size: 16,
+                    Text(etb.etbWriter)
+                  ],
+                ),
+                const SizedBox(
+                  height: 24,
+                ),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 4,
+                  children: [
+                    Chip(
+                      visualDensity:
+                          VisualDensity(horizontal: 0.0, vertical: -4),
+                      labelPadding: EdgeInsets.all(1)
+                          .copyWith(right: 8, top: 0, bottom: 0),
+                      //padding: EdgeInsets.all(0),
+                      avatar: Icon(
+                        Ionicons.file_tray_full,
+                        color:
+                            Theme.of(context).indicatorColor.withOpacity(0.8),
+                        size: 16,
+                      ),
+                      label: Text('${etb.entries?.length} Einträge'),
+                      labelStyle:
+                          TextStyle(color: Theme.of(context).indicatorColor),
+                      backgroundColor: Theme.of(context).dividerColor,
+                      elevation: 1.0,
+                      //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Chip(
+                      visualDensity:
+                          const VisualDensity(horizontal: 0.0, vertical: -4),
+                      labelPadding: const EdgeInsets.all(1)
+                          .copyWith(right: 8, top: 0, bottom: 0),
+                      //padding: EdgeInsets.all(0),
+                      avatar: Icon(
+                        Ionicons.attach,
+                        color:
+                            Theme.of(context).indicatorColor.withOpacity(0.8),
+                        size: 16,
+                      ),
+                      label: Text('${etb.attachmentsSum} Anlagen'),
+                      labelStyle:
+                          TextStyle(color: Theme.of(context).indicatorColor),
+                      backgroundColor: Theme.of(context).dividerColor,
+                      elevation: 1.0,
+                      //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    Chip(
+                      visualDensity:
+                          const VisualDensity(horizontal: 0.0, vertical: -4),
+                      labelPadding: const EdgeInsets.all(1)
+                          .copyWith(right: 8, top: 0, bottom: 0),
+                      avatar: const Icon(
+                        Ionicons.share,
+                        size: 16,
+                      ),
+                      label: const Text('Exportiren'),
+                      //labelStyle: TextStyle(color: Colors.white),
+                      //backgroundColor: Theme.of(context).unselectedWidgetColor,
+                      elevation: 1.0,
+                      //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    ActionChip(
+                      label: const Text('Löschen'),
+                      onPressed: () => deleteETB(context, etb),
+                      visualDensity:
+                          const VisualDensity(horizontal: 0.0, vertical: -4),
+                      labelPadding: const EdgeInsets.all(1)
+                          .copyWith(right: 8, top: 0, bottom: 0),
+                      avatar: const Icon(
+                        Ionicons.trash,
+                        //Icons.delete,
+                        size: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       );

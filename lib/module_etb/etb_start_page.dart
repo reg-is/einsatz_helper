@@ -15,16 +15,16 @@ class ETBStartPage extends StatefulWidget {
 
 class _ETBStartPageState extends State<ETBStartPage> {
   int currentIdx = 0;
-  final screens = const [
-    ETBsPage(),
+  final screens = [
+    const ETBsPage(),
     EntriesPage(),
-    TemplatesPage(),
-    SettingsPage(),
+    const TemplatesPage(),
+    const SettingsPage(),
   ];
-  
+
   // Method runs when ETB-App is closed
   @override
-  void dispose(){
+  void dispose() {
     // Close ETB box/database
     Hive.box('etbBox').close();
 
