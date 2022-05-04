@@ -7,12 +7,13 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:einsatz_helper/module_etb/entry_details_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'etbs_page.dart';
+
 class EntriesPage extends StatelessWidget {
   const EntriesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     final etbs = DataBox.getETBs().values.toList().cast<ETBData>();
     final bool noETBs = etbs.isEmpty;
     dynamic etbKey = (noETBs) ? null : DataBox.getETBs().values.last.key;
@@ -21,6 +22,7 @@ class EntriesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Einträge'),
+        elevation: 1,
         actions: [
           IconButton(
               onPressed: () {
@@ -36,9 +38,8 @@ class EntriesPage extends StatelessWidget {
               icon: Icon(Ionicons.search)),
         ],
       ),
-      body: buildEntriesListView(context),
-      floatingActionButton: 
-      Visibility(
+      body: buildEntriesListView(context, etbKey),
+      floatingActionButton: Visibility(
         visible: (!noETBs && !finished),
         child: FloatingActionButton(
           onPressed: () {
@@ -54,7 +55,7 @@ class EntriesPage extends StatelessWidget {
     );
   }
 
-  Widget buildEntriesListView(context) {
+  Widget buildEntriesListView(BuildContext context, dynamic etbKey) {
     return ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
@@ -81,8 +82,33 @@ class EntriesPage extends StatelessWidget {
             } else {
               return ListView.builder(
                   padding: const EdgeInsets.all(0),
-                  itemCount: entries.length,
+                  itemCount: entries.length + 1,
                   itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return Container(
+                        padding: const EdgeInsets.only(top: 8, bottom: 8, left: 12, right: 12),
+                        color: Theme.of(context).cardColor,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                'ETB: ' + etbs.last.name,
+                                style:
+                                    Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: buildETBStatusChip(
+                                  DataBox.getETBs().get(etbKey)!.finished,
+                                  context),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                    index -= 1;
                     return buildEntryCard(context, entries[index]);
                   });
             }
