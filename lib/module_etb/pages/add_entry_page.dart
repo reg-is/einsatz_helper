@@ -147,7 +147,16 @@ class AddEntryPage extends StatelessWidget {
               labelText: 'Referenz',
             ),
             keyboardType: TextInputType.number,
-            validator: FormBuilderValidators.integer(),
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.integer(
+                  errorText: 'Der Wert muss eine Zahl sein'),
+              FormBuilderValidators.min(1,
+                  errorText:
+                      'Es muss eine bereits existierende Lfd. Nr. sein.'),
+              FormBuilderValidators.max(DataBox.getNextEntryID(etbKey) - 1,
+                  errorText:
+                      'Es muss eine bereits existierende Lfd. Nr. sein.'),
+            ]),
           ),
           Center(
             child: Wrap(
