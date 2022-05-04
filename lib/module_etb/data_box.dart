@@ -34,4 +34,10 @@ class DataBox {
       return 1;
     }
   }
+
+  // Returns true if the Hive Box 'etbBox' is empty
+  static bool isEmpty = getETBs().values.isEmpty;
+
+  // Returns the etb‚ associated with the given [key]. If the key does not exist, null is returned.
+  static ETBData? getETBByKey(dynamic etbKey) => getETBs().get(etbKey);
 }
