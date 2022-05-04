@@ -205,10 +205,9 @@ class AddEntryPage extends StatelessWidget {
       ..counterpart = formInput['counterpart']
       ..description = formInput['description']
       ..comment = formInput['comment']
-      ..reference = (formInput['reference'] != String)
+      ..reference = (formInput['reference'].runtimeType != String)
           ? null
           : int.parse(formInput['reference']);
-
     // Append new entry to the etb in the database
     DataBox.appendEntry(etbKey, entry);
   }
