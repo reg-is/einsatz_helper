@@ -235,7 +235,6 @@ class AddETBPage extends StatelessWidget {
       ..name = formInput['name']
       ..attachmentsSum = 0
       ..finished = false
-      ..id = 42
       ..leader = formInput['leader']
       ..etbWriter = formInput['etbWriter']
       ..startedDate = formInput['startedDate']
