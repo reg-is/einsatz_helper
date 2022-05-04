@@ -96,16 +96,31 @@ class EntriesPage extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+                            // Chip with the number of the ETB
+                            Chip(
+                              visualDensity: const VisualDensity(
+                                  horizontal: 0.0, vertical: -4),
+                              padding: const EdgeInsets.all(0),
+                              label: Text('ETB: ' + etb.id.toString()),
+                              labelStyle: TextStyle(
+                                  color: Theme.of(context).indicatorColor),
+                              backgroundColor: Theme.of(context).dividerColor,
+                              elevation: 1.0,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                            ),
                             Flexible(
-                              child: Text(
-                                'ETB: ' + etb.name,
-                                style: Theme.of(context).textTheme.titleMedium,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 8, right: 8),
+                                child: Text(
+                                  etb.name,
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: buildETBStatusChip(etb.finished, context),
-                            ),
+                            buildETBStatusChip(etb.finished, context),
                           ],
                         ),
                       );

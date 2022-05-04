@@ -144,7 +144,7 @@ class ETBsPage extends StatelessWidget {
                       visualDensity:
                           VisualDensity(horizontal: 0.0, vertical: -4),
                       padding: const EdgeInsets.all(0),
-                      label: Text(etb.id.toString()),
+                      label: Text('ETB: ' + etb.id.toString()),
                       labelStyle:
                           TextStyle(color: Theme.of(context).indicatorColor),
                       backgroundColor: Theme.of(context).dividerColor,
