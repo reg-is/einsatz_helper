@@ -42,11 +42,11 @@ class AddEntryPage extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                    bool result = onPressAccept();
-                    if (result) {
-                      Navigator.pop(context, 'Save');
-                    }
-                  },
+                bool result = onPressAccept();
+                if (result) {
+                  Navigator.pop(context, 'Save');
+                }
+              },
               icon: const Icon(Ionicons.checkmark_circle)),
         ],
       ),
@@ -146,6 +146,8 @@ class AddEntryPage extends StatelessWidget {
             decoration: const InputDecoration(
               labelText: 'Referenz',
             ),
+            keyboardType: TextInputType.number,
+            validator: FormBuilderValidators.integer(),
           ),
           Center(
             child: Wrap(
@@ -203,7 +205,9 @@ class AddEntryPage extends StatelessWidget {
       ..counterpart = formInput['counterpart']
       ..description = formInput['description']
       ..comment = formInput['comment']
-      ..reference = formInput['reference'];
+      ..reference = (formInput['reference'] != String)
+          ? null
+          : int.parse(formInput['reference']);
 
     // Append new entry to the etb in the database
     DataBox.appendEntry(etbKey, entry);
