@@ -60,6 +60,10 @@ class EntryDetailsPage extends StatelessWidget {
                   details: Text(entry.comment!)),
             buildDetailsCard(
                 title: const Text('Digitale Anlagen'), details: Text('Todo')),
+            if (entry.reference != null)
+              buildDetailsCard(
+                  title: const Text('Referenz'),
+                  details: Text(entry.reference!.toString())),
             buildDetailsCard(
               details: Column(
                 children: [
