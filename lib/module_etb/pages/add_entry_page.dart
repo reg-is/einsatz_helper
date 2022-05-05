@@ -9,12 +9,18 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import '../data_box.dart';
 import '../model/etb_entry_data.dart';
 
-class AddEntryPage extends StatelessWidget {
+class AddEntryPage extends StatefulWidget {
   final dynamic etbKey;
 
   AddEntryPage(this.etbKey, {Key? key}) : super(key: key);
 
+  @override
+  State<AddEntryPage> createState() => _AddEntryPageState();
+}
+
+class _AddEntryPageState extends State<AddEntryPage> {
   final _formKey = GlobalKey<FormBuilderState>();
+
   final _formKey2 = GlobalKey<FormBuilderState>();
 
   final continents = [
@@ -27,6 +33,7 @@ class AddEntryPage extends StatelessWidget {
   ];
 
   String? selectedValue;
+
   List<String> items = [
     'Item1',
     'Item2',
@@ -100,13 +107,10 @@ class AddEntryPage extends StatelessWidget {
                         ))
                     .toList(),
                 value: selectedValue,
-                // onChanged: (value) {
-                //   setState(() {
-                //     selectedValue = value as String;
-                //   });
-                // },
                 onChanged: (value) {
-                  selectedValue = value as String;
+                  setState(() {
+                    selectedValue = value as String;
+                  });
                 },
                 buttonHeight: 40,
                 buttonWidth: 140,
@@ -198,7 +202,8 @@ class AddEntryPage extends StatelessWidget {
               FormBuilderValidators.min(1,
                   errorText:
                       'Es muss eine bereits existierende Lfd. Nr. sein.'),
-              FormBuilderValidators.max(DataBox.getNextEntryID(etbKey) - 1,
+              FormBuilderValidators.max(
+                  DataBox.getNextEntryID(widget.etbKey) - 1,
                   errorText:
                       'Es muss eine bereits existierende Lfd. Nr. sein.'),
             ]),
@@ -233,7 +238,6 @@ class AddEntryPage extends StatelessWidget {
   }
 
   // Is called when user accepts the inputted data.
-  // Checks if inputted data is valid then adds a new entry in database.
   bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
@@ -253,7 +257,7 @@ class AddEntryPage extends StatelessWidget {
 
     // Create a new entry with input from form
     final entry = ETBEntryData()
-      ..id = DataBox.getNextEntryID(etbKey)
+      ..id = DataBox.getNextEntryID(widget.etbKey)
       ..captureTime = formInput['captureTime']
       ..eventTime = formInput['eventTime']
       ..counterpart = formInput['counterpart']
@@ -263,7 +267,7 @@ class AddEntryPage extends StatelessWidget {
           ? null
           : int.parse(formInput['reference']);
     // Append new entry to the etb in the database
-    DataBox.appendEntry(etbKey, entry);
+    DataBox.appendEntry(widget.etbKey, entry);
   }
 
   Wrap buildNewEntryFormOld(String captureTimeAsString, BuildContext context,
