@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 import '../data_box.dart';
 import '../model/etb_entry_data.dart';
@@ -23,6 +24,14 @@ class AddEntryPage extends StatelessWidget {
     'Europe',
     'North America',
     'South America'
+  ];
+
+  String? selectedValue;
+  List<String> items = [
+    'Item1',
+    'Item2',
+    'Item3',
+    'Item4',
   ];
 
   @override
@@ -69,6 +78,42 @@ class AddEntryPage extends StatelessWidget {
               child: ElevatedButton(
                   onPressed: () {},
                   child: const Text('Aus Vorlage erstellen'))),
+          Center(
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton2(
+                hint: Text(
+                  'Select Item',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).hintColor,
+                  ),
+                ),
+                items: items
+                    .map((item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(
+                            item,
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                value: selectedValue,
+                // onChanged: (value) {
+                //   setState(() {
+                //     selectedValue = value as String;
+                //   });
+                // },
+                onChanged: (value) {
+                  selectedValue = value as String;
+                },
+                buttonHeight: 40,
+                buttonWidth: 140,
+                itemHeight: 40,
+              ),
+            ),
+          ),
           FormBuilderDateTimePicker(
             name: 'captureTime',
             inputType: InputType.both,
