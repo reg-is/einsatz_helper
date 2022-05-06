@@ -20,7 +20,7 @@ class TemplateDataAdapter extends TypeAdapter<TemplateData> {
       ..id = fields[0] as int
       ..name = fields[1] as String
       ..counterpart = fields[2] as String?
-      ..description = fields[3] as String
+      ..description = fields[3] as String?
       ..comment = fields[4] as String?
       ..creationTime = fields[5] as DateTime
       ..modificationTime = fields[6] as DateTime;
