@@ -1,5 +1,6 @@
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
+import 'package:einsatz_helper/module_etb/model/template_data.dart';
 import 'package:einsatz_helper/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ETBDataAdapter());
   Hive.registerAdapter(ETBEntryDataAdapter());
+  Hive.registerAdapter(TemplateDataAdapter());
   await Hive.openBox<ETBData>('etbBox');
 
   runApp(const MyApp());
