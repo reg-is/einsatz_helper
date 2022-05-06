@@ -4,6 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'data_box.dart';
 import 'model/template_data.dart';
+import 'pages/add_template_page.dart';
 
 class TemplatesPage extends StatelessWidget {
   const TemplatesPage({Key? key}) : super(key: key);
@@ -30,8 +31,9 @@ class TemplatesPage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // ToDo
+        onPressed: () => {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddTemplatePage())),
         },
         child: const Icon(Icons.add),
       ),
@@ -55,9 +57,11 @@ class TemplatesPage extends StatelessWidget {
                   label: const Text('Vorlage erstellen'),
                   icon: const Icon(Icons.add_outlined),
                   onPressed: () => {
-                        //Navigator.push(context, MaterialPageRoute(builder: (context) => AddTemplatePage())),
-                      }
-                  )
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddTemplatePage())),
+                      }),
             ],
           ),
         ),
