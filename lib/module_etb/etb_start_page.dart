@@ -27,6 +27,7 @@ class _ETBStartPageState extends State<ETBStartPage> {
   void dispose() {
     // Close ETB box/database
     Hive.box('etbBox').close();
+    Hive.box('templateBox').close();
 
     super.dispose();
   }

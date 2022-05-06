@@ -1,10 +1,14 @@
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
+import 'package:einsatz_helper/module_etb/model/template_data.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class DataBox {
   // Gets the box containing all ETBs
   static Box<ETBData> getETBs() => Hive.box<ETBData>('etbBox');
+
+  // Gets the box containing all templates
+  static Box<TemplateData> getTemplates() => Hive.box<TemplateData>('templateBox');
 
   // Adds [entry] to the etb with the key: [etbKey[]
   static void appendEntry(dynamic etbKey, ETBEntryData entry) {
