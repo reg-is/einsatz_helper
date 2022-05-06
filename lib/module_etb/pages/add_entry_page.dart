@@ -32,19 +32,41 @@ class _AddEntryPageState extends State<AddEntryPage> {
     'South America'
   ];
 
-  String? selectedValue;
+  String? selectedTemplate;
 
-  List<String> items = [
-    'Item1',
-    'Item2',
-    'Item3',
-    'Item4',
+  List<String> templates = [
+    'Vorlage1',
+    'Vorlage2',
+    'Vorlage3',
+    'Vorlage4',
+    'Vorlage5',
+    'Vorlage6',
+    'Vorlage7',
+    'Vorlage8',
+    'Vorlage9',
+    'Vorlage10 very long very long very long very long very long very long',
+    'Vorlage11',
+    'Vorlage12',
+    'Vorlage13',
+    'Vorlage14',
+    'Vorlage15',
+    'Vorlage16',
+    'Vorlage17',
+    'Vorlage18',
+    'Vorlage19',
   ];
 
   @override
   Widget build(BuildContext context) {
     DateTime captureTime = DateTime.now();
     String captureTimeAsString = captureTime.toString().substring(0, 16);
+
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final Color elevatedButtonColor = theme
+            .elevatedButtonTheme.style?.backgroundColor
+            ?.resolve(<MaterialState>{}) ??
+        colorScheme.primary;
 
     var genderOptions = ['male', 'female'];
     return Scaffold(
@@ -67,14 +89,15 @@ class _AddEntryPageState extends State<AddEntryPage> {
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
-        buildNewEntryForm(context, captureTime),
+        buildNewEntryForm(context, captureTime, elevatedButtonColor),
         //buildNewEntryForm2(captureTimeAsString, context, genderOptions),
         //buildFormExample(genderOptions, context),
       ]),
     );
   }
 
-  Widget buildNewEntryForm(BuildContext context, DateTime captureTime) {
+  Widget buildNewEntryForm(
+      BuildContext context, DateTime captureTime, Color elevatedButtonColor) {
     return FormBuilder(
       key: _formKey,
       child: Wrap(
@@ -86,36 +109,117 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   onPressed: () {},
                   child: const Text('Aus Vorlage erstellen'))),
           Center(
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton2(
-                hint: Text(
-                  'Select Item',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Theme.of(context).hintColor,
+            child: DropdownButton2(
+              isExpanded: true,
+              hint: Row(
+                children: [
+                  Icon(
+                    Icons.list,
+                    size: 16,
+                    color: Colors.yellow,
                   ),
-                ),
-                items: items
-                    .map((item) => DropdownMenuItem<String>(
-                          value: item,
-                          child: Text(
-                            item,
-                            style: const TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ))
-                    .toList(),
-                value: selectedValue,
-                onChanged: (value) {
-                  setState(() {
-                    selectedValue = value as String;
-                  });
-                },
-                buttonHeight: 40,
-                buttonWidth: 140,
-                itemHeight: 40,
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Select Item',
+                      style: TextStyle(
+                        fontSize: 14,
+                        //fontWeight: FontWeight.bold,
+                        color: elevatedButtonColor,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
               ),
+              items: templates
+                  .map((item) => DropdownMenuItem<String>(
+                        value: item,
+                        child: Text(
+                          item,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ))
+                  .toList(),
+              value: selectedTemplate,
+              onChanged: (value) {
+                setState(() {
+                  selectedTemplate = value as String;
+                });
+              },
+              icon: const Icon(
+                Icons.arrow_forward_ios_outlined,
+              ),
+              iconSize: 14,
+              iconEnabledColor: Colors.yellow,
+              iconDisabledColor: Colors.grey,
+              buttonHeight: 50,
+              buttonWidth: 160,
+              buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+              buttonDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(
+                  color: Colors.black26,
+                ),
+                color: Colors.redAccent,
+              ),
+              buttonElevation: 2,
+              itemHeight: 40,
+              itemPadding: const EdgeInsets.only(left: 14, right: 14),
+              dropdownMaxHeight: 200,
+              dropdownWidth: 200,
+              dropdownPadding: null,
+              dropdownDecoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14),
+                color: Colors.redAccent,
+              ),
+              dropdownElevation: 8,
+              scrollbarRadius: const Radius.circular(40),
+              scrollbarThickness: 6,
+              scrollbarAlwaysShow: true,
+              offset: const Offset(-20, 0),
+            ),
+          ),
+
+          DropdownButtonFormField2(
+            isExpanded: true,
+            hint: const Text(
+              'Vorlage Auswählen',
+              style: TextStyle(
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            items: templates
+                .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          //fontSize: 14,
+                        ),
+                      ),
+                    ))
+                .toList(),
+            value: selectedTemplate,
+            onChanged: (value) {
+              setState(() {
+                selectedTemplate = value as String;
+              });
+            },
+            //buttonHeight: 40,
+            //buttonWidth: 200,
+            itemHeight: 40,
+            dropdownMaxHeight: 500,
+            dropdownDecoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
             ),
           ),
           FormBuilderDateTimePicker(
