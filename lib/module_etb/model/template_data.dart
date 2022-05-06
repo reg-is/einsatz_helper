@@ -14,7 +14,7 @@ class TemplateData extends HiveObject {
   String? counterpart;
 
   @HiveField(3)
-  late String description;
+  String? description;
 
   @HiveField(4)
   String? comment;
