@@ -9,17 +9,31 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import 'etbs_page.dart';
 
-class EntriesPage extends StatelessWidget {
+class EntriesPage extends StatefulWidget {
   late dynamic etbKey;
 
   EntriesPage({Key? key, this.etbKey}) : super(key: key);
 
   @override
+  State<EntriesPage> createState() => _EntriesPageState();
+}
+
+class _EntriesPageState extends State<EntriesPage> {
+  
+  // Rest the etbKey when Widget is disposed
+  @override
+  void dispose() {
+    widget.etbKey = null; 
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    etbKey = (DataBox.isEmpty || etbKey != null)
-        ? etbKey
+    widget.etbKey = (DataBox.isEmpty || widget.etbKey != null)
+        ? widget.etbKey
         : DataBox.getETBs().values.last.key;
-    final ETBData? etb = DataBox.getETBByKey(etbKey);
+    final ETBData? etb = DataBox.getETBByKey(widget.etbKey);
 
     bool finished = (DataBox.isEmpty || etb == null) ? true : etb.finished;
 
@@ -42,13 +56,13 @@ class EntriesPage extends StatelessWidget {
               icon: const Icon(Ionicons.search)),
         ],
       ),
-      body: buildEntriesListView(context, etbKey),
+      body: buildEntriesListView(context, widget.etbKey),
       floatingActionButton: Visibility(
         visible: (!DataBox.isEmpty && !finished),
         child: FloatingActionButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddEntryPage(etbKey)));
+                MaterialPageRoute(builder: (context) => AddEntryPage(widget.etbKey)));
           },
           child: const Icon(Icons.add),
           //child: const Icon(Feather.plus),
