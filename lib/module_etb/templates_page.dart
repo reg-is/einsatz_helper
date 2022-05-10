@@ -33,7 +33,7 @@ class TemplatesPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddTemplatePage())),
+              MaterialPageRoute(builder: (context) => AddTemplatePage(isNewTemplate: true,))),
         },
         child: const Icon(Icons.add),
       ),
@@ -60,7 +60,7 @@ class TemplatesPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddTemplatePage())),
+                                builder: (context) => AddTemplatePage(isNewTemplate: true,))),
                       }),
             ],
           ),
@@ -75,8 +75,12 @@ class TemplatesPage extends StatelessWidget {
             return ListTile(
               title: Text(templates[index].name),
               trailing: Icon(Ionicons.chevron_forward),
-              onTap: () {
+              onTap: () => {
                 // ToDo: Open details page with key: templates[index].key
+                Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AddTemplatePage(isNewTemplate: false, templateKey: templates[index].key,))),
               },
             );
           });
