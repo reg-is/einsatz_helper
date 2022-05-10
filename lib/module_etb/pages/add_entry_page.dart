@@ -272,7 +272,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
           FormBuilderTextField(
             name: 'description',
             decoration: const InputDecoration(
-              labelText: 'Darstellung des Ereignis',
+              labelText: 'Darstellung des Ereignis*',
             ),
             minLines: 4,
             maxLines: null,
