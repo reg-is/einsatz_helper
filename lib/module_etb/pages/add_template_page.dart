@@ -26,7 +26,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
     TemplateData? template = DataBox.getTemplates().get(widget.templateKey);
 
     return Scaffold(
-      appBar: (widget.isNewTemplate)
+      appBar: (template == null)
           ? AppBar(
               title: const Text('Vorlage anlegen'),
               leading: IconButton(
@@ -55,10 +55,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
               actions: [
                 IconButton(
                     onPressed: () {
-                      // Todo delete template
-                      if (false) {
-                        Navigator.pop(context, 'Delete');
-                      }
+                      deleteTemplate(context, template);
                     },
                     icon: const Icon(Ionicons.trash)),
                 IconButton(
@@ -181,7 +178,32 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
       DataBox.getTemplates().add(template);
     } else {
       // Modify template in the templateBox
-      DataBox.getTemplates().put(widget.templateKey, template); 
+      DataBox.getTemplates().put(widget.templateKey, template);
     }
+  }
+
+  Future deleteTemplate(BuildContext context, TemplateData template) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Vorlage löschen?'),
+        content:
+            Text('Wollen Sie wirklich die Vorlage "${template.name}" löschen?'),
+        actions: <Widget>[
+          OutlinedButton(
+            onPressed: () {
+              template.delete();
+              Navigator.pop(context, 'OK');
+              Navigator.pop(context);
+            },
+            child: const Text('Löschen'),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Abbrechen'),
+          ),
+        ],
+      ),
+    );
   }
 }
