@@ -42,11 +42,14 @@ class ETBsPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Es wurden noch kein Einsatztagebücher erstellt.',
-              style: TextStyle(fontSize: 18),
-              textAlign: TextAlign.center,
+            const Center(
+              child: Text(
+                'Es wurden noch kein Einsatztagebücher erstellt.',
+                style: TextStyle(fontSize: 18),
+                textAlign: TextAlign.center,
+              ),
             ),
+            const SizedBox(height: 8),
             OutlinedButton.icon(
               label: const Text('ETB erstellen'),
               icon: const Icon(Icons.add_outlined),

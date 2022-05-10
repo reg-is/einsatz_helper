@@ -53,6 +53,7 @@ class TemplatesPage extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 8),
               OutlinedButton.icon(
                   label: const Text('Vorlage erstellen'),
                   icon: const Icon(Icons.add_outlined),
