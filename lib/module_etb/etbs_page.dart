@@ -248,7 +248,7 @@ class ETBsPage extends StatelessWidget {
                         Ionicons.share,
                         size: 16,
                       ),
-                      label: const Text('Exportiren'),
+                      label: const Text('Exportieren'),
                       //labelStyle: TextStyle(color: Colors.white),
                       //backgroundColor: Theme.of(context).unselectedWidgetColor,
                       elevation: 1.0,
