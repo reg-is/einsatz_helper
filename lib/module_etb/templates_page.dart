@@ -33,7 +33,7 @@ class TemplatesPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddTemplatePage(isNewTemplate: true,))),
+              MaterialPageRoute(builder: (context) => AddTemplatePage())),
         },
         child: const Icon(Icons.add),
       ),
@@ -61,7 +61,7 @@ class TemplatesPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddTemplatePage(isNewTemplate: true,))),
+                                builder: (context) => AddTemplatePage())),
                       }),
             ],
           ),
@@ -75,13 +75,14 @@ class TemplatesPage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               title: Text(templates[index].name),
-              trailing: Icon(Ionicons.chevron_forward),
+              trailing: const Icon(Ionicons.chevron_forward),
               onTap: () => {
-                // ToDo: Open details page with key: templates[index].key
                 Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddTemplatePage(isNewTemplate: false, templateKey: templates[index].key,))),
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddTemplatePage(
+                              templateKey: templates[index].key,
+                            ))),
               },
             );
           });
@@ -92,12 +93,12 @@ class TemplatesPage extends StatelessWidget {
     return ListView.separated(
       separatorBuilder: (BuildContext context, int index) =>
           const Divider(height: 1, thickness: 2),
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       itemCount: numberOfItems,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
-          title: Text('Vorlage Name'),
-          trailing: Icon(Ionicons.chevron_forward),
+          title: const Text('Vorlage Name'),
+          trailing: const Icon(Ionicons.chevron_forward),
           onTap: () {
             // ToDo
           },

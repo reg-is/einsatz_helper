@@ -7,11 +7,9 @@ import '../data_box.dart';
 import '../model/template_data.dart';
 
 class AddTemplatePage extends StatefulWidget {
-  late bool isNewTemplate;
   dynamic templateKey;
 
-  AddTemplatePage({Key? key, required this.isNewTemplate, this.templateKey})
-      : super(key: key);
+  AddTemplatePage({Key? key, this.templateKey}) : super(key: key);
 
   @override
   State<AddTemplatePage> createState() => _AddTemplatePageState();
@@ -22,7 +20,6 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
 
   @override
   Widget build(BuildContext context) {
-    widget.isNewTemplate;
     TemplateData? template = DataBox.getTemplates().get(widget.templateKey);
 
     return Scaffold(
@@ -116,7 +113,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
             maxLines: null,
             keyboardType: TextInputType.multiline,
           ),
-          if (widget.isNewTemplate)
+          if (template == null)
             Center(
               child: Wrap(
                 runSpacing: 8,
@@ -173,7 +170,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
       ..creationTime = DateTime.now()
       ..modificationTime = DateTime.now();
 
-    if (widget.isNewTemplate) {
+    if (widget.templateKey == null) {
       // Append new template in the templateBox
       DataBox.getTemplates().add(template);
     } else {
