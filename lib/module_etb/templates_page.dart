@@ -11,6 +11,7 @@ class TemplatesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    addDefaultTemplates();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Vorlagen'),
@@ -105,5 +106,18 @@ class TemplatesPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  void addDefaultTemplates() {
+    dynamic key = 'a';
+    TemplateData template = TemplateData.build(
+        id: 'a',
+        name: 'Ankunft an Einsatzort',
+        creationTime: DateTime(2022),
+        modificationTime: DateTime(2022),
+        description: 'Ankunft an Einsatzort');
+    if (!DataBox.getTemplates().containsKey(template.id)) {
+      DataBox.getTemplates().put(template.id, template);
+    }
   }
 }

@@ -20,8 +20,9 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
 
   @override
   Widget build(BuildContext context) {
-    TemplateData? template = DataBox.getTemplates().get(widget.templateKey);
-
+    TemplateData? template = (widget.templateKey == null)
+        ? null
+        : DataBox.getTemplates().get(widget.templateKey);
     return Scaffold(
       appBar: (template == null)
           ? AppBar(
