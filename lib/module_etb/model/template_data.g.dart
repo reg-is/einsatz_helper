@@ -17,7 +17,7 @@ class TemplateDataAdapter extends TypeAdapter<TemplateData> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return TemplateData()
-      ..id = fields[0] as int
+      ..id = fields[0] as dynamic
       ..name = fields[1] as String
       ..counterpart = fields[2] as String?
       ..description = fields[3] as String?
