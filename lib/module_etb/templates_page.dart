@@ -108,16 +108,27 @@ class TemplatesPage extends StatelessWidget {
     );
   }
 
+  // Add some default templates if not already present.
   void addDefaultTemplates() {
-    dynamic key = 'a';
-    TemplateData template = TemplateData.build(
-        id: 'a',
-        name: 'Ankunft an Einsatzort',
-        creationTime: DateTime(2022),
-        modificationTime: DateTime(2022),
-        description: 'Ankunft an Einsatzort');
-    if (!DataBox.getTemplates().containsKey(template.id)) {
-      DataBox.getTemplates().put(template.id, template);
+    List<TemplateData> defaultTemplates = [
+      TemplateData.build(
+          id: 'a',
+          name: 'Abfahrt vom Ortsverband',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description: 'Abfahrt vom Ortsverband'),
+      TemplateData.build(
+          id: 'b',
+          name: 'Ankunft am Einsatzort',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description: 'Ankunft am Einsatzort'),
+    ];
+
+    for (var template in defaultTemplates) {
+      if (!DataBox.getTemplates().containsKey(template.id)) {
+        DataBox.getTemplates().put(template.id, template);
+      }
     }
   }
 }
