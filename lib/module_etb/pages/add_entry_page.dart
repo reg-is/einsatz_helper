@@ -1,3 +1,4 @@
+import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/template_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -34,9 +35,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
   ];
 
   TemplateData? selectedTemplate;
-  dynamic selectedTemplateID;
-
-  List<TemplateData> templates = DataBox.getTemplates().values.toList();
+  String? selectedTemplateID;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +50,21 @@ class _AddEntryPageState extends State<AddEntryPage> {
         colorScheme.primary;
 
     var genderOptions = ['male', 'female'];
+
+    ETBData? etb = DataBox.getETBByKey(widget.etbKey);
+    List<TemplateData> templates = DataBox.getTemplates().values.toList() +
+        [
+          TemplateData.build(
+              name: 'Einsatztagebuch abschließen',
+              id: 'end',
+              description: 'Einsatzende\n\n'
+                  'Ende Einsatztagebuch (mit ${etb?.attachmentsSum ?? 0} Anlagen)\n'
+                  'ETB-Führung: ${etb?.etbWriter}\n'
+                  'Einsatzleitung: ${etb?.leader}',
+              creationTime: DateTime.now(),
+              modificationTime: DateTime.now())
+        ];
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Eintrag anlegen'),
@@ -72,15 +86,15 @@ class _AddEntryPageState extends State<AddEntryPage> {
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
         const SizedBox(height: 4),
-        buildNewEntryForm(context, captureTime, elevatedButtonColor),
+        buildNewEntryForm(context, captureTime, elevatedButtonColor, templates),
         //buildNewEntryForm2(captureTimeAsString, context, genderOptions),
         //buildFormExample(genderOptions, context),
       ]),
     );
   }
 
-  Widget buildNewEntryForm(
-      BuildContext context, DateTime captureTime, Color elevatedButtonColor) {
+  Widget buildNewEntryForm(BuildContext context, DateTime captureTime,
+      Color elevatedButtonColor, List<TemplateData> templates) {
     return FormBuilder(
       key: _formKey,
       child: Wrap(
@@ -193,7 +207,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             onChanged: (value) {
               setState(() {
                 // Update selectedTemplateID with the ID of the selected template
-                selectedTemplateID = value;
+                selectedTemplateID = value as String;
                 // Update selectedTemplate with the selected template
                 selectedTemplate = templates
                     .firstWhere((template) => template.id == value as dynamic);
@@ -357,8 +371,14 @@ class _AddEntryPageState extends State<AddEntryPage> {
       ..reference = (formInput['reference'].runtimeType != String)
           ? null
           : int.parse(formInput['reference']);
+
     // Append new entry to the etb in the database
     DataBox.appendEntry(widget.etbKey, entry);
+    
+    // Close ETB if template 'end' is used
+    if(selectedTemplateID == 'end'){
+      DataBox.getETBByKey(widget.etbKey)?.finished = true;
+    }
   }
 
   Wrap buildNewEntryFormOld(String captureTimeAsString, BuildContext context,
