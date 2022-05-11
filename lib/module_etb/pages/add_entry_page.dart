@@ -1,3 +1,4 @@
+import 'package:einsatz_helper/module_etb/model/template_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -12,7 +13,7 @@ import '../model/etb_entry_data.dart';
 class AddEntryPage extends StatefulWidget {
   final dynamic etbKey;
 
-  AddEntryPage(this.etbKey, {Key? key}) : super(key: key);
+  const AddEntryPage(this.etbKey, {Key? key}) : super(key: key);
 
   @override
   State<AddEntryPage> createState() => _AddEntryPageState();
@@ -32,29 +33,10 @@ class _AddEntryPageState extends State<AddEntryPage> {
     'South America'
   ];
 
-  String? selectedTemplate;
+  TemplateData? selectedTemplate;
+  dynamic selectedTemplateID;
 
-  List<String> templates = [
-    'Vorlage1',
-    'Vorlage2',
-    'Vorlage3',
-    'Vorlage4',
-    'Vorlage5',
-    'Vorlage6',
-    'Vorlage7',
-    'Vorlage8',
-    'Vorlage9',
-    'Vorlage10 very long very long very long very long very long very long',
-    'Vorlage11',
-    'Vorlage12',
-    'Vorlage13',
-    'Vorlage14',
-    'Vorlage15',
-    'Vorlage16',
-    'Vorlage17',
-    'Vorlage18',
-    'Vorlage19',
-  ];
+  List<TemplateData> templates = DataBox.getTemplates().values.toList();
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +71,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+        const SizedBox(height: 4),
         buildNewEntryForm(context, captureTime, elevatedButtonColor),
         //buildNewEntryForm2(captureTimeAsString, context, genderOptions),
         //buildFormExample(genderOptions, context),
@@ -104,90 +87,89 @@ class _AddEntryPageState extends State<AddEntryPage> {
         spacing: 8,
         runSpacing: 16,
         children: [
-          Center(
-              child: ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('Aus Vorlage erstellen'))),
-          Center(
-            child: DropdownButton2(
-              isExpanded: true,
-              hint: Row(
-                children: [
-                  Icon(
-                    Icons.list,
-                    size: 16,
-                    color: Colors.yellow,
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Expanded(
-                    child: Text(
-                      'Select Item',
-                      style: TextStyle(
-                        fontSize: 14,
-                        //fontWeight: FontWeight.bold,
-                        color: elevatedButtonColor,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-              items: templates
-                  .map((item) => DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(
-                          item,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ))
-                  .toList(),
-              value: selectedTemplate,
-              onChanged: (value) {
-                setState(() {
-                  selectedTemplate = value as String;
-                });
-              },
-              icon: const Icon(
-                Icons.arrow_forward_ios_outlined,
-              ),
-              iconSize: 14,
-              iconEnabledColor: Colors.yellow,
-              iconDisabledColor: Colors.grey,
-              buttonHeight: 50,
-              buttonWidth: 160,
-              buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-              buttonDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: Colors.black26,
-                ),
-                color: Colors.redAccent,
-              ),
-              buttonElevation: 2,
-              itemHeight: 40,
-              itemPadding: const EdgeInsets.only(left: 14, right: 14),
-              dropdownMaxHeight: 200,
-              dropdownWidth: 200,
-              dropdownPadding: null,
-              dropdownDecoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                color: Colors.redAccent,
-              ),
-              dropdownElevation: 8,
-              scrollbarRadius: const Radius.circular(40),
-              scrollbarThickness: 6,
-              scrollbarAlwaysShow: true,
-              offset: const Offset(-20, 0),
-            ),
-          ),
-
+          // Center(
+          //     child: ElevatedButton(
+          //         onPressed: () {},
+          //         child: const Text('Aus Vorlage erstellen'))),
+          // Center(
+          //   child: DropdownButton2(
+          //     isExpanded: true,
+          //     hint: Row(
+          //       children: [
+          //         Icon(
+          //           Icons.list,
+          //           size: 16,
+          //           color: Colors.yellow,
+          //         ),
+          //         SizedBox(
+          //           width: 4,
+          //         ),
+          //         Expanded(
+          //           child: Text(
+          //             'Select Item',
+          //             style: TextStyle(
+          //               fontSize: 14,
+          //               //fontWeight: FontWeight.bold,
+          //               color: elevatedButtonColor,
+          //             ),
+          //             overflow: TextOverflow.ellipsis,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //     items: templates
+          //         .map((item) => DropdownMenuItem<String>(
+          //               value: item,
+          //               child: Text(
+          //                 item,
+          //                 style: const TextStyle(
+          //                   fontSize: 14,
+          //                   fontWeight: FontWeight.bold,
+          //                   color: Colors.white,
+          //                 ),
+          //                 overflow: TextOverflow.ellipsis,
+          //               ),
+          //             ))
+          //         .toList(),
+          //     value: selectedTemplate,
+          //     onChanged: (value) {
+          //       setState(() {
+          //         selectedTemplate = value as String;
+          //       });
+          //     },
+          //     icon: const Icon(
+          //       Icons.arrow_forward_ios_outlined,
+          //     ),
+          //     iconSize: 14,
+          //     iconEnabledColor: Colors.yellow,
+          //     iconDisabledColor: Colors.grey,
+          //     buttonHeight: 50,
+          //     buttonWidth: 160,
+          //     buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+          //     buttonDecoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(14),
+          //       border: Border.all(
+          //         color: Colors.black26,
+          //       ),
+          //       color: Colors.redAccent,
+          //     ),
+          //     buttonElevation: 2,
+          //     itemHeight: 40,
+          //     itemPadding: const EdgeInsets.only(left: 14, right: 14),
+          //     dropdownMaxHeight: 200,
+          //     dropdownWidth: 200,
+          //     dropdownPadding: null,
+          //     dropdownDecoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(14),
+          //       color: Colors.redAccent,
+          //     ),
+          //     dropdownElevation: 8,
+          //     scrollbarRadius: const Radius.circular(40),
+          //     scrollbarThickness: 6,
+          //     scrollbarAlwaysShow: true,
+          //     offset: const Offset(-20, 0),
+          //   ),
+          // ),
           DropdownButtonFormField2(
             isExpanded: true,
             hint: const Text(
@@ -197,21 +179,30 @@ class _AddEntryPageState extends State<AddEntryPage> {
               ),
             ),
             items: templates
-                .map((item) => DropdownMenuItem<String>(
-                      value: item,
+                .map((template) => DropdownMenuItem<String>(
+                      value: template.id.toString(),
                       child: Text(
-                        item,
+                        template.name,
                         style: const TextStyle(
                           overflow: TextOverflow.ellipsis,
-                          //fontSize: 14,
                         ),
                       ),
                     ))
                 .toList(),
-            value: selectedTemplate,
+            value: selectedTemplateID,
             onChanged: (value) {
               setState(() {
-                selectedTemplate = value as String;
+                // Update selectedTemplateID with the ID of the selected template
+                selectedTemplateID = value;
+                // Update selectedTemplate with the selected template
+                selectedTemplate = templates
+                    .firstWhere((template) => template.id == value as dynamic);
+                // Update form fields with values from selected template
+                _formKey.currentState?.patchValue({
+                  'counterpart': selectedTemplate?.comment,
+                  'description': selectedTemplate?.description,
+                  'comment': selectedTemplate?.comment,
+                });
               });
             },
             //buttonHeight: 40,
@@ -278,10 +269,6 @@ class _AddEntryPageState extends State<AddEntryPage> {
             maxLines: null,
             keyboardType: TextInputType.multiline,
             validator: FormBuilderValidators.required(),
-            // validator: (description) =>
-            //     description != null && description.isEmpty
-            //         ? 'Füge eine Beschreibung hinzu'
-            //         : null,
           ),
           Center(
               child: ElevatedButton(
