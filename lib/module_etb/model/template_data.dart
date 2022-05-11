@@ -5,7 +5,7 @@ part 'template_data.g.dart';
 @HiveType(typeId: 2)
 class TemplateData extends HiveObject {
   @HiveField(0)
-  late dynamic id = key;
+  late String id = key.toString();
 
   @HiveField(1)
   late String name;
@@ -28,7 +28,7 @@ class TemplateData extends HiveObject {
   TemplateData();
 
   TemplateData.build(
-      {this.id,
+      {required this.id,
       required this.name,
       this.counterpart,
       this.description,
