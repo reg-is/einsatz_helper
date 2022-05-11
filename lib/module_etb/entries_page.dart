@@ -19,23 +19,21 @@ class EntriesPage extends StatefulWidget {
 }
 
 class _EntriesPageState extends State<EntriesPage> {
-  
   // Rest the etbKey when Widget is disposed
   @override
   void dispose() {
-    widget.etbKey = null; 
+    widget.etbKey = null;
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    widget.etbKey = (DataBox.isEmpty || widget.etbKey != null)
+    bool noETBs = DataBox.getETBs().values.isEmpty;
+    widget.etbKey = (noETBs || widget.etbKey != null)
         ? widget.etbKey
         : DataBox.getETBs().values.last.key;
     final ETBData? etb = DataBox.getETBByKey(widget.etbKey);
-
-    bool finished = (DataBox.isEmpty || etb == null) ? true : etb.finished;
+    bool finished = (noETBs || etb == null) ? true : etb.finished;
 
     return Scaffold(
       appBar: AppBar(
@@ -56,13 +54,15 @@ class _EntriesPageState extends State<EntriesPage> {
               icon: const Icon(Ionicons.search)),
         ],
       ),
-      body: buildEntriesListView(context, widget.etbKey),
+      body: buildEntriesListView(context, widget.etbKey, noETBs),
       floatingActionButton: Visibility(
-        visible: (!DataBox.isEmpty && !finished),
+        visible: (!noETBs && !finished),
         child: FloatingActionButton(
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => AddEntryPage(widget.etbKey)));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddEntryPage(widget.etbKey)));
           },
           child: const Icon(Icons.add),
           //child: const Icon(Feather.plus),
@@ -73,11 +73,12 @@ class _EntriesPageState extends State<EntriesPage> {
     );
   }
 
-  Widget buildEntriesListView(BuildContext context, dynamic etbKey) {
+  Widget buildEntriesListView(
+      BuildContext context, dynamic etbKey, bool noETBs) {
     return ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
-          if (DataBox.isEmpty) {
+          if (noETBs) {
             return const Center(
               child: Text(
                 'Es wurde noch kein Einsatztagebuch erstellt.',
