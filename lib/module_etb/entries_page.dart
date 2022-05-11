@@ -32,9 +32,8 @@ class _EntriesPageState extends State<EntriesPage> {
     widget.etbKey = (noETBs || widget.etbKey != null)
         ? widget.etbKey
         : DataBox.getETBs().values.last.key;
-    final ETBData? etb = DataBox.getETBByKey(widget.etbKey);
+    ETBData? etb = DataBox.getETBByKey(widget.etbKey);
     bool finished = (noETBs || etb == null) ? true : etb.finished;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Einträge'),
@@ -60,9 +59,13 @@ class _EntriesPageState extends State<EntriesPage> {
         child: FloatingActionButton(
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AddEntryPage(widget.etbKey)));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddEntryPage(widget.etbKey)))
+                .then((value) {
+              // Reload entries page when coming back from creating a new entry
+              setState(() {});
+            });
           },
           child: const Icon(Icons.add),
           //child: const Icon(Feather.plus),
