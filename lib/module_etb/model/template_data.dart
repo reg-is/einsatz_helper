@@ -27,5 +27,17 @@ class TemplateData extends HiveObject {
 
   TemplateData();
 
-  TemplateData.build({this.id, required this.name, this.counterpart, this.description, this.comment, required this.creationTime, required this.modificationTime});
+  TemplateData.build(
+      {this.id,
+      required this.name,
+      this.counterpart,
+      this.description,
+      this.comment,
+      required this.creationTime,
+      required this.modificationTime});
+
+  @override
+  String toString() {
+    return '{name=$name, id=$id, counterpart=$counterpart, description=$description, comment=$comment, creationTime=$creationTime, modificationTime=$modificationTime}';
+  }
 }
