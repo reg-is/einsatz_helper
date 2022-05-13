@@ -415,8 +415,10 @@ class _AddEntryPageState extends State<AddEntryPage> {
                           _formKey.currentState?.patchValue({
                             'comment': comment,
                           });
-
                           Navigator.pop(context, 'Save');
+                          if (attachmentsCount > 0) {
+                            buildAttachmentConfirmation(context);
+                          }
                         },
                         child: const Text('Speichern'),
                       ),
@@ -426,6 +428,37 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 ],
               ),
             ));
+  }
+
+  Future<dynamic> buildAttachmentConfirmation(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) => Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              Text(
+                'Es wurde $attachmentsCount Anlagen erzeugt',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              const SizedBox(height: 8),
+              if (attachmentsCount == 1)
+                Text(
+                    'Bitte vermerken sie die Nummer ${attachments.first.id} auf der zugehörigen Anlage.'),
+              if (attachmentsCount == 2)
+                Text(
+                    'Bitte vermerken sie die Nummern ${attachments.first.id} und ${attachments.last.id} auf den zugehörigen Anlagen.'),
+              if (attachmentsCount > 2)
+                Text(
+                    'Bitte vermerken sie die Nummern ${attachments.first.id} bis ${attachments.last.id} auf den zugehörigen Anlagen.'),
+              const SizedBox(height: 8),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context, 'Okay');
+                },
+                child: const Text('OK'),
+              ),
+              const SizedBox(height: 8),
+            ])));
   }
 
   // Is called when user accepts the inputted data.
