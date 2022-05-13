@@ -2,6 +2,7 @@ import 'package:einsatz_helper/module_etb/data_box.dart';
 import 'package:einsatz_helper/module_etb/entries_page.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
+import 'package:einsatz_helper/module_etb/utils/pdf_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -243,7 +244,7 @@ class ETBsPage extends StatelessWidget {
                       elevation: 1.0,
                       //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
-                    Chip(
+                    ActionChip(
                       visualDensity:
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       labelPadding: const EdgeInsets.all(1)
@@ -253,6 +254,11 @@ class ETBsPage extends StatelessWidget {
                         size: 16,
                       ),
                       label: const Text('Exportieren'),
+                      onPressed: () async {
+                        //final data = await PdfService.createHelloWord();
+                        final data = await PdfService.createEtbPdf(etb);
+                        PdfService.savePdfFile('ETB_${etb.id}_${etb.startedDateAsDTG}', data);
+                      },
                       //labelStyle: TextStyle(color: Colors.white),
                       //backgroundColor: Theme.of(context).unselectedWidgetColor,
                       elevation: 1.0,
