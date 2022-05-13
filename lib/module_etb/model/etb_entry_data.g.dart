@@ -23,13 +23,14 @@ class ETBEntryDataAdapter extends TypeAdapter<ETBEntryData> {
       ..counterpart = fields[3] as String?
       ..description = fields[4] as String
       ..comment = fields[5] as String?
-      ..reference = fields[6] as int?;
+      ..reference = fields[6] as int?
+      ..attachments = (fields[7] as List?)?.cast<AttachmentData>();
   }
 
   @override
   void write(BinaryWriter writer, ETBEntryData obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -43,7 +44,9 @@ class ETBEntryDataAdapter extends TypeAdapter<ETBEntryData> {
       ..writeByte(5)
       ..write(obj.comment)
       ..writeByte(6)
-      ..write(obj.reference);
+      ..write(obj.reference)
+      ..writeByte(7)
+      ..write(obj.attachments);
   }
 
   @override

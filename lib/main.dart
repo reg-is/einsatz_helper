@@ -1,3 +1,4 @@
+import 'package:einsatz_helper/module_etb/model/attachment_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:einsatz_helper/module_etb/model/template_data.dart';
@@ -14,6 +15,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(ETBDataAdapter());
   Hive.registerAdapter(ETBEntryDataAdapter());
+  Hive.registerAdapter(AttachmentDataAdapter());
   Hive.registerAdapter(TemplateDataAdapter());
   await Hive.openBox<ETBData>('etbBox');
   await Hive.openBox<TemplateData>('templateBox');

@@ -1,3 +1,4 @@
+import 'attachment_data.dart';
 import 'package:hive/hive.dart';
 
 part 'etb_entry_data.g.dart';
@@ -25,8 +26,8 @@ class ETBEntryData extends HiveObject {
   @HiveField(6)
   int? reference;
 
-  // @HiveField(7)
-  // List? attachments;
+  @HiveField(7)
+  List<AttachmentData>? attachments;
 
   @override
   String toString() {
