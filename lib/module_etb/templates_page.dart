@@ -29,7 +29,7 @@ class TemplatesPage extends StatelessWidget {
         valueListenable: DataBox.getTemplates().listenable(),
         builder: (context, box, _) {
           final templates = box.values.toList().cast<TemplateData>();
-          return buildETBListView(context, templates);
+          return buildTemplateListView(context, templates);
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -42,7 +42,7 @@ class TemplatesPage extends StatelessWidget {
     );
   }
 
-  Widget buildETBListView(context, List<TemplateData> templates) {
+  Widget buildTemplateListView(context, List<TemplateData> templates) {
     if (templates.isEmpty) {
       return Center(
         child: Padding(
@@ -89,24 +89,6 @@ class TemplatesPage extends StatelessWidget {
             );
           });
     }
-  }
-
-  ListView buildListView(int numberOfItems) {
-    return ListView.separated(
-      separatorBuilder: (BuildContext context, int index) =>
-          const Divider(height: 1, thickness: 2),
-      padding: const EdgeInsets.all(0),
-      itemCount: numberOfItems,
-      itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          title: const Text('Vorlage Name'),
-          trailing: const Icon(Ionicons.chevron_forward),
-          onTap: () {
-            // ToDo
-          },
-        );
-      },
-    );
   }
 
   // Add some default templates if not already present.
