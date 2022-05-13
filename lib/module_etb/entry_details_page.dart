@@ -58,8 +58,8 @@ class EntryDetailsPage extends StatelessWidget {
                   title: const Text('Bemerkung'),
                   //details: Text('Anlagen: 2 (Nr. 42-3-1, 42-3-2)')),
                   details: Text(entry.comment!)),
-            buildDetailsCard(
-                title: const Text('Digitale Anlagen'), details: Text('Todo')),
+            // buildDetailsCard(
+            //     title: const Text('Digitale Anlagen'), details: Text('Todo')),
             if (entry.reference != null)
               buildDetailsCard(
                   title: const Text('Referenz'),

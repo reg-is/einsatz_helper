@@ -195,7 +195,9 @@ class _EntriesPageState extends State<EntriesPage> {
                     ),
                     //const Spacer(),
                     // Chip with the number of attachments of the entry
-                    buildAttachmentsChip(0),
+                    buildAttachmentsChip((entry.attachments == null)
+                        ? 0
+                        : entry.attachments!.length),
                   ],
                 ),
                 // Text box with the content of the entry
