@@ -31,7 +31,7 @@ class ETBEntryData extends HiveObject {
 
   @override
   String toString() {
-    return '{id=$id, captureTime=$captureTime, eventTime=$eventTime, counterpart=$counterpart, description=$description, comment=$comment, reference=$reference}';
+    return '{id=$id, captureTime=$captureTime, eventTime=$eventTime, counterpart=$counterpart, description=$description, comment=$comment, reference=$reference, attachments=${attachments.toString()}}';
   }
 
   // Get captureTime in Date Time Group (DTG) format

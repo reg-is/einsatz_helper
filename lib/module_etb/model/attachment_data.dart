@@ -12,5 +12,11 @@ class AttachmentData extends HiveObject {
 
   // @HiveField(2)
   // num? fileSize;
+
   AttachmentData({required this.id});
+
+  @override
+  String toString() {
+    return '{id=$id}';
+  }
 }
