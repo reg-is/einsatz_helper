@@ -6,9 +6,9 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../data_box.dart';
 
-class ConfirmNewETBPage extends StatelessWidget {
+class NewETBConfirmPage extends StatelessWidget {
   late ETBData etb;
-  ConfirmNewETBPage({Key? key, required this.etb}) : super(key: key);
+  NewETBConfirmPage({Key? key, required this.etb}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
   //final String description = '';

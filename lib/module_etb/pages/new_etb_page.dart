@@ -8,10 +8,10 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../data_box.dart';
 import '../model/etb_data.dart';
 import '../model/etb_entry_data.dart';
-import 'confirm_new_etb_page.dart';
+import 'new_etb_confirm_page.dart';
 
-class AddETBPage extends StatelessWidget {
-  AddETBPage({Key? key}) : super(key: key);
+class NewETBPage extends StatelessWidget {
+  NewETBPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
   var options = ["Option 1", "Option 2", "Option 3"];
@@ -35,7 +35,7 @@ class AddETBPage extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ConfirmNewETBPage(
+                            builder: (context) => NewETBConfirmPage(
                                   etb: etb,
                                 )));
                   }
@@ -164,7 +164,7 @@ class AddETBPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ConfirmNewETBPage(
+                              builder: (context) => NewETBConfirmPage(
                                     etb: etb,
                                   )));
                     }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'pages/add_etb_page.dart';
+import 'pages/new_etb_page.dart';
 
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class ETBsPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => AddETBPage()))),
+              context, MaterialPageRoute(builder: (context) => NewETBPage()))),
     );
   }
 
@@ -54,7 +54,7 @@ class ETBsPage extends StatelessWidget {
               label: const Text('ETB erstellen'),
               icon: const Icon(Icons.add_outlined),
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => AddETBPage())),
+                  MaterialPageRoute(builder: (context) => NewETBPage())),
             )
           ],
         ),
