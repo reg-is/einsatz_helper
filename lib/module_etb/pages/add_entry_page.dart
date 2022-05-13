@@ -7,8 +7,10 @@ import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_touch_spin/flutter_touch_spin.dart';
 
 import '../data_box.dart';
+import '../model/attachment_data.dart';
 import '../model/etb_entry_data.dart';
 
 class AddEntryPage extends StatefulWidget {
@@ -33,6 +35,9 @@ class _AddEntryPageState extends State<AddEntryPage> {
     'North America',
     'South America'
   ];
+  int attachmentsCount = 0;
+  List<AttachmentData> attachments = [];
+  late int entryID;
 
   TemplateData? selectedTemplate;
   String? selectedTemplateID;
@@ -41,6 +46,8 @@ class _AddEntryPageState extends State<AddEntryPage> {
   Widget build(BuildContext context) {
     DateTime captureTime = DateTime.now();
     String captureTimeAsString = captureTime.toString().substring(0, 16);
+
+    entryID = DataBox.getNextEntryID(widget.etbKey);
 
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
@@ -286,7 +293,11 @@ class _AddEntryPageState extends State<AddEntryPage> {
           ),
           Center(
               child: ElevatedButton(
-                  onPressed: () {}, child: const Text('Anlage hinzufügen'))),
+            child: const Text('Anlage hinzufügen'),
+            onPressed: () {
+              buildAttachmentAmountPicker(context);
+            },
+          )),
           FormBuilderTextField(
             name: 'comment',
             decoration: const InputDecoration(
@@ -342,15 +353,89 @@ class _AddEntryPageState extends State<AddEntryPage> {
     );
   }
 
+  Future<dynamic> buildAttachmentAmountPicker(BuildContext context) {
+    return showModalBottomSheet(
+        context: context,
+        builder: (context) => Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Wie viele Anlagen soll der Eintrag haben?',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  TouchSpin(
+                    min: 0,
+                    step: 1,
+                    value: attachmentsCount,
+                    textStyle: const TextStyle(fontSize: 36),
+                    iconSize: 48.0,
+                    addIcon: const Icon(Icons.add_circle_outline),
+                    subtractIcon: const Icon(Icons.remove_circle_outline),
+                    iconActiveColor: Theme.of(context)
+                            .elevatedButtonTheme
+                            .style
+                            ?.backgroundColor
+                            ?.resolve(<MaterialState>{}) ??
+                        Theme.of(context).primaryColor,
+                    iconPadding: const EdgeInsets.all(20),
+                    onChanged: (val) {
+                      attachmentsCount = val as int;
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    children: [
+                      OutlinedButton(
+                        onPressed: () {
+                          Navigator.pop(context, 'Cancel');
+                        },
+                        child: const Text('Abbrechen'),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          attachments =
+                              createAttachments(entryID, attachmentsCount);
+                          String? comment;
+                          switch (attachmentsCount) {
+                            case 0:
+                              comment = null;
+                              break;
+                            case 1:
+                              comment =
+                                  'Anlage: ' + attachmentsAsText(attachments);
+                              break;
+                            default:
+                              comment =
+                                  'Anlagen: ' + attachmentsAsText(attachments);
+                          }
+                          _formKey.currentState?.patchValue({
+                            'comment': comment,
+                          });
+
+                          Navigator.pop(context, 'Save');
+                        },
+                        child: const Text('Speichern'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
+            ));
+  }
+
   // Is called when user accepts the inputted data.
   bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      print(_formKey.currentState!.value);
+      //print(_formKey.currentState!.value);
       addEntry();
       return true;
     } else {
-      print("validation failed");
+      print("Validation of new entry failed");
       return false;
     }
   }
@@ -362,7 +447,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
 
     // Create a new entry with input from form
     final entry = ETBEntryData()
-      ..id = DataBox.getNextEntryID(widget.etbKey)
+      ..id = entryID
       ..captureTime = formInput['captureTime']
       ..eventTime = formInput['eventTime']
       ..counterpart = formInput['counterpart']
@@ -370,13 +455,17 @@ class _AddEntryPageState extends State<AddEntryPage> {
       ..comment = formInput['comment']
       ..reference = (formInput['reference'].runtimeType != String)
           ? null
-          : int.parse(formInput['reference']);
+          : int.parse(formInput['reference'])
+      ..attachments = (attachments.isEmpty) ? null : attachments;
 
     // Append new entry to the etb in the database
     DataBox.appendEntry(widget.etbKey, entry);
-    
+
+    // Add the number of attachments to the attachmentsSum of the etb
+    DataBox.getETBByKey(widget.etbKey)!.attachmentsSum += attachmentsCount;
+
     // Close ETB if template 'end' is used
-    if(selectedTemplateID == 'end'){
+    if (selectedTemplateID == 'end') {
       DataBox.getETBByKey(widget.etbKey)?.finished = true;
     }
   }
