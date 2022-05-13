@@ -60,5 +60,28 @@ String toDTG(DateTime dateTime) {
     'nov',
     'dec'
   ];
-  return '${dateTime.day.toString().padLeft(2,'0')} ${dateTime.hour.toString().padLeft(2,'0')}${dateTime.minute.toString().padLeft(2,'0')}${months[dateTime.month - 1]}${dateTime.year.toString().substring(2, 4)}';
+  return '${dateTime.day.toString().padLeft(2, '0')} ${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}${months[dateTime.month - 1]}${dateTime.year.toString().substring(2, 4)}';
+}
+
+// Create a list of AttachmentData and generate attachment IDs
+List<AttachmentData> createAttachments(int entryID, int attachmentsCount) {
+  List<AttachmentData> attachments = [];
+  for (var i = 1; i <= attachmentsCount; i++) {
+    attachments.add(AttachmentData(id: '$entryID-$i'));
+  }
+  return attachments;
+}
+
+// Converts a list of AttachmentData to a String with comma separated IDs 
+String attachmentsAsText(List<AttachmentData> attachments) {
+  String text = '';
+  for (int i = 0; i < attachments.length; i++) {
+    AttachmentData attachment = attachments[i];
+    if (i < attachments.length - 1) {
+      text += '${attachment.id}, ';
+    } else {
+      text += attachment.id;
+    }
+  }
+  return text;
 }
