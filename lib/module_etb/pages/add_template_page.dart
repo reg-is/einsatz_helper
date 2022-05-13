@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../data_box.dart';
@@ -31,7 +32,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Ionicons.close_circle)),
+                  icon: const FaIcon(Ionicons.close_circle)),
               actions: [
                 IconButton(
                     onPressed: () {
@@ -40,7 +41,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
                         Navigator.pop(context, 'Save');
                       }
                     },
-                    icon: const Icon(Ionicons.checkmark_circle)),
+                    icon: const FaIcon(Ionicons.checkmark_circle)),
               ],
             )
           : AppBar(
@@ -49,13 +50,13 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: const Icon(Ionicons.arrow_back)),
+                  icon: const FaIcon(Ionicons.arrow_back)),
               actions: [
                 IconButton(
                     onPressed: () {
                       deleteTemplate(context, template);
                     },
-                    icon: const Icon(Ionicons.trash)),
+                    icon: const FaIcon(Ionicons.trash)),
                 IconButton(
                     onPressed: () {
                       bool result = onPressAccept();
@@ -63,7 +64,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
                         Navigator.pop(context, 'Save');
                       }
                     },
-                    icon: const Icon(Ionicons.checkmark_circle)),
+                    icon: const FaIcon(Ionicons.checkmark_circle)),
               ],
             ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[

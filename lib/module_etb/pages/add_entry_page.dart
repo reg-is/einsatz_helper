@@ -8,6 +8,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:intl/intl.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_touch_spin/flutter_touch_spin.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../data_box.dart';
 import '../model/attachment_data.dart';
@@ -79,7 +80,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: const Icon(Ionicons.close_circle)),
+            icon: const FaIcon(Ionicons.close_circle)),
         actions: [
           IconButton(
               onPressed: () {
@@ -88,7 +89,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                   Navigator.pop(context, 'Save');
                 }
               },
-              icon: const Icon(Ionicons.checkmark_circle)),
+              icon: const FaIcon(Ionicons.checkmark_circle)),
         ],
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
@@ -371,8 +372,8 @@ class _AddEntryPageState extends State<AddEntryPage> {
                     value: attachmentsCount,
                     textStyle: const TextStyle(fontSize: 36),
                     iconSize: 48.0,
-                    addIcon: const Icon(Icons.add_circle_outline),
-                    subtractIcon: const Icon(Icons.remove_circle_outline),
+                    addIcon:  const Icon(Ionicons.add_circle_outline),
+                    subtractIcon: const Icon(Ionicons.remove_circle_outline),
                     iconActiveColor: Theme.of(context)
                             .elevatedButtonTheme
                             .style

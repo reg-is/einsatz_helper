@@ -4,6 +4,7 @@ import 'package:einsatz_helper/module_etb/settings_page.dart';
 import 'package:einsatz_helper/module_etb/templates_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ETBStartPage extends StatefulWidget {
@@ -46,26 +47,26 @@ class _ETBStartPageState extends State<ETBStartPage> {
               }),
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Ionicons.book_outline),
-              activeIcon: Icon(Ionicons.book),
+              icon: FaIcon(Ionicons.book_outline),
+              activeIcon: FaIcon(Ionicons.book),
               label: 'ETBs',
               // backgroundColor: Colors.yellow,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Ionicons.file_tray_full_outline),
-              activeIcon: Icon(Ionicons.file_tray_full),
+              icon: FaIcon(Ionicons.file_tray_full_outline),
+              activeIcon: FaIcon(Ionicons.file_tray_full),
               label: 'Einträge',
               //backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Ionicons.albums_outline),
-              activeIcon: Icon(Ionicons.albums),
+              icon: FaIcon(Ionicons.albums_outline),
+              activeIcon: FaIcon(Ionicons.albums),
               label: 'Vorlagen',
               // backgroundColor: Colors.red,
             ),
             BottomNavigationBarItem(
-              icon: Icon(Ionicons.settings_outline),
-              activeIcon: Icon(Ionicons.settings),
+              icon: FaIcon(Ionicons.settings_outline),
+              activeIcon: FaIcon(Ionicons.settings),
               label: 'Einstellungen',
               // backgroundColor: Colors.green,
             ),

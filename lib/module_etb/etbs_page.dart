@@ -4,7 +4,9 @@ import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:icon/icon.dart';
 
 import 'pages/new_etb_page.dart';
 
@@ -18,7 +20,7 @@ class ETBsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Einsatztagebücher'),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Ionicons.search)),
+          IconButton(onPressed: () {}, icon: const FaIcon(Ionicons.search)),
         ],
       ),
       body: ValueListenableBuilder<Box<ETBData>>(
@@ -52,7 +54,7 @@ class ETBsPage extends StatelessWidget {
             const SizedBox(height: 8),
             OutlinedButton.icon(
               label: const Text('ETB erstellen'),
-              icon: const Icon(Icons.add_outlined),
+              icon: const FaIcon(Ionicons.add_outline),
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => NewETBPage())),
             )
@@ -206,11 +208,11 @@ class ETBsPage extends StatelessWidget {
                   children: [
                     Chip(
                       visualDensity:
-                          VisualDensity(horizontal: 0.0, vertical: -4),
-                      labelPadding: EdgeInsets.all(1)
+                          const VisualDensity(horizontal: 0.0, vertical: -4),
+                      labelPadding: const EdgeInsets.all(1)
                           .copyWith(right: 8, top: 0, bottom: 0),
                       //padding: EdgeInsets.all(0),
-                      avatar: Icon(
+                      avatar: FaIcon(
                         Ionicons.file_tray_full,
                         color:
                             Theme.of(context).indicatorColor.withOpacity(0.8),
@@ -229,7 +231,7 @@ class ETBsPage extends StatelessWidget {
                       labelPadding: const EdgeInsets.all(1)
                           .copyWith(right: 8, top: 0, bottom: 0),
                       //padding: EdgeInsets.all(0),
-                      avatar: Icon(
+                      avatar: FaIcon(
                         Ionicons.attach,
                         color:
                             Theme.of(context).indicatorColor.withOpacity(0.8),
@@ -247,7 +249,7 @@ class ETBsPage extends StatelessWidget {
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       labelPadding: const EdgeInsets.all(1)
                           .copyWith(right: 8, top: 0, bottom: 0),
-                      avatar: const Icon(
+                      avatar: const FaIcon(
                         Ionicons.share,
                         size: 16,
                       ),
@@ -264,9 +266,8 @@ class ETBsPage extends StatelessWidget {
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       labelPadding: const EdgeInsets.all(1)
                           .copyWith(right: 8, top: 0, bottom: 0),
-                      avatar: const Icon(
+                      avatar: const FaIcon(
                         Ionicons.trash,
-                        //Icons.delete,
                         size: 16,
                       ),
                     ),

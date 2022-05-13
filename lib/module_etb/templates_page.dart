@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'data_box.dart';
@@ -21,7 +22,7 @@ class TemplatesPage extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Search pressed')));
               },
-              icon: const Icon(Ionicons.search)),
+              icon: const FaIcon(Ionicons.search)),
         ],
       ),
       body: ValueListenableBuilder<Box<TemplateData>>(
@@ -57,7 +58,7 @@ class TemplatesPage extends StatelessWidget {
               const SizedBox(height: 8),
               OutlinedButton.icon(
                   label: const Text('Vorlage erstellen'),
-                  icon: const Icon(Icons.add_outlined),
+                  icon: const FaIcon(Ionicons.add_outline),
                   onPressed: () => {
                         Navigator.push(
                             context,
@@ -76,7 +77,7 @@ class TemplatesPage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
               title: Text(templates[index].name),
-              trailing: const Icon(Ionicons.chevron_forward),
+              trailing: const FaIcon(Ionicons.chevron_forward),
               onTap: () => {
                 Navigator.push(
                     context,

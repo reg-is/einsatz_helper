@@ -2,6 +2,7 @@ import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../data_box.dart';
@@ -22,7 +23,7 @@ class NewETBConfirmPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context, 'Back');
               },
-              icon: const Icon(Ionicons.arrow_back_circle)),
+              icon: const FaIcon(Ionicons.arrow_back_circle)),
           actions: [
             IconButton(
                 onPressed: () {
@@ -32,7 +33,7 @@ class NewETBConfirmPage extends StatelessWidget {
                     Navigator.pop(context, 'Save');
                   }
                 },
-                icon: const Icon(Ionicons.checkmark_circle)),
+                icon: const FaIcon(Ionicons.checkmark_circle)),
           ],
         ),
         body: ListView(

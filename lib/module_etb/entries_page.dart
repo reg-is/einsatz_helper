@@ -5,6 +5,7 @@ import 'package:einsatz_helper/module_etb/pages/add_entry_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:einsatz_helper/module_etb/entry_details_page.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'etbs_page.dart';
@@ -44,13 +45,13 @@ class _EntriesPageState extends State<EntriesPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Filter pressed')));
               },
-              icon: const Icon(Ionicons.funnel)),
+              icon: const FaIcon(Ionicons.funnel)),
           IconButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Search pressed')));
               },
-              icon: const Icon(Ionicons.search)),
+              icon: const FaIcon(Ionicons.search)),
         ],
       ),
       body: buildEntriesListView(context, widget.etbKey, noETBs),
@@ -68,9 +69,6 @@ class _EntriesPageState extends State<EntriesPage> {
             });
           },
           child: const Icon(Icons.add),
-          //child: const Icon(Feather.plus),
-          //child: const Icon(Ionicons.add),
-          //child: const Icon(Fontisto.bookmark),
         ),
       ),
     );
@@ -219,7 +217,7 @@ class _EntriesPageState extends State<EntriesPage> {
         visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
         labelPadding:
             const EdgeInsets.all(1).copyWith(right: 8, top: 0, bottom: 0),
-        avatar: const Icon(
+        avatar: const FaIcon(
           Ionicons.attach,
           size: 16,
         ),

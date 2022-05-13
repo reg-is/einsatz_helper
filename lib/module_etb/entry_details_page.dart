@@ -1,6 +1,7 @@
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EntryDetailsPage extends StatelessWidget {
   //const EntryDetailsPage({ Key? key }) : super(key: key);
@@ -15,7 +16,7 @@ class EntryDetailsPage extends StatelessWidget {
           title: const Text('Eintrag Details'),
           actions: [
             IconButton(
-                onPressed: () {}, icon: const Icon(Ionicons.color_palette))
+                onPressed: () {}, icon: const FaIcon(Ionicons.color_palette))
           ],
         ),
         body: ListView(

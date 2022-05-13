@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
@@ -26,7 +27,7 @@ class NewETBPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(Ionicons.close_circle)),
+              icon: const FaIcon(Ionicons.close_circle)),
           actions: [
             IconButton(
                 onPressed: () {
@@ -40,7 +41,7 @@ class NewETBPage extends StatelessWidget {
                                 )));
                   }
                 },
-                icon: const Icon(Ionicons.arrow_forward_circle)),
+                icon: const FaIcon(Ionicons.arrow_forward_circle)),
           ],
         ),
         body: ListView(
