@@ -207,11 +207,11 @@ class AddETBPage extends StatelessWidget {
   bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      print(_formKey.currentState!.value);
+      //print(_formKey.currentState!.value);
       etb = createETB();
       return true;
     } else {
-      print("validation failed");
+      print("Validation new ETB failed");
       return false;
     }
   }
@@ -250,19 +250,19 @@ class AddETBPage extends StatelessWidget {
     String description = '';
 
     description += 'Einsatzbeginn: ${toDTG(formInput['startedDate'])}\n';
-    if (formInput['location'] != null) {
+    if (formInput['location'] != null && formInput['location'] != '') {
       description += 'Einsatzort: ${formInput['location']}\n';
     }
-    if (formInput['damage'] != null) {
+    if (formInput['damage'] != null && formInput['damage'] != '') {
       description += 'Schadensereignis: ${formInput['damage']}\n';
     }
-    if (formInput['weather'] != null) {
+    if (formInput['weather'] != null && formInput['weather'] != '') {
       description += 'Wetterlage: ${formInput['weather']}\n';
     }
-    if (formInput['request'] != null) {
+    if (formInput['request'] != null && formInput['request'] != '') {
       description += 'Einsatzauftrag: ${formInput['request']}\n';
     }
-    if (formInput['units'] != null) {
+    if (formInput['units'] != null && formInput['units'] != '') {
       description += 'Einheiten: ${formInput['units']}\n';
     }
 
