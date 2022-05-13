@@ -16,7 +16,9 @@ class AttachmentDataAdapter extends TypeAdapter<AttachmentData> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return AttachmentData()..id = fields[0] as String;
+    return AttachmentData(
+      id: fields[0] as String,
+    );
   }
 
   @override

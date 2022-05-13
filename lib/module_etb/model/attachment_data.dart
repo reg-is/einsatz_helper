@@ -6,4 +6,11 @@ part 'attachment_data.g.dart';
 class AttachmentData extends HiveObject {
   @HiveField(0)
   late String id;
+
+  // @HiveField(1)
+  // String? filePath;
+
+  // @HiveField(2)
+  // num? fileSize;
+  AttachmentData({required this.id});
 }
