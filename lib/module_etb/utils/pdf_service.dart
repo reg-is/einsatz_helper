@@ -24,12 +24,7 @@ class PdfService {
       margin: const pw.EdgeInsets.all(1 * PdfPageFormat.cm),
       header: (pw.Context context) => buildHeader(etb, context),
       build: (pw.Context context) => [
-        pw.Column(
-          children: [
-            buildEntriesTable(etb),
-            pw.SizedBox(height: 25),
-          ],
-        )
+        buildEntriesTable(etb),
       ],
       footer: (pw.Context context) => buildFooter(etb),
     ));
@@ -149,7 +144,7 @@ class PdfService {
 
   static pw.Widget buildFooter(ETBData etb) {
     return pw.Column(children: [
-      //pw.SizedBox(height: 2 * PdfPageFormat.mm),
+      //pw.SizedBox(height: 3 * PdfPageFormat.mm),
       pw.Container(
           height: 0.3 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
       pw.SizedBox(height: 0.3 * PdfPageFormat.mm),
