@@ -20,60 +20,62 @@ class PdfService {
 
   static Future<Uint8List> createEtbPdf(ETBData etb) {
     final pdf = pw.Document();
-    List<EntryRow> rows = [
-      EntryRow(
-          id: 'Lfd.\nNr.',
-          time: 'Datum / Uhrzeit',
-          description: 'Darstellung der Ereignisse',
-          comment: 'Bemerkung'),
-    ];
-    final List<ETBEntryData> entries = etb.entries ?? [];
 
-    for (var entry in entries) {
-      rows.add(EntryRow(
-          id: entry.id.toString(),
-          time: entry.captureTimeAsDTG,
-          description: entry.description,
-          comment: entry.comment ?? ''));
-    }
-
-    pdf.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
-        build: (pw.Context context) {
-          return pw.Column(
-            children: [
-              pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [
-                  pw.Column(
-                    children: [
-                      pw.Text("Customer Name"),
-                      pw.Text("Customer Address"),
-                      pw.Text("Customer City"),
-                    ],
-                  ),
-                  pw.Column(
-                    children: [
-                      pw.Text("Max Weber"),
-                      pw.Text("Weird Street Name 1"),
-                      pw.Text("77662 Not my City"),
-                      pw.Text("Vat-id: 123456"),
-                      pw.Text("Invoice-Nr: 00001")
-                    ],
-                  )
-                ],
-              ),
-              pw.SizedBox(height: 50),
-              pw.Text(
-                  "Dear Customer, thanks for buying at Flutter Explained, feel free to see the list of items below."),
-              pw.SizedBox(height: 25),
-              _itemColumn(rows),
-              pw.Divider()
-            ],
-          );
-        }));
+    pdf.addPage(pw.MultiPage(
+      pageFormat: PdfPageFormat.a4,
+      margin: const pw.EdgeInsets.all(1 * PdfPageFormat.cm),
+      header: (pw.Context context) => buildHeader(etb),
+      build: (pw.Context context) => [
+        pw.Column(
+          children: [
+            buildEntriesTable(etb),
+            pw.SizedBox(height: 25),
+          ],
+        )
+      ],
+      footer: (pw.Context context) => buildFooter(etb),
+    ));
 
     return pdf.save();
+  }
+
+  static pw.Widget buildEntriesTable(ETBData etb) {
+    final headers = [
+      'Lfd.\nNr.',
+      'Datum /\nUhrzeit',
+      'Darstellung der Ereignisse',
+      'Bemerkung'
+    ];
+
+    final data = etb.entries!.map((entry) {
+      return [
+        entry.id.toString(),
+        entry.captureTimeAsDTG,
+        entry.description,
+        entry.comment ?? ''
+      ];
+    }).toList();
+
+    return pw.Table.fromTextArray(
+        headers: headers,
+        headerStyle: pw.TextStyle(fontWeight: pw.FontWeight.bold),
+        headerAlignment: pw.Alignment.topCenter,
+        data: data,
+        cellHeight: 0,
+        columnWidths: const {
+          0: pw.IntrinsicColumnWidth(),
+          1: pw.IntrinsicColumnWidth(),
+          2: pw.FlexColumnWidth(),
+          3: pw.FixedColumnWidth(3 * PdfPageFormat.cm),
+        },
+        cellPadding: const pw.EdgeInsets.all(4),
+        cellAlignments: const {
+          0: pw.Alignment.topRight,
+          1: pw.Alignment.topCenter,
+          2: pw.Alignment.topLeft,
+          3: pw.Alignment.topLeft,
+        },
+        border: pw.TableBorder.all(width: 0.5));
   }
 
   static pw.Expanded _itemColumn(List<EntryRow> elements) {
@@ -83,10 +85,18 @@ class PdfService {
           for (var element in elements)
             pw.Row(
               children: [
-                pw.Expanded(child: pw.Text(element.id, textAlign: pw.TextAlign.right)),
-                pw.Expanded(child: pw.Text(element.time, textAlign: pw.TextAlign.center)),
-                pw.Expanded(child: pw.Text(element.description, textAlign: pw.TextAlign.left), flex: 3),
-                pw.Expanded(child: pw.Text(element.comment, textAlign: pw.TextAlign.left)),
+                pw.Expanded(
+                    child: pw.Text(element.id, textAlign: pw.TextAlign.right)),
+                pw.Expanded(
+                    child:
+                        pw.Text(element.time, textAlign: pw.TextAlign.center)),
+                pw.Expanded(
+                    child: pw.Text(element.description,
+                        textAlign: pw.TextAlign.left),
+                    flex: 3),
+                pw.Expanded(
+                    child:
+                        pw.Text(element.comment, textAlign: pw.TextAlign.left)),
               ],
             )
         ],
@@ -101,6 +111,138 @@ class PdfService {
     final file = File(filePath);
     await file.writeAsBytes(byteList);
     await OpenDocument.openDocument(filePath: filePath);
+  }
+
+  static pw.Widget buildHeader(ETBData etb) {
+    return pw.Column(
+      children: [
+        // pw.Text('Einsatztagebuch',
+        //     style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
+        pw.Table(
+            border: pw.TableBorder.all(width: 0.5),
+            defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
+            children: [
+              pw.TableRow(children: [
+                pw.Container(
+                  width: 40,
+                  padding: const pw.EdgeInsets.all(4),
+                  alignment: pw.Alignment.center,
+                  child: pw.Text('Fb Fü 2'),
+                ),
+                pw.Container(
+                  //width: 30,
+                  padding: const pw.EdgeInsets.all(4),
+                  alignment: pw.Alignment.center,
+                  color: PdfColors.grey300,
+                  child: pw.Text('Einsatztagebuch',
+                      style: pw.TextStyle(
+                          fontSize: 16, fontWeight: pw.FontWeight.bold)),
+                ),
+                pw.Container(
+                  // For Logo
+                  width: 40,
+                  padding: const pw.EdgeInsets.all(4),
+                  alignment: pw.Alignment.center,
+                  child: pw.Text(''),
+                ),
+              ])
+            ]),
+        pw.SizedBox(height: 3 * PdfPageFormat.mm),
+        pw.Table(
+            border: pw.TableBorder.all(width: 0.5),
+            defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
+            children: [
+              pw.TableRow(children: [
+                pw.Container(
+                  //width: 40,
+                  padding: const pw.EdgeInsets.all(4),
+                  child: pw.Text('Einsatz: ${etb.name}'),
+                ),
+                // pw.Container(
+                //   //width: 30,
+                //   padding: const pw.EdgeInsets.all(4),
+                //   alignment: pw.Alignment.center,
+                //   color: PdfColors.grey300,
+                //   child: pw.Text('Einsatztagebuch',
+                //       style: pw.TextStyle(
+                //           fontSize: 16, fontWeight: pw.FontWeight.bold)),
+                // ),
+
+                // For Logo
+                pw.Container(
+                  width: 20,
+                  padding: const pw.EdgeInsets.all(4),
+                  child: pw.Text('Datum ${etb.startedDate}\nSeite: ? von ?'),
+                ),
+              ])
+            ]),
+        pw.SizedBox(height: 3 * PdfPageFormat.mm),
+      ],
+    );
+  }
+
+  static pw.Widget buildFooter(ETBData etb) {
+    return pw.Column(children: [
+      pw.SizedBox(height: 2 * PdfPageFormat.mm),
+      pw.Container(
+          height: 0.5 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
+      pw.SizedBox(height: 0.5 * PdfPageFormat.mm),
+      pw.Container(
+          height: 0.5 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
+      pw.SizedBox(height: 1.5 * PdfPageFormat.cm),
+      pw.Row(
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
+        children: [
+          pw.Expanded(
+            child: pw.Center(
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Container(
+                      height: 0.5 * PdfPageFormat.mm,
+                      width: 4 * PdfPageFormat.cm,
+                      color: const PdfColorGrey(0.1)),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.only(left: 2, right: 2),
+                      child: pw.Text(etb.leader)),
+                  pw.Padding(
+                      padding: const pw.EdgeInsets.only(left: 2, right: 2),
+                      child: pw.Text('Führung',
+                          style: const pw.TextStyle(
+                              fontSize: 10, color: PdfColorGrey(0.5)))),
+                ],
+              ),
+            ),
+          ),
+          pw.Expanded(
+            child: pw.Center(
+                child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Container(
+                    height: 0.5 * PdfPageFormat.mm,
+                    width: 4 * PdfPageFormat.cm,
+                    color: const PdfColorGrey(0.1)),
+                pw.Padding(
+                  padding: const pw.EdgeInsets.only(left: 2, right: 2),
+                  child: pw.Text(
+                    etb.etbWriter,
+                    maxLines: 2,
+                    //softWrap: true,
+                    overflow: pw.TextOverflow.span,
+                  ),
+                ),
+                pw.Padding(
+                    padding: const pw.EdgeInsets.only(left: 2, right: 2),
+                    child: pw.Text('ETB-Führung',
+                        style: const pw.TextStyle(
+                            fontSize: 10, color: PdfColorGrey(0.5))))
+              ],
+            )),
+          ),
+        ],
+      ),
+    ]);
   }
 }
 
