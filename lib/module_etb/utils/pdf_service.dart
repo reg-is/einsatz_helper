@@ -93,16 +93,19 @@ class PdfService {
         pw.Table(
             border: pw.TableBorder.all(width: 0.5),
             defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
+            columnWidths: const {
+              0: pw.FractionColumnWidth(0.2),
+              1: pw.FractionColumnWidth(0.6),
+              2: pw.FractionColumnWidth(0.2),
+            },
             children: [
               pw.TableRow(children: [
                 pw.Container(
-                  width: 40,
                   padding: const pw.EdgeInsets.all(4),
                   alignment: pw.Alignment.center,
-                  child: pw.Text('Fb Fü 2'),
+                  child: pw.Text('ETB-Nr.: ${etb.id}'),
                 ),
                 pw.Container(
-                  //width: 30,
                   padding: const pw.EdgeInsets.all(4),
                   alignment: pw.Alignment.center,
                   color: PdfColors.grey300,
@@ -112,7 +115,6 @@ class PdfService {
                 ),
                 pw.Container(
                   // For Logo
-                  width: 40,
                   padding: const pw.EdgeInsets.all(4),
                   alignment: pw.Alignment.center,
                   child: pw.Text(''),
@@ -123,15 +125,18 @@ class PdfService {
         pw.Table(
             border: pw.TableBorder.all(width: 0.5),
             defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
+            columnWidths: const {
+              0: pw.FlexColumnWidth(),
+              1: pw.FractionColumnWidth(0.2),
+              //1: pw.IntrinsicColumnWidth(),
+            },
             children: [
               pw.TableRow(children: [
                 pw.Container(
-                  //width: 40,
                   padding: const pw.EdgeInsets.all(4),
                   child: pw.Text('Einsatz: ${etb.name}'),
                 ),
                 pw.Container(
-                  width: 20,
                   padding: const pw.EdgeInsets.all(4),
                   child: pw.Text('Datum ${etb.startedDate}\nSeite: ? von ?'),
                 ),
