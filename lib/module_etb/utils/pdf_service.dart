@@ -7,8 +7,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../model/etb_entry_data.dart';
-
 class PdfService {
   static Future<Uint8List> createHelloWord() {
     final pdf = pw.Document();
@@ -78,32 +76,6 @@ class PdfService {
         border: pw.TableBorder.all(width: 0.5));
   }
 
-  static pw.Expanded _itemColumn(List<EntryRow> elements) {
-    return pw.Expanded(
-      child: pw.Column(
-        children: [
-          for (var element in elements)
-            pw.Row(
-              children: [
-                pw.Expanded(
-                    child: pw.Text(element.id, textAlign: pw.TextAlign.right)),
-                pw.Expanded(
-                    child:
-                        pw.Text(element.time, textAlign: pw.TextAlign.center)),
-                pw.Expanded(
-                    child: pw.Text(element.description,
-                        textAlign: pw.TextAlign.left),
-                    flex: 3),
-                pw.Expanded(
-                    child:
-                        pw.Text(element.comment, textAlign: pw.TextAlign.left)),
-              ],
-            )
-        ],
-      ),
-    );
-  }
-
   // Source: https://github.com/md-weber/pdf_invoice_generator_flutter/blob/master/lib/invoice_service.dart
   static Future<void> savePdfFile(String fileName, Uint8List byteList) async {
     final output = await getTemporaryDirectory();
@@ -158,17 +130,6 @@ class PdfService {
                   padding: const pw.EdgeInsets.all(4),
                   child: pw.Text('Einsatz: ${etb.name}'),
                 ),
-                // pw.Container(
-                //   //width: 30,
-                //   padding: const pw.EdgeInsets.all(4),
-                //   alignment: pw.Alignment.center,
-                //   color: PdfColors.grey300,
-                //   child: pw.Text('Einsatztagebuch',
-                //       style: pw.TextStyle(
-                //           fontSize: 16, fontWeight: pw.FontWeight.bold)),
-                // ),
-
-                // For Logo
                 pw.Container(
                   width: 20,
                   padding: const pw.EdgeInsets.all(4),
@@ -224,14 +185,8 @@ class PdfService {
                     width: 4 * PdfPageFormat.cm,
                     color: const PdfColorGrey(0.1)),
                 pw.Padding(
-                  padding: const pw.EdgeInsets.only(left: 2, right: 2),
-                  child: pw.Text(
-                    etb.etbWriter,
-                    maxLines: 2,
-                    //softWrap: true,
-                    overflow: pw.TextOverflow.span,
-                  ),
-                ),
+                    padding: const pw.EdgeInsets.only(left: 2, right: 2),
+                    child: pw.Text(etb.etbWriter)),
                 pw.Padding(
                     padding: const pw.EdgeInsets.only(left: 2, right: 2),
                     child: pw.Text('ETB-Führung',
@@ -244,17 +199,4 @@ class PdfService {
       ),
     ]);
   }
-}
-
-class EntryRow {
-  late String id;
-  late String time;
-  late String description;
-  late String comment;
-
-  EntryRow(
-      {required this.id,
-      required this.time,
-      required this.description,
-      required this.comment});
 }
