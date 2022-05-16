@@ -22,7 +22,7 @@ class PdfService {
     pdf.addPage(pw.MultiPage(
       pageFormat: PdfPageFormat.a4,
       margin: const pw.EdgeInsets.all(1 * PdfPageFormat.cm),
-      header: (pw.Context context) => buildHeader(etb),
+      header: (pw.Context context) => buildHeader(etb, context),
       build: (pw.Context context) => [
         pw.Column(
           children: [
@@ -85,11 +85,9 @@ class PdfService {
     await OpenDocument.openDocument(filePath: filePath);
   }
 
-  static pw.Widget buildHeader(ETBData etb) {
+  static pw.Widget buildHeader(ETBData etb, pw.Context context) {
     return pw.Column(
       children: [
-        // pw.Text('Einsatztagebuch',
-        //     style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold)),
         pw.Table(
             border: pw.TableBorder.all(width: 0.5),
             defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
@@ -138,7 +136,9 @@ class PdfService {
                 ),
                 pw.Container(
                   padding: const pw.EdgeInsets.all(4),
-                  child: pw.Text('Datum ${etb.startedDate}\nSeite: ? von ?'),
+                  child: pw.Text(
+                      'Datum ${etb.startedDateFormatted('dd.MM.yyyy')}\n'
+                      'Seite: ${context.pageNumber} von ${context.pagesCount}'),
                 ),
               ])
             ]),
@@ -149,12 +149,12 @@ class PdfService {
 
   static pw.Widget buildFooter(ETBData etb) {
     return pw.Column(children: [
-      pw.SizedBox(height: 2 * PdfPageFormat.mm),
+      //pw.SizedBox(height: 2 * PdfPageFormat.mm),
       pw.Container(
-          height: 0.5 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
-      pw.SizedBox(height: 0.5 * PdfPageFormat.mm),
+          height: 0.3 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
+      pw.SizedBox(height: 0.3 * PdfPageFormat.mm),
       pw.Container(
-          height: 0.5 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
+          height: 0.3 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
       pw.SizedBox(height: 1.5 * PdfPageFormat.cm),
       pw.Row(
         crossAxisAlignment: pw.CrossAxisAlignment.start,

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'etb_entry_data.dart';
 
 part 'etb_data.g.dart';
@@ -36,4 +37,8 @@ class ETBData extends HiveObject {
 
   // Get startedDate in Date Time Group (DTG) format
   String get startedDateAsDTG => toDTG(startedDate);
+
+  // Get startedDate in chosen format
+  String startedDateFormatted(String format) =>
+      DateFormat(format).format(startedDate);
 }
