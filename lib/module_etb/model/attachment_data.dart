@@ -7,11 +7,11 @@ class AttachmentData extends HiveObject {
   @HiveField(0)
   late String id;
 
-  // @HiveField(1)
-  // String? filePath;
+  @HiveField(1)
+  String? filePath;
 
-  // @HiveField(2)
-  // num? fileSize;
+  @HiveField(2)
+  num? fileSize;
 
   AttachmentData({required this.id});
 

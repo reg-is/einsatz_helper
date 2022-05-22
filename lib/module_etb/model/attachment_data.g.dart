@@ -18,15 +18,21 @@ class AttachmentDataAdapter extends TypeAdapter<AttachmentData> {
     };
     return AttachmentData(
       id: fields[0] as String,
-    );
+    )
+      ..filePath = fields[1] as String?
+      ..fileSize = fields[2] as num?;
   }
 
   @override
   void write(BinaryWriter writer, AttachmentData obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.id);
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.filePath)
+      ..writeByte(2)
+      ..write(obj.fileSize);
   }
 
   @override
