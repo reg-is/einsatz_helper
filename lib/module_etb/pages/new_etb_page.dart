@@ -90,7 +90,7 @@ class NewETBPage extends StatelessWidget {
           FormBuilderTextField(
             name: 'leader',
             decoration: const InputDecoration(
-              labelText: 'Einsatzleitung*',
+              labelText: 'Führungskraft*',
             ),
             maxLines: null,
             keyboardType: TextInputType.name,
@@ -267,7 +267,7 @@ class NewETBPage extends StatelessWidget {
       description += 'Einheiten: ${formInput['units']}\n';
     }
 
-    description += '\nEinsatzleitung: ${formInput['leader']}\n';
+    description += '\nFührungskraft: ${formInput['leader']}\n';
     description += 'ETB-Führung: ${formInput['etbWriter']}';
 
     return description;

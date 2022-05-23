@@ -68,7 +68,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               description: 'Einsatzende\n\n'
                   'Ende Einsatztagebuch (mit ${etb?.attachmentsSum ?? 0} Anlagen)\n'
                   'ETB-Führung: ${etb?.etbWriter}\n'
-                  'Einsatzleitung: ${etb?.leader}',
+                  'Führungskraft: ${etb?.leader}',
               creationTime: DateTime.now(),
               modificationTime: DateTime.now())
         ];
