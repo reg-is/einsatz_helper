@@ -184,7 +184,7 @@ class ETBsPage extends StatelessWidget {
                 Wrap(
                   children: [
                     const Text(
-                      'Einsatzleitung: ',
+                      'Führungskraft: ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     Text(etb.leader)
