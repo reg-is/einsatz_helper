@@ -138,7 +138,7 @@ class NewETBPage extends StatelessWidget {
           FormBuilderTextField(
             name: 'damage',
             decoration: const InputDecoration(
-              labelText: 'Schadensereignis',
+              labelText: 'Schadenereignis',
             ),
           ),
           FormBuilderTextField(
@@ -255,7 +255,7 @@ class NewETBPage extends StatelessWidget {
       description += 'Einsatzort: ${formInput['location']}\n';
     }
     if (formInput['damage'] != null && formInput['damage'] != '') {
-      description += 'Schadensereignis: ${formInput['damage']}\n';
+      description += 'Schadenereignis: ${formInput['damage']}\n';
     }
     if (formInput['weather'] != null && formInput['weather'] != '') {
       description += 'Wetterlage: ${formInput['weather']}\n';
