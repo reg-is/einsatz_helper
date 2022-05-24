@@ -74,7 +74,7 @@ class PdfService {
   // Source: https://github.com/md-weber/pdf_invoice_generator_flutter/blob/master/lib/invoice_service.dart
   static Future<void> savePdfFile(String fileName, Uint8List byteList) async {
     final output = await getTemporaryDirectory();
-    var filePath = "${output.path}/$fileName.pdf";
+    String filePath = '${output.path}/$fileName.pdf';
     final file = File(filePath);
     await file.writeAsBytes(byteList);
     await OpenDocument.openDocument(filePath: filePath);
