@@ -71,8 +71,10 @@ class TemplatesPage extends StatelessWidget {
       );
     } else {
       var templatesReversed = List<TemplateData>.from(templates.reversed);
-      return ListView.builder(
+      return ListView.separated(
           padding: const EdgeInsets.all(0),
+          separatorBuilder: (BuildContext context, int index) =>
+              const Divider(height: 1, thickness: 2),
           itemCount: templates.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(
