@@ -70,9 +70,9 @@ class NewETBConfirmPage extends StatelessWidget {
             //         ? 'Füge eine Beschreibung hinzu'
             //         : null,
           ),
-          Center(
-              child: ElevatedButton(
-                  onPressed: () {}, child: const Text('Anlage hinzufügen'))),
+          // Center(
+          //     child: ElevatedButton(
+          //         onPressed: () {}, child: const Text('Anlage hinzufügen'))),
           // FormBuilderTextField(
           //   name: 'comment',
           //   decoration: const InputDecoration(
