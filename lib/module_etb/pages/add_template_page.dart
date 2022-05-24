@@ -68,6 +68,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
               ],
             ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+        const SizedBox(height: 8),
         buildNewTemplateForm(context, template),
       ]),
     );
@@ -80,7 +81,6 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
         spacing: 8,
         runSpacing: 16,
         children: [
-          const SizedBox(height: 0),
           FormBuilderTextField(
             name: 'name',
             initialValue: template?.name,

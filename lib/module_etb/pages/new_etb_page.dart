@@ -44,9 +44,10 @@ class NewETBPage extends StatelessWidget {
                 icon: const FaIcon(Ionicons.arrow_forward_circle)),
           ],
         ),
-        body: ListView(
-            padding: const EdgeInsets.all(8),
-            children: <Widget>[buildNewETBForm(context)]));
+        body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+          const SizedBox(height: 4),
+          buildNewETBForm(context)
+        ]));
   }
 
   Widget buildNewETBForm(BuildContext context) {

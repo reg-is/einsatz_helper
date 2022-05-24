@@ -36,9 +36,10 @@ class NewETBConfirmPage extends StatelessWidget {
                 icon: const FaIcon(Ionicons.checkmark_circle)),
           ],
         ),
-        body: ListView(
-            padding: const EdgeInsets.all(8),
-            children: <Widget>[buildConfirmNewETBForm(context)]));
+        body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
+          const SizedBox(height: 4),
+          buildConfirmNewETBForm(context)
+        ]));
   }
 
   Widget buildConfirmNewETBForm(BuildContext context) {
