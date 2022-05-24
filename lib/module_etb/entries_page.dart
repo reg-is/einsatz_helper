@@ -8,6 +8,7 @@ import 'package:einsatz_helper/module_etb/entry_details_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../theme.dart';
 import 'etbs_page.dart';
 
 class EntriesPage extends StatefulWidget {
@@ -156,7 +157,7 @@ class _EntriesPageState extends State<EntriesPage> {
               MaterialPageRoute(builder: (context) => EntryDetailsPage(entry)));
         },
         child: Card(
-          elevation: 2,
+          shape: MyThemes.myCardBorder(context),
           child: Container(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(

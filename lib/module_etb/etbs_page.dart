@@ -8,6 +8,7 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import '../theme.dart';
 import 'pages/new_etb_page.dart';
 
 class ETBsPage extends StatelessWidget {
@@ -134,7 +135,7 @@ class ETBsPage extends StatelessWidget {
                       )));
         },
         child: Card(
-          elevation: 2,
+          shape: MyThemes.myCardBorder(context),
           child: Container(
             padding: const EdgeInsets.all(8.0),
             child: Wrap(
@@ -147,7 +148,7 @@ class ETBsPage extends StatelessWidget {
                   children: [
                     Chip(
                       visualDensity:
-                          VisualDensity(horizontal: 0.0, vertical: -4),
+                          const VisualDensity(horizontal: 0.0, vertical: -4),
                       padding: const EdgeInsets.all(0),
                       label: Text('ETB: ' + etb.id.toString()),
                       labelStyle:
@@ -257,7 +258,8 @@ class ETBsPage extends StatelessWidget {
                       onPressed: () async {
                         //final data = await PdfService.createHelloWord();
                         final data = await PdfService.createEtbPdf(etb);
-                        PdfService.savePdfFile('ETB_${etb.id}_${etb.startedDateAsDTG}', data);
+                        PdfService.savePdfFile(
+                            'ETB_${etb.id}_${etb.startedDateAsDTG}', data);
                       },
                       //labelStyle: TextStyle(color: Colors.white),
                       //backgroundColor: Theme.of(context).unselectedWidgetColor,

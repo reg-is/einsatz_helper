@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../theme.dart';
+
 class EntryDetailsPage extends StatelessWidget {
   //const EntryDetailsPage({ Key? key }) : super(key: key);
   final ETBEntryData entry;
@@ -15,13 +17,14 @@ class EntryDetailsPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Eintrag Details'),
           actions: [
-            IconButton(
-                onPressed: () {}, icon: const FaIcon(Ionicons.color_palette))
+            //IconButton(
+            //    onPressed: () {}, icon: const FaIcon(Ionicons.color_palette))
           ],
         ),
         body: ListView(
           children: [
             buildDetailsCard(
+              context,
               title: Row(children: [
                 const Text('Laufende Nummer: '),
                 // Chip with the number of the ETB-Entry
@@ -39,37 +42,40 @@ class EntryDetailsPage extends StatelessWidget {
               ]),
             ),
             (entry.eventTimeAsDTG != '')
-                ? buildDetailsCard(
+                ? buildDetailsCard(context,
                     title: const Text('Datum / Uhrzeit'),
                     details: Text('Erfassungszeit: ${entry.captureTimeAsDTG}'
                         '\nEreigniszeit: ${entry.eventTimeAsDTG}'))
-                : buildDetailsCard(
+                : buildDetailsCard(context,
                     title: const Text('Datum / Uhrzeit'),
                     details: Text('Erfassungszeit: ${entry.captureTimeAsDTG}')),
             if (entry.counterpart != null)
               buildDetailsCard(
+                context,
                 title: const Text('Gegenstelle'),
                 details: Text(entry.counterpart!),
               ),
-            buildDetailsCard(
+            buildDetailsCard(context,
                 title: const Text('Darstellung des Ereignis'),
                 details: Text(entry.description)),
             if (entry.comment != null)
-              buildDetailsCard(
+              buildDetailsCard(context,
                   title: const Text('Bemerkung'),
                   //details: Text('Anlagen: 2 (Nr. 42-3-1, 42-3-2)')),
                   details: Text(entry.comment!)),
             // buildDetailsCard(
             //     title: const Text('Digitale Anlagen'), details: Text('Todo')),
             if (entry.reference != null)
-              buildDetailsCard(
+              buildDetailsCard(context,
                   title: const Text('Referenz'),
                   details: Text(entry.reference!.toString())),
             buildDetailsCard(
+              context,
               details: Column(
                 children: [
                   const Text(
                       'Neuen Eintrag erstellen und diesen referenzieren.'),
+                  const SizedBox(height: 8),
                   OutlinedButton(
                     onPressed: () {},
                     child: const Text('Referenzieren'),
@@ -83,7 +89,10 @@ class EntryDetailsPage extends StatelessWidget {
 }
 
 // Builds Card Widget for the details of an ETB Entry
-Widget buildDetailsCard({Widget? title, Widget? details}) => Card(
+Widget buildDetailsCard(BuildContext context,
+        {Widget? title, Widget? details}) =>
+    Card(
+      shape: MyThemes.myCardBorder(context),
       child: ListTile(
         title: title,
         subtitle: details,

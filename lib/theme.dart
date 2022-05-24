@@ -1,4 +1,5 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/material.dart';
 
 class MyThemes {
   static final lightTheme = FlexThemeData.light(
@@ -12,6 +13,7 @@ class MyThemes {
   appBarElevation: 1.5,
   tooltipsMatchBackground: true,
   subThemesData: const FlexSubThemesData(
+    cardElevation: 1,
     blendOnLevel: 22,
     blendOnColors: false,
     defaultRadius: 5.0,
@@ -37,6 +39,7 @@ class MyThemes {
     appBarElevation: 8.0,
     tooltipsMatchBackground: true,
     subThemesData: const FlexSubThemesData(
+      cardElevation: 1,
       blendOnLevel: 28,
       defaultRadius: 5.0,
       inputDecoratorIsFilled: false,
@@ -49,4 +52,15 @@ class MyThemes {
     // To use the playground font, add GoogleFonts package and uncomment
     // fontFamily: GoogleFonts.notoSans().fontFamily,
   );
+
+  // Custom border for Cards
+  static ShapeBorder myCardBorder(BuildContext context) {
+    return RoundedRectangleBorder(
+            borderRadius:  BorderRadius.circular(5.0),
+            side: BorderSide(
+              color: Theme.of(context).shadowColor.withOpacity(0.1),
+              width: 1,
+            ),
+          );
+  } 
 }
