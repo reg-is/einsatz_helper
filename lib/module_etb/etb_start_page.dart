@@ -7,15 +7,18 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'widgets/navigation_drawer_widget.dart';
+
 class ETBStartPage extends StatefulWidget {
-  const ETBStartPage({Key? key}) : super(key: key);
+  int index;
+   ETBStartPage({Key? key,  this.index = 0}) : super(key: key);
 
   @override
   State<ETBStartPage> createState() => _ETBStartPageState();
 }
 
 class _ETBStartPageState extends State<ETBStartPage> {
-  int currentIdx = 0;
+  //int currentIdx = 0;//widget.index;
   final screens = [
     const ETBsPage(),
     EntriesPage(),
@@ -27,23 +30,25 @@ class _ETBStartPageState extends State<ETBStartPage> {
   @override
   void dispose() {
     // Close ETB box/database
-    Hive.box('etbBox').close();
-    Hive.box('templateBox').close();
+    //Hive.box('etbBox').close();
+    //Hive.box('templateBox').close();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    //currentIdx = widget.index;
     return Scaffold(
-      body: screens[currentIdx],
+      body: screens[widget.index],
+      drawer: const NavigationDrawerWidget() ,
       bottomNavigationBar: BottomNavigationBar(
           //elevation: 8,
           type: BottomNavigationBarType.fixed,
           //backgroundColor: Color.fromARGB(255, 220, 219, 219),
-          currentIndex: currentIdx,
+          currentIndex: widget.index,
           onTap: (index) => setState(() {
-                currentIdx = index;
+                widget.index = index;
               }),
           items: const [
             BottomNavigationBarItem(

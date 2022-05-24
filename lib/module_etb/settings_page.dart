@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'widgets/navigation_drawer_widget.dart';
+
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class SettingsPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Settings'),
         ),
+        drawer: const NavigationDrawerWidget(),
         body: ListView(
           children: [
             ListTile(

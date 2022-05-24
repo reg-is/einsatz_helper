@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'data_box.dart';
 import 'model/template_data.dart';
 import 'pages/add_template_page.dart';
+import 'widgets/navigation_drawer_widget.dart';
 
 class TemplatesPage extends StatelessWidget {
   const TemplatesPage({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class TemplatesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     addDefaultTemplates();
     return Scaffold(
+      drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
         title: const Text('Vorlagen'),
         actions: [

@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../theme.dart';
 import 'pages/new_etb_page.dart';
+import 'widgets/navigation_drawer_widget.dart';
 
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class ETBsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Theme.of(context).indicatorColor.withOpacity(0.1),
+      drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
         title: const Text('Einsatztagebücher'),
         actions: [
