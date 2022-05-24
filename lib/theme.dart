@@ -3,8 +3,10 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 class MyThemes {
   static final lightTheme = FlexThemeData.light(
   scheme: FlexScheme.green,
+  surfaceMode: FlexSurfaceMode.highBackgroundLowScaffold,
   usedColors: 1,
-  blendLevel: 5, // Higher -> Darker Scaffold background 
+  blendLevel: 8, // Higher -> Darker Scaffold background 
+  lightIsWhite: true,
   appBarStyle: FlexAppBarStyle.material,
   appBarOpacity: 0.95,
   appBarElevation: 1.5,
