@@ -4,21 +4,26 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'utils/global_variables.dart' as globals;
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    bool extendAbbreviation = true;
+  State<SettingsPage> createState() => _SettingsPageState();
+}
 
+class _SettingsPageState extends State<SettingsPage> {
+  bool extendAbbreviation = false;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Settings'),
           leading: IconButton(
-            onPressed: () {
-              globals.scaffoldKey.currentState?.openDrawer();
-            },
-            icon: const FaIcon(Ionicons.menu)),
+              onPressed: () {
+                globals.scaffoldKey.currentState?.openDrawer();
+              },
+              icon: const FaIcon(Ionicons.menu)),
         ),
         body: ListView(
           children: [
