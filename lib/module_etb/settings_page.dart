@@ -12,7 +12,9 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool extendAbbreviation = false;
+  bool _extendAbbreviation = false;
+  String _etbWriter = '';
+  final TextEditingController _etbWriterController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -27,16 +29,14 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         body: ListView(
           children: [
-            ListTile(
-              title: const Text('Kürzel ausschreiben'),
-              subtitle: const Text('Kürzel werden automatisch ausgeschrieben.'),
-              trailing: Switch(
+            SwitchListTile(
+                title: const Text('Kürzel ausschreiben'),
+                subtitle:
+                    const Text('Kürzel werden automatisch ausgeschrieben.'),
+                value: _extendAbbreviation,
                 onChanged: (bool value) {
-                  extendAbbreviation = value;
-                },
-                value: extendAbbreviation,
-              ),
-            ),
+                  setState(() => _extendAbbreviation = value);
+                }),
             const Divider(height: 1, thickness: 2),
             ListTile(
               title: const Text('Kürzeldatenbank'),
@@ -55,16 +55,59 @@ class _SettingsPageState extends State<SettingsPage> {
             const Divider(height: 1, thickness: 2),
             ListTile(
               title: const Text('Organisation'),
-              //subtitle: const Text('Kürzel entfernen oder hinzufügen.'),
+              trailing: TextButton(
+                child: const Text('Auswählen'),
+                onPressed: () {},
+              ),
             ),
             const Divider(height: 1, thickness: 2),
             ListTile(
-              title: const Text('Standard ETB-Führung'),
+              title: const Text('Standard Name ETB-Führung'),
               subtitle: const Text(
                   'Dieser Name wir beim erstellen neuer ETBs genutzt.'),
-              trailing: Text('Max Mustermann'),
+              trailing: Container(
+                constraints: const BoxConstraints(maxWidth: 110),
+                child: (_etbWriter == '')
+                    ? TextButton(
+                        child: const Text('Auswählen'),
+                        onPressed: () => _showEtbWriterInputDialog(context),
+                      )
+                    : Text(
+                        _etbWriter,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+              ),
+              onTap: () {
+                _etbWriterController.text = _etbWriter;
+                _showEtbWriterInputDialog(context);
+              },
             ),
           ],
         ));
+  }
+
+  // Show Dialog with text field to input name of etb-writer
+  Future<void> _showEtbWriterInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Standard Name ETB-Führung'),
+              content: TextField(
+                controller: _etbWriterController,
+                decoration: const InputDecoration(hintText: "Name"),
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _etbWriter = _etbWriterController.text;
+                    });
+                    Navigator.pop(context, 'OK');
+                  },
+                  child: const Text('Speichern'),
+                ),
+              ],
+            ));
   }
 }
