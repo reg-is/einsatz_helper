@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'widgets/navigation_drawer_widget.dart';
+import 'utils/global_variables.dart' as globals;
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -15,13 +14,17 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Settings'),
+          leading: IconButton(
+            onPressed: () {
+              globals.scaffoldKey.currentState?.openDrawer();
+            },
+            icon: const FaIcon(Ionicons.menu)),
         ),
-        drawer: const NavigationDrawerWidget(),
         body: ListView(
           children: [
             ListTile(
               title: const Text('Kürzel ausschreiben'),
-              subtitle: const Text('Kürzel werden automatich ausgeschrieben.'),
+              subtitle: const Text('Kürzel werden automatisch ausgeschrieben.'),
               trailing: Switch(
                 onChanged: (bool value) {
                   extendAbbreviation = value;

@@ -6,7 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'data_box.dart';
 import 'model/template_data.dart';
 import 'pages/add_template_page.dart';
-import 'widgets/navigation_drawer_widget.dart';
+import 'utils/global_variables.dart' as globals;
 
 class TemplatesPage extends StatelessWidget {
   const TemplatesPage({Key? key}) : super(key: key);
@@ -15,9 +15,13 @@ class TemplatesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     addDefaultTemplates();
     return Scaffold(
-      drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
         title: const Text('Vorlagen'),
+        leading: IconButton(
+            onPressed: () {
+              globals.scaffoldKey.currentState?.openDrawer();
+            },
+            icon: const FaIcon(Ionicons.menu)),
         actions: [
           IconButton(
               onPressed: () {

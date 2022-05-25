@@ -3,9 +3,11 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../etb_start_page.dart';
+import '../settings_page.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
-  const NavigationDrawerWidget({Key? key}) : super(key: key);
+  final Function callback;
+  const NavigationDrawerWidget(this.callback, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,56 +15,82 @@ class NavigationDrawerWidget extends StatelessWidget {
       child: ListView(
         children: [
           Container(
-            padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
+            padding: const EdgeInsets.fromLTRB(13.0, 24.0, 13.0, 8.0),
             child: const Text(
               'Einsatzunterstützung',
               style: TextStyle(fontSize: 18),
             ),
           ),
           const Divider(height: 1, thickness: 3),
-          const ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 15.0),
-            minLeadingWidth: 0,
-            leading: FaIcon(Ionicons.eye),
-            title: Text('Modul Erkundung'),
-            iconColor: Color.fromARGB(255, 214, 185, 228),
-          ),
+          moduleListTile(context,
+              title: const Text('Modul Erkundung'),
+              backgroundColor: Color.fromARGB(255, 214, 185, 228),
+              iconData: Ionicons.map),
           const Divider(height: 1, thickness: 1),
-          const ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 15.0),
-            minLeadingWidth: 0,
-            leading: FaIcon(Ionicons.construct),
-            title: Text('Modul Ausrüstungsverwaltung'),
-            iconColor: Color.fromARGB(255, 184, 210, 247),
+          moduleListTile(context,
+              title: const Text('Modul Ausrüstungsverwaltung'),
+              backgroundColor: Color.fromARGB(255, 184, 210, 247),
+              iconData: Ionicons.construct),
+          const Divider(height: 1, thickness: 1),
+          moduleListTile(
+            context,
+            title: const Text('Modul Einsatztagebuch'),
+            backgroundColor: Color.fromARGB(255, 166, 200, 165),
+            iconData: Ionicons.book,
+            onTap: () {
+              callback(0);
+              Navigator.pop(context);
+            },
           ),
           const Divider(height: 1, thickness: 1),
           ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 15.0),
-              selected: true,
-              minLeadingWidth: 0,
-              leading: const FaIcon(Ionicons.book),
-              title: const Text('Modul Einsatztagebuch'),
-              onTap: () => Navigator.pop(context)),
-          const Divider(height: 1, thickness: 1),
-          ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 15.0),
-              minLeadingWidth: 0,
-              leading: const FaIcon(Ionicons.settings),
-              title: const Text('Einstellungen'),
-              onTap: () {
-                // setState(() {
-                //   currentIdx = 3;
-                // });
-                Navigator.pop(context);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ETBStartPage(
-                              index: 3,
-                            )));
-              }),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 15.0),
+            minLeadingWidth: 0,
+            leading: const FaIcon(Ionicons.settings),
+            title: const Text('Einstellungen'),
+            onTap: () {
+              callback(3);
+              Navigator.pop(context);
+            },
+          ),
         ],
       ),
     );
+  }
+
+  // Build an entry for Drawer
+  static ListTile moduleListTile(BuildContext context,
+      {required Color backgroundColor,
+      required Widget title,
+      required IconData iconData,
+      void Function()? onTap,
+      bool roundedBox = true}) {
+    if (roundedBox) {
+      return ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 13.0),
+        minLeadingWidth: 0,
+        leading: Container(
+          child: FaIcon(iconData,
+              size: 18, color: Theme.of(context).colorScheme.background),
+          height: 28,
+          width: 28,
+          decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: const BorderRadius.all(Radius.circular(5))),
+          alignment: Alignment.center,
+        ),
+        title: title,
+        onTap: onTap,
+      );
+    } else {
+      return ListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 15.0),
+        minLeadingWidth: 0,
+        leading: FaIcon(iconData),
+        iconColor: backgroundColor,
+        title: title,
+        onTap: onTap,
+      );
+    }
   }
 }

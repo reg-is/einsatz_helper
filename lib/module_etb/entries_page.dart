@@ -10,12 +10,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../theme.dart';
 import 'etbs_page.dart';
-import 'widgets/navigation_drawer_widget.dart';
+import 'utils/global_variables.dart' as globals;
 
 class EntriesPage extends StatefulWidget {
   late dynamic etbKey;
+  bool noDrawer;
 
-  EntriesPage({Key? key, this.etbKey}) : super(key: key);
+  EntriesPage({Key? key, this.etbKey, this.noDrawer = false}) : super(key: key);
 
   @override
   State<EntriesPage> createState() => _EntriesPageState();
@@ -38,10 +39,16 @@ class _EntriesPageState extends State<EntriesPage> {
     ETBData? etb = DataBox.getETBByKey(widget.etbKey);
     bool finished = (noETBs || etb == null) ? true : etb.finished;
     return Scaffold(
-      drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
         title: const Text('Einträge'),
         elevation: 1,
+        leading: (!widget.noDrawer)
+            ? IconButton(
+                onPressed: () {
+                  globals.scaffoldKey.currentState?.openDrawer();
+                },
+                icon: const FaIcon(Ionicons.menu))
+            : null,
         actions: [
           // IconButton(
           //     onPressed: () {

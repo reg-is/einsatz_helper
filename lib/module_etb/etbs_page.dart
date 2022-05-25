@@ -10,7 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../theme.dart';
 import 'pages/new_etb_page.dart';
-import 'widgets/navigation_drawer_widget.dart';
+import 'utils/global_variables.dart' as globals;
 
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
@@ -18,12 +18,16 @@ class ETBsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
         title: const Text('Einsatztagebücher'),
         actions: [
           IconButton(onPressed: () {}, icon: const FaIcon(Ionicons.search)),
         ],
+        leading: IconButton(
+            onPressed: () {
+              globals.scaffoldKey.currentState?.openDrawer();
+            },
+            icon: const FaIcon(Ionicons.menu)),
       ),
       body: ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
@@ -133,6 +137,7 @@ class ETBsPage extends StatelessWidget {
               MaterialPageRoute(
                   builder: (context) => EntriesPage(
                         etbKey: etbKey,
+                        noDrawer: true,
                       )));
         },
         child: Card(

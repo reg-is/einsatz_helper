@@ -7,18 +7,18 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'utils/global_variables.dart' as globals;
 import 'widgets/navigation_drawer_widget.dart';
 
 class ETBStartPage extends StatefulWidget {
-  int index;
-   ETBStartPage({Key? key,  this.index = 0}) : super(key: key);
+  const ETBStartPage({Key? key}) : super(key: key);
 
   @override
   State<ETBStartPage> createState() => _ETBStartPageState();
 }
 
 class _ETBStartPageState extends State<ETBStartPage> {
-  //int currentIdx = 0;//widget.index;
+  int currentIndex = 0;
   final screens = [
     const ETBsPage(),
     EntriesPage(),
@@ -30,25 +30,33 @@ class _ETBStartPageState extends State<ETBStartPage> {
   @override
   void dispose() {
     // Close ETB box/database
-    //Hive.box('etbBox').close();
-    //Hive.box('templateBox').close();
+    Hive.box('etbBox').close();
+    Hive.box('templateBox').close();
 
     super.dispose();
+  }
+
+  // Callback function that drawer can call to change the index of bottomNavigationBar
+  void callbackDrawer(int index) {
+    setState(() {
+      currentIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     //currentIdx = widget.index;
     return Scaffold(
-      body: screens[widget.index],
-      drawer: const NavigationDrawerWidget() ,
+      key: globals.scaffoldKey,
+      body: screens[currentIndex],
+      drawer: NavigationDrawerWidget(callbackDrawer),
       bottomNavigationBar: BottomNavigationBar(
           //elevation: 8,
           type: BottomNavigationBarType.fixed,
           //backgroundColor: Color.fromARGB(255, 220, 219, 219),
-          currentIndex: widget.index,
+          currentIndex: currentIndex,
           onTap: (index) => setState(() {
-                widget.index = index;
+                currentIndex = index;
               }),
           items: const [
             BottomNavigationBarItem(
