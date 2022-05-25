@@ -19,6 +19,7 @@ Future<void> main() async {
   Hive.registerAdapter(TemplateDataAdapter());
   await Hive.openBox<ETBData>('etbBox');
   await Hive.openBox<TemplateData>('templateBox');
+  await Hive.openBox('settingsBox');
 
   runApp(const MyApp());
 }

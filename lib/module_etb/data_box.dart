@@ -10,6 +10,9 @@ class DataBox {
   // Gets the box containing all templates
   static Box<TemplateData> getTemplates() => Hive.box<TemplateData>('templateBox');
 
+  // Gets the box containing all settings
+  static Box getSettings() => Hive.box('settingsBox');
+
   // Adds [entry] to the etb with the key: [etbKey[]
   static void appendEntry(dynamic etbKey, ETBEntryData entry) {
     final etbBox = DataBox.getETBs();
