@@ -107,36 +107,33 @@ class NewETBPage extends StatelessWidget {
             keyboardType: TextInputType.name,
             validator: FormBuilderValidators.required(),
           ),
-          FormBuilderField(
-            name: "units",
-            builder: (FormFieldState<dynamic> field) {
-              return InputDecorator(
-                  decoration: InputDecoration(
-                    labelText: "Einheiten und Stärke",
-                    //contentPadding: EdgeInsets.only(top: 10.0, bottom: 0.0),
-                    //border: InputBorder.none,
-                    errorText: field.errorText,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Einheiten und Stärke'),
-                      Icon(Ionicons.chevron_forward)
-                    ],
-                  ));
-            },
+          FormBuilderTextField(
+            name: 'units',
+            decoration: const InputDecoration(
+              labelText: 'Einheiten und Stärke',
+            ),
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
           ),
-          // Container(
-          //           //height: 200,
-          //           child: ListTile(
-          //         title: Text('Einheiten und Stärke'),
-          //         trailing: Icon(Ionicons.chevron_forward),
-          //         onTap: () {
-          //           // ToDo
-          //         },
-          //       )
-          //           //Text('ToDo: Einheiten und Stärke')
-          //           ),
+          // FormBuilderField(
+          //   name: 'units2',
+          //   builder: (FormFieldState<dynamic> field) {
+          //     return InputDecorator(
+          //         decoration: InputDecoration(
+          //           labelText: 'Einheiten und Stärke',
+          //           //contentPadding: EdgeInsets.only(top: 10.0, bottom: 0.0),
+          //           //border: InputBorder.none,
+          //           errorText: field.errorText,
+          //         ),
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //           children: [
+          //             Text('Einheiten und Stärke'),
+          //             Icon(Ionicons.chevron_forward)
+          //           ],
+          //         ));
+          //   },
+          // ),
           FormBuilderTextField(
             name: 'damage',
             decoration: const InputDecoration(
@@ -290,7 +287,7 @@ class NewETBPage extends StatelessWidget {
       description += 'Einsatzauftrag: ${formInput['request']}\n';
     }
     if (formInput['units'] != null && formInput['units'] != '') {
-      description += 'Einheiten: ${formInput['units']}\n';
+      description += 'Einheiten:\n${formInput['units']}\n';
     }
 
     description += '\nFührungskraft: ${formInput['leader']}\n';
