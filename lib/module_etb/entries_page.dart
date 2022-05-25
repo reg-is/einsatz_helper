@@ -50,16 +50,16 @@ class _EntriesPageState extends State<EntriesPage> {
                 icon: const FaIcon(Ionicons.menu))
             : null,
         actions: [
-          // IconButton(
-          //     onPressed: () {
-          //       ScaffoldMessenger.of(context).showSnackBar(
-          //           const SnackBar(content: Text('Filter pressed')));
-          //     },
-          //     icon: const FaIcon(Ionicons.funnel)),
           IconButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Search pressed')));
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Funktion noch nicht implementiert.')));
+              },
+              icon: const FaIcon(Ionicons.funnel)),
+          IconButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Funktion noch nicht implementiert.')));
               },
               icon: const FaIcon(Ionicons.search)),
         ],

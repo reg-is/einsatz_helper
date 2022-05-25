@@ -21,7 +21,12 @@ class ETBsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Einsatztagebücher'),
         actions: [
-          IconButton(onPressed: () {}, icon: const FaIcon(Ionicons.search)),
+          IconButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Funktion noch nicht implementiert.')));
+              },
+              icon: const FaIcon(Ionicons.search)),
         ],
         leading: IconButton(
             onPressed: () {

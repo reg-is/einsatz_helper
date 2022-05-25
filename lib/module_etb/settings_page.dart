@@ -15,7 +15,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   bool _extendAbbreviation = false;
   var settingsBox = DataBox.getSettings();
-  //String _etbWriter = (settingsBox.containsKey('etbWriter')) ? settingsBox.get('etbWriter') : '';
   String _etbWriter = DataBox.getSettings().get('etbWriter', defaultValue: '');
 
   final TextEditingController _etbWriterController = TextEditingController();
@@ -40,6 +39,8 @@ class _SettingsPageState extends State<SettingsPage> {
                 value: _extendAbbreviation,
                 onChanged: (bool value) {
                   setState(() => _extendAbbreviation = value);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Funktion noch nicht implementiert.')));
                 }),
             const Divider(height: 1, thickness: 2),
             ListTile(
@@ -53,7 +54,10 @@ class _SettingsPageState extends State<SettingsPage> {
                     FaIcon(Icons.arrow_forward)
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Funktion noch nicht implementiert.')));
+                },
               ),
             ),
             const Divider(height: 1, thickness: 2),
@@ -61,7 +65,10 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text('Organisation'),
               trailing: TextButton(
                 child: const Text('Auswählen'),
-                onPressed: () {},
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Funktion noch nicht implementiert.')));
+                },
               ),
             ),
             const Divider(height: 1, thickness: 2),

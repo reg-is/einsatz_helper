@@ -25,8 +25,8 @@ class TemplatesPage extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Search pressed')));
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Funktion noch nicht implementiert.')));
               },
               icon: const FaIcon(Ionicons.search)),
         ],
