@@ -43,12 +43,12 @@ class _EntriesPageState extends State<EntriesPage> {
         title: const Text('Einträge'),
         elevation: 1,
         actions: [
-          IconButton(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Filter pressed')));
-              },
-              icon: const FaIcon(Ionicons.funnel)),
+          // IconButton(
+          //     onPressed: () {
+          //       ScaffoldMessenger.of(context).showSnackBar(
+          //           const SnackBar(content: Text('Filter pressed')));
+          //     },
+          //     icon: const FaIcon(Ionicons.funnel)),
           IconButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(
