@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'data_box.dart';
 import 'utils/global_variables.dart' as globals;
 
 class SettingsPage extends StatefulWidget {
@@ -13,7 +14,10 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool _extendAbbreviation = false;
-  String _etbWriter = '';
+  var settingsBox = DataBox.getSettings();
+  //String _etbWriter = (settingsBox.containsKey('etbWriter')) ? settingsBox.get('etbWriter') : '';
+  String _etbWriter = DataBox.getSettings().get('etbWriter', defaultValue: '');
+
   final TextEditingController _etbWriterController = TextEditingController();
 
   @override
@@ -102,6 +106,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   onPressed: () {
                     setState(() {
                       _etbWriter = _etbWriterController.text;
+                      settingsBox.put('etbWriter', _etbWriter);
                     });
                     Navigator.pop(context, 'OK');
                   },

@@ -102,6 +102,8 @@ class NewETBPage extends StatelessWidget {
             decoration: const InputDecoration(
               labelText: 'ETB-Führung*',
             ),
+            initialValue:
+                DataBox.getSettings().get('etbWriter', defaultValue: null),
             maxLines: null,
             keyboardType: TextInputType.name,
             validator: FormBuilderValidators.required(),
