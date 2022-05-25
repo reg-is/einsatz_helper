@@ -15,7 +15,6 @@ class NewETBPage extends StatelessWidget {
   NewETBPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
-  var options = ["Option 1", "Option 2", "Option 3"];
   late ETBData etb;
 
   @override
@@ -144,11 +143,35 @@ class NewETBPage extends StatelessWidget {
               labelText: 'Schadenereignis',
             ),
           ),
-          FormBuilderTextField(
+          FormBuilderDropdown(
             name: 'weather',
             decoration: const InputDecoration(
               labelText: 'Wetterlage',
             ),
+            allowClear: true,
+            isDense: true,
+            hint: const Text('Wähle Wetterlage'),
+            items: Weather.weatherOptions
+                .map((weather) => DropdownMenuItem(
+                      value: weather.name,
+                      child: Wrap(
+                        spacing: 8,
+                        children: [
+                          SizedBox(
+                              width: 32,
+                              child: Center(
+                                child: FaIcon(
+                                  weather.iconData,
+                                ),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: Text(weather.name),
+                          ),
+                        ],
+                      ),
+                    ))
+                .toList(),
           ),
           Center(
             child: Wrap(
@@ -275,4 +298,28 @@ class NewETBPage extends StatelessWidget {
 
     return description;
   }
+}
+
+class Weather {
+  String name;
+  IconData iconData;
+
+  Weather(this.name, this.iconData);
+
+  static List<Weather> weatherOptions = [
+    Weather('Heiter', WeatherIcons.wi_day_sunny),
+    Weather('Leicht Bewölkt', WeatherIcons.wi_day_cloudy),
+    Weather('Bewölkt', WeatherIcons.wi_day_cloudy_high),
+    Weather('Bedeckt', WeatherIcons.wi_cloud),
+    Weather('Regenschauer', WeatherIcons.wi_day_sleet),
+    Weather('Regen', WeatherIcons.wi_sleet),
+    Weather('Starker Regen', WeatherIcons.wi_rain),
+    Weather('Schnee', WeatherIcons.wi_snow),
+    Weather('Schneeschauer', WeatherIcons.wi_day_snow),
+    // Weather('Schneeregen', WeatherIcons.wi_snow),
+    // Weather('Schneeregenschauer', WeatherIcons.wi_snow),
+    Weather('Gewitter', WeatherIcons.wi_thunderstorm),
+    Weather('Glatteis', WeatherIcons.wi_snowflake_cold),
+    Weather('Nebel', WeatherIcons.wi_fog),
+  ];
 }
