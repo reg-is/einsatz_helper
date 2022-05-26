@@ -94,6 +94,18 @@ class _SettingsPageState extends State<SettingsPage> {
                 _showEtbWriterInputDialog(context);
               },
             ),
+            const Divider(height: 1, thickness: 2),
+            ListTile(
+              title: const Text('Vorlagen zurücksetzen'),
+              subtitle: const Text(
+                  'Alle eigenen Vorlagen löschen und Standard-Vorlagen wiederherstellen.'),
+              trailing: TextButton(
+                child: const Text('Zurücksetzen'),
+                onPressed: () {
+                  _deleteTemplates(context);
+                },
+              ),
+            ),
           ],
         ));
   }
@@ -121,5 +133,30 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
               ],
             ));
+  }
+
+  // Delete all templates and reset to defaults
+  Future _deleteTemplates(context) {
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Vorlagen löschen?'),
+        content: const Text(
+            'Wollen Sie wirklich alle eigenen Vorlagen löschen?\nDie Standard-Vorlagen werden anschließend wiederherstellen.'),
+        actions: <Widget>[
+          OutlinedButton(
+            child: const Text('Löschen'),
+            onPressed: () {
+              DataBox.getTemplates().clear();
+              Navigator.pop(context, 'OK');
+            },
+          ),
+          ElevatedButton(
+            child: const Text('Abbrechen'),
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+          ),
+        ],
+      ),
+    );
   }
 }
