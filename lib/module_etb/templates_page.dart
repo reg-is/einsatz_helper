@@ -107,13 +107,41 @@ class TemplatesPage extends StatelessWidget {
           name: 'Abfahrt vom Ortsverband',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
-          description: 'Abfahrt vom Ortsverband'),
+          description: 'Abfahrt vom Ortsverband.'),
       TemplateData.build(
           id: 'b',
           name: 'Ankunft am Einsatzort',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
-          description: 'Ankunft am Einsatzort'),
+          description: 'Ankunft am Einsatzort.'),
+      TemplateData.build(
+          id: 'c',
+          name: 'Erkundung des Einsatzort',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description:
+              'Erkundung des Einsatzort'),
+      TemplateData.build(
+          id: 'd',
+          name: 'Rückfahrt zu Ortsverband',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description:
+              'Abfahrt an LuK-Ortsverband gemeldet. Rückfahrt zu Ortsverband.'),
+      TemplateData.build(
+          id: 'e',
+          name: 'Ankunft am Ortsverband',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description:
+              'Ankunft am Ortsverband. Herstellen der Einsatzbereitschaft.'),
+      TemplateData.build(
+          id: 'f',
+          name: 'Rückfahrt zu Ortsverband',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description:
+              'Abfahrt an LuK-Ortsverband gemeldet. Rückfahrt zu Ortsverband.'),
     ];
 
     for (var template in defaultTemplates) {
