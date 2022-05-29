@@ -221,7 +221,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                     .firstWhere((template) => template.id == value as dynamic);
                 // Update form fields with values from selected template
                 _formKey.currentState?.patchValue({
-                  'counterpart': selectedTemplate?.comment,
+                  'counterpart': selectedTemplate?.counterpart,
                   'description': selectedTemplate?.description,
                   'comment': selectedTemplate?.comment,
                 });
