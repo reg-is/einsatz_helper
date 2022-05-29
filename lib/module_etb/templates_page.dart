@@ -119,15 +119,15 @@ class TemplatesPage extends StatelessWidget {
           name: 'Erkundung des Einsatzort',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
-          description:
-              'Erkundung des Einsatzort'),
+          description: 'Erkundung des Einsatzort'),
       TemplateData.build(
           id: 'd',
-          name: 'Rückfahrt zu Ortsverband',
+          name: 'Rückfahrt zum Ortsverband',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
+          counterpart: 'LuK-Ortsverband',
           description:
-              'Abfahrt an LuK-Ortsverband gemeldet. Rückfahrt zu Ortsverband.'),
+              'Abfahrt an LuK-Ortsverband gemeldet. Rückfahrt zum Ortsverband.'),
       TemplateData.build(
           id: 'e',
           name: 'Ankunft am Ortsverband',
@@ -137,11 +137,12 @@ class TemplatesPage extends StatelessWidget {
               'Ankunft am Ortsverband. Herstellen der Einsatzbereitschaft.'),
       TemplateData.build(
           id: 'f',
-          name: 'Rückfahrt zu Ortsverband',
+          name: 'Einsatzabschlussmeldung',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
+          counterpart: 'LuK-Ortsverband',
           description:
-              'Abfahrt an LuK-Ortsverband gemeldet. Rückfahrt zu Ortsverband.'),
+              'Einsatzbereitschaft wiederhergestellt, Einsatzabschlussmeldung in Anlage an LuK-Ortsverband weitergeleitet.'),
     ];
 
     for (var template in defaultTemplates) {

@@ -145,7 +145,7 @@ class _SettingsPageState extends State<SettingsPage> {
             'Wollen Sie wirklich alle eigenen Vorlagen löschen?\nDie Standard-Vorlagen werden anschließend wiederherstellen.'),
         actions: <Widget>[
           OutlinedButton(
-            child: const Text('Löschen'),
+            child: const Text('Zurücksetzen'),
             onPressed: () {
               DataBox.getTemplates().clear();
               Navigator.pop(context, 'OK');
