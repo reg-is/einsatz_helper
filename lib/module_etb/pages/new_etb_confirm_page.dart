@@ -59,7 +59,7 @@ class NewETBConfirmPage extends StatelessWidget {
           FormBuilderTextField(
             name: 'description',
             decoration: const InputDecoration(
-              labelText: 'Darstellung des Ereignis',
+              labelText: 'Darstellung des Ereignisses',
             ),
             initialValue: etb.entries!.first.description,
             maxLines: null,

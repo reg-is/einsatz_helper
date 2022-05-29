@@ -100,7 +100,7 @@ class _AddTemplatePageState extends State<AddTemplatePage> {
             name: 'description',
             initialValue: template?.description,
             decoration: const InputDecoration(
-              labelText: 'Darstellung des Ereignis',
+              labelText: 'Darstellung des Ereignisses',
             ),
             minLines: 4,
             maxLines: null,

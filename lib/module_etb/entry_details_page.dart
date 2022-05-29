@@ -56,7 +56,7 @@ class EntryDetailsPage extends StatelessWidget {
                 details: Text(entry.counterpart!),
               ),
             buildDetailsCard(context,
-                title: const Text('Darstellung des Ereignis'),
+                title: const Text('Darstellung des Ereignisses'),
                 details: Text(entry.description)),
             if (entry.comment != null)
               buildDetailsCard(context,
