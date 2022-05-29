@@ -57,7 +57,7 @@ class ETBsPage extends StatelessWidget {
           children: [
             const Center(
               child: Text(
-                'Es wurden noch kein Einsatztagebücher erstellt.',
+                'Es wurden noch keine Einsatztagebücher erstellt.',
                 style: TextStyle(fontSize: 18),
                 textAlign: TextAlign.center,
               ),

@@ -77,7 +77,10 @@ class EntryDetailsPage extends StatelessWidget {
                       'Neuen Eintrag erstellen und diesen referenzieren.'),
                   const SizedBox(height: 8),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text('Funktion noch nicht implementiert.')));
+                    },
                     child: const Text('Referenzieren'),
                   ),
                 ],

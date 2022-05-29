@@ -92,7 +92,7 @@ class _EntriesPageState extends State<EntriesPage> {
           if (noETBs) {
             return const Center(
               child: Text(
-                'Es wurde noch kein Einsatztagebuch erstellt.',
+                'Es wurden noch keine Einsatztagebücher erstellt.',
                 style: TextStyle(fontSize: 18),
                 textAlign: TextAlign.center,
               ),

@@ -372,7 +372,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                     value: attachmentsCount,
                     textStyle: const TextStyle(fontSize: 36),
                     iconSize: 48.0,
-                    addIcon:  const Icon(Ionicons.add_circle_outline),
+                    addIcon: const Icon(Ionicons.add_circle_outline),
                     subtractIcon: const Icon(Ionicons.remove_circle_outline),
                     iconActiveColor: Theme.of(context)
                             .elevatedButtonTheme
@@ -431,25 +431,34 @@ class _AddEntryPageState extends State<AddEntryPage> {
   }
 
   Future<dynamic> buildAttachmentConfirmation(BuildContext context) {
+    final String title;
+    final String subtitle;
+
+    switch (attachmentsCount) {
+      case 1:
+        title = 'Es wurde eine Anlage erzeugt';
+        subtitle =
+            'Bitte vermerken sie die Nummer ${attachments.first.id} auf der zugehörigen Anlage.';
+        break;
+      case 2:
+        title = 'Es wurden zwei Anlage erzeugt';
+        subtitle =
+            'Bitte vermerken sie die Nummern ${attachments.first.id} und ${attachments.last.id} auf den zugehörigen Anlagen.';
+        break;
+      default:
+        title = 'Es wurden $attachmentsCount Anlagen erzeugt';
+        subtitle =
+            'Bitte vermerken sie die Nummern ${attachments.first.id} bis ${attachments.last.id} auf den zugehörigen Anlagen.';
+    }
+
     return showModalBottomSheet(
         context: context,
         builder: (context) => Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text(
-                'Es wurde $attachmentsCount Anlagen erzeugt',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
               const SizedBox(height: 8),
-              if (attachmentsCount == 1)
-                Text(
-                    'Bitte vermerken sie die Nummer ${attachments.first.id} auf der zugehörigen Anlage.'),
-              if (attachmentsCount == 2)
-                Text(
-                    'Bitte vermerken sie die Nummern ${attachments.first.id} und ${attachments.last.id} auf den zugehörigen Anlagen.'),
-              if (attachmentsCount > 2)
-                Text(
-                    'Bitte vermerken sie die Nummern ${attachments.first.id} bis ${attachments.last.id} auf den zugehörigen Anlagen.'),
+              Text(subtitle),
               const SizedBox(height: 8),
               ElevatedButton(
                 onPressed: () {

@@ -116,7 +116,7 @@ class TemplatesPage extends StatelessWidget {
           description: 'Ankunft am Einsatzort.'),
       TemplateData.build(
           id: 'c',
-          name: 'Erkundung des Einsatzort',
+          name: 'Erkundung des Einsatzortes',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
           description: 'Erkundung des Einsatzort'),

@@ -23,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Settings'),
+          title: const Text('Einstellungen'),
           leading: IconButton(
               onPressed: () {
                 globals.scaffoldKey.currentState?.openDrawer();
@@ -47,13 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
               title: const Text('Kürzeldatenbank'),
               subtitle: const Text('Kürzel entfernen oder hinzufügen.'),
               trailing: TextButton(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text('Verwalten'),
-                    FaIcon(Icons.arrow_forward)
-                  ],
-                ),
+                child: const Text('Verwalten'),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Funktion noch nicht implementiert.')));
@@ -75,7 +69,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ListTile(
               title: const Text('Standard Name ETB-Führung'),
               subtitle: const Text(
-                  'Dieser Name wir beim erstellen neuer ETBs genutzt.'),
+                  'Dieser Name wir beim Erstellen neuer ETBs genutzt.'),
               trailing: Container(
                 constraints: const BoxConstraints(maxWidth: 110),
                 child: (_etbWriter == '')
@@ -142,7 +136,7 @@ class _SettingsPageState extends State<SettingsPage> {
       builder: (BuildContext context) => AlertDialog(
         title: const Text('Vorlagen löschen?'),
         content: const Text(
-            'Wollen Sie wirklich alle eigenen Vorlagen löschen?\nDie Standard-Vorlagen werden anschließend wiederherstellen.'),
+            'Wollen Sie wirklich alle eigenen Vorlagen löschen?\nDie Standard-Vorlagen werden anschließend wiederhergestellt.'),
         actions: <Widget>[
           OutlinedButton(
             child: const Text('Zurücksetzen'),
