@@ -270,7 +270,8 @@ class ETBsPage extends StatelessWidget {
                         //final data = await PdfService.createHelloWord();
                         final data = await PdfService.createEtbPdf(etb);
                         PdfService.savePdfFile(
-                            'ETB_${etb.id}_${etb.startedDateAsDTG}', data);
+                            'ETB_${etb.id}_${etb.startedDateAsDTG.replaceAll(' ', '')}',
+                            data);
                       },
                       //labelStyle: TextStyle(color: Colors.white),
                       //backgroundColor: Theme.of(context).unselectedWidgetColor,
