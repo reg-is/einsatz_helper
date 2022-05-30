@@ -43,7 +43,7 @@ class PdfService {
     final data = etb.entries!.map((entry) {
       return [
         entry.id.toString(),
-        entry.captureTimeAsDTG,
+        entry.captureTimeAsDTG.replaceAll(' ', ''),
         entry.description,
         entry.comment ?? ''
       ];
