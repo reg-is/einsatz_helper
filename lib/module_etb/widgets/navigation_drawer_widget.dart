@@ -17,7 +17,7 @@ class NavigationDrawerWidget extends StatelessWidget {
           Container(
             padding: const EdgeInsets.fromLTRB(13.0, 24.0, 13.0, 8.0),
             child: const Text(
-              'Einsatzunterstützung',
+              'Einsatz Helper',
               style: TextStyle(fontSize: 18),
             ),
           ),
