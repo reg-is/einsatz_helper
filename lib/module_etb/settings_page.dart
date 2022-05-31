@@ -31,7 +31,9 @@ class _SettingsPageState extends State<SettingsPage> {
               icon: const FaIcon(Ionicons.menu)),
         ),
         body: ListView(
+          padding: const EdgeInsets.only(top: 8, bottom: 8),
           children: [
+            // const Divider(height: 8, thickness: 0),
             SwitchListTile(
                 title: const Text('Kürzel ausschreiben'),
                 subtitle:
@@ -42,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Funktion noch nicht implementiert.')));
                 }),
-            const Divider(height: 1, thickness: 2),
+            const Divider(height: 12, thickness: 2),
             ListTile(
               title: const Text('Kürzeldatenbank'),
               subtitle: const Text('Kürzel entfernen oder hinzufügen.'),
@@ -54,9 +56,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
             ),
-            const Divider(height: 1, thickness: 2),
+            const Divider(height: 12, thickness: 2),
             ListTile(
               title: const Text('Organisation'),
+              subtitle: const Text('Name der zugehörigen Organisation.'),
               trailing: TextButton(
                 child: const Text('Auswählen'),
                 onPressed: () {
@@ -65,7 +68,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 },
               ),
             ),
-            const Divider(height: 1, thickness: 2),
+            const Divider(height: 12, thickness: 2),
             ListTile(
               title: const Text('Standard Name ETB-Führung'),
               subtitle: const Text(
@@ -88,7 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 _showEtbWriterInputDialog(context);
               },
             ),
-            const Divider(height: 1, thickness: 2),
+            const Divider(height: 12, thickness: 2),
             ListTile(
               title: const Text('Vorlagen zurücksetzen'),
               subtitle: const Text(
