@@ -109,6 +109,12 @@ class TemplatesPage extends StatelessWidget {
           modificationTime: DateTime(2022),
           description: 'Abfahrt vom Ortsverband.'),
       TemplateData.build(
+          id: 'a2',
+          name: 'Abfahrt vom Gerätehaus',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description: 'Abfahrt vom Gerätehaus.'),
+      TemplateData.build(
           id: 'b',
           name: 'Ankunft am Einsatzort',
           creationTime: DateTime(2022),
@@ -119,7 +125,7 @@ class TemplatesPage extends StatelessWidget {
           name: 'Erkundung des Einsatzortes',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
-          description: 'Erkundung des Einsatzort'),
+          description: 'Erkundung des Einsatzortes.'),
       TemplateData.build(
           id: 'd',
           name: 'Rückfahrt zum Ortsverband',
@@ -129,12 +135,27 @@ class TemplatesPage extends StatelessWidget {
           description:
               'Abfahrt an LuK-Ortsverband gemeldet. Rückfahrt zum Ortsverband.'),
       TemplateData.build(
+          id: 'd2',
+          name: 'Rückfahrt zum Gerätehaus',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          counterpart: 'Leitstelle',
+          description:
+              'Abfahrt an Leitstelle gemeldet. Rückfahrt zum Gerätehaus.'),
+      TemplateData.build(
           id: 'e',
           name: 'Ankunft am Ortsverband',
           creationTime: DateTime(2022),
           modificationTime: DateTime(2022),
           description:
               'Ankunft am Ortsverband. Herstellen der Einsatzbereitschaft.'),
+      TemplateData.build(
+          id: 'e2',
+          name: 'Ankunft am Gerätehaus',
+          creationTime: DateTime(2022),
+          modificationTime: DateTime(2022),
+          description:
+              'Ankunft am Gerätehaus. Herstellen der Einsatzbereitschaft.'),
       TemplateData.build(
           id: 'f',
           name: 'Einsatzabschlussmeldung',
