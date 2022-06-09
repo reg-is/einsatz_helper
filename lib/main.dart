@@ -9,9 +9,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'module_etb/etb_start_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-late Box box;
+/// The main function is called when the the app starts.
 Future<void> main() async {
-  // Initiate and create Hive database for ETBs
+  // Initiate and create Hive database for ETBs.
   await Hive.initFlutter();
   Hive.registerAdapter(ETBDataAdapter());
   Hive.registerAdapter(ETBEntryDataAdapter());
@@ -21,9 +21,12 @@ Future<void> main() async {
   await Hive.openBox<TemplateData>('templateBox');
   await Hive.openBox('settingsBox');
 
+  // Start App by displaying the MyApp widget.
   runApp(const MyApp());
 }
 
+/// Widget displayed when App starts.
+/// Loads ETBStartPage() on the screen.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Einsatz Helper',
+      debugShowCheckedModeBanner: false,
       theme: MyThemes.lightTheme,
       darkTheme: MyThemes.darkTheme,
       themeMode: ThemeMode.system,
