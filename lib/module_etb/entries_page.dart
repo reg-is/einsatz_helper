@@ -12,6 +12,7 @@ import '../theme.dart';
 import 'etbs_page.dart';
 import 'utils/global_variables.dart' as globals;
 
+/// Page showing a list of all entries contained inside a ETB with key [etbKey].
 class EntriesPage extends StatefulWidget {
   late dynamic etbKey;
   bool noDrawer;
@@ -23,9 +24,9 @@ class EntriesPage extends StatefulWidget {
 }
 
 class _EntriesPageState extends State<EntriesPage> {
-  // Rest the etbKey when Widget is disposed
   @override
   void dispose() {
+    // Rest the etbKey when Widget is disposed
     widget.etbKey = null;
     super.dispose();
   }
