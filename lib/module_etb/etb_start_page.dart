@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'utils/global_variables.dart' as globals;
 import 'widgets/navigation_drawer_widget.dart';
 
+/// Page handling the navigationDrawer and bottomNavigationBar
 class ETBStartPage extends StatefulWidget {
   const ETBStartPage({Key? key}) : super(key: key);
 
@@ -18,15 +19,18 @@ class ETBStartPage extends StatefulWidget {
 }
 
 class _ETBStartPageState extends State<ETBStartPage> {
+  // Index of the bottomNavigationBar
   int currentIndex = 0;
-  final screens = [
+
+  // Pages of the bottomNavigationBar
+  final pages = [
     const ETBsPage(),
     EntriesPage(),
     const TemplatesPage(),
     const SettingsPage(),
   ];
 
-  // Method runs when ETB-App is closed
+  /// Dispose method that runs when ETB-Module is closed
   @override
   void dispose() {
     // Close ETB box/database
@@ -37,24 +41,22 @@ class _ETBStartPageState extends State<ETBStartPage> {
     super.dispose();
   }
 
-  // Callback function that drawer can call to change the index of bottomNavigationBar
+  /// Callback function that drawer can call to change the [index] of bottomNavigationBar
   void callbackDrawer(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
+  /// Build view with navigationDrawer, bottomNavigationBar and the current page
   @override
   Widget build(BuildContext context) {
-    //currentIdx = widget.index;
     return Scaffold(
       key: globals.scaffoldKey,
-      body: screens[currentIndex],
+      body: pages[currentIndex],
       drawer: NavigationDrawerWidget(callbackDrawer),
       bottomNavigationBar: BottomNavigationBar(
-          //elevation: 8,
           type: BottomNavigationBarType.fixed,
-          //backgroundColor: Color.fromARGB(255, 220, 219, 219),
           currentIndex: currentIndex,
           onTap: (index) => setState(() {
                 currentIndex = index;
@@ -64,25 +66,21 @@ class _ETBStartPageState extends State<ETBStartPage> {
               icon: FaIcon(Ionicons.book_outline),
               activeIcon: FaIcon(Ionicons.book),
               label: 'ETBs',
-              // backgroundColor: Colors.yellow,
             ),
             BottomNavigationBarItem(
               icon: FaIcon(Ionicons.file_tray_full_outline),
               activeIcon: FaIcon(Ionicons.file_tray_full),
               label: 'Einträge',
-              //backgroundColor: Colors.blue,
             ),
             BottomNavigationBarItem(
               icon: FaIcon(Ionicons.albums_outline),
               activeIcon: FaIcon(Ionicons.albums),
               label: 'Vorlagen',
-              // backgroundColor: Colors.red,
             ),
             BottomNavigationBarItem(
               icon: FaIcon(Ionicons.settings_outline),
               activeIcon: FaIcon(Ionicons.settings),
               label: 'Einstellungen',
-              // backgroundColor: Colors.green,
             ),
           ]),
     );
