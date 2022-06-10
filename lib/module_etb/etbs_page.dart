@@ -11,16 +11,20 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../theme.dart';
 import 'pages/new_etb_page.dart';
 import 'utils/global_variables.dart' as globals;
+import 'widgets/etb-status-Chip.dart';
 
+/// Page handling the overview of all ETBS
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
 
+  /// Build view with a list of all ETBs
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Einsatztagebücher'),
         actions: [
+          // Search button
           IconButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -28,12 +32,14 @@ class ETBsPage extends StatelessWidget {
               },
               icon: const FaIcon(Ionicons.search)),
         ],
+        // Navigation Drawer button
         leading: IconButton(
             onPressed: () {
               globals.scaffoldKey.currentState?.openDrawer();
             },
             icon: const FaIcon(Ionicons.menu)),
       ),
+      // List of ETBs
       body: ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
@@ -41,6 +47,7 @@ class ETBsPage extends StatelessWidget {
           return buildETBListView(context, etbs);
         },
       ),
+      // Button to create new ETBs
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () => Navigator.push(
@@ -48,13 +55,16 @@ class ETBsPage extends StatelessWidget {
     );
   }
 
+  /// Build a ListView with ETBs from [etbs]
   Widget buildETBListView(context, List<ETBData> etbs) {
+    // Check if ETBs exist
     if (etbs.isEmpty) {
       return Padding(
         padding: const EdgeInsets.all(8),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Display informativ text if there ar no ETBs
             const Center(
               child: Text(
                 'Es wurden noch keine Einsatztagebücher erstellt.',
@@ -73,6 +83,7 @@ class ETBsPage extends StatelessWidget {
         ),
       );
     } else {
+      // Display a ListView of ETB overview cards
       var etbsReversed = List<ETBData>.from(etbs.reversed);
       return ListView.builder(
           padding: const EdgeInsets.all(0),
@@ -84,32 +95,8 @@ class ETBsPage extends StatelessWidget {
     }
   }
 
-  Future addETB(String name, double amount, bool isExpense) async {
-    final firstEntry = ETBEntryData()
-      ..id = 1
-      ..captureTime = DateTime.now()
-      ..description = 'Einsatzbeginn\nTodo';
-    //..eventTime = DateTime.now()
-    //..counterpart = ''
-    //..comment = ''
-    //..reference = 0
-
-    final etb = ETBData()
-      ..name = name
-      ..attachmentsSum = 0
-      ..finished = isExpense
-      ..id = amount.toInt()
-      ..leader = 'Max Mustermann'
-      ..etbWriter = 'Maxi Musterschreiber'
-      ..startedDate = DateTime.now()
-      ..entries = <ETBEntryData>[firstEntry];
-
-    final etbDB = DataBox.getETBs();
-    etbDB.add(etb); // Auto key
-    //box.put('myKey', etb) // Individual key
-  }
-
-  // Delete a ETB with all its entries
+  /// Delete [etb] with all its entries.
+  /// Shows confirmation Dialog before deleting.
   Future deleteETB(context, ETBData etb) {
     return showDialog<String>(
       context: context,
@@ -134,8 +121,9 @@ class ETBsPage extends StatelessWidget {
     );
   }
 
-// Builds a Card Widget for an ETB Overview
+  /// Build a Card Widget with key information of [etb]
   Widget buildETBOverviewCard(context, ETBData etb, dynamic etbKey) => InkWell(
+        // Open EntriesPage when taped
         onTap: () {
           Navigator.push(
               context,
@@ -153,15 +141,16 @@ class ETBsPage extends StatelessWidget {
               spacing: 8,
               runSpacing: 1,
               children: [
+                // First Row on Card with ETB-Number, ETB-Name and ETB-Status
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Chip(
+                      label: Text('ETB: ' + etb.id.toString()),
                       visualDensity:
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       padding: const EdgeInsets.all(0),
-                      label: Text('ETB: ' + etb.id.toString()),
                       labelStyle:
                           TextStyle(color: Theme.of(context).indicatorColor),
                       backgroundColor: Theme.of(context).dividerColor,
@@ -179,11 +168,10 @@ class ETBsPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    //Spacer(),
-                    buildETBStatusChip(etb.finished, context),
+                    etbStatusChip(etb.finished, context),
                   ],
                 ),
-                //SizedBox(height: 8,),
+                // Second Row with start date, leader and ETB writer
                 Row(
                   children: [
                     const Text(
@@ -214,49 +202,48 @@ class ETBsPage extends StatelessWidget {
                 const SizedBox(
                   height: 24,
                 ),
+                // Third Row with information and actin chips
                 Wrap(
                   spacing: 8,
                   runSpacing: 4,
                   children: [
                     Chip(
+                      label: Text('${etb.entries?.length} Einträge'),
+                      elevation: 1.0,
                       visualDensity:
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       labelPadding: const EdgeInsets.all(1)
                           .copyWith(right: 8, top: 0, bottom: 0),
-                      //padding: EdgeInsets.all(0),
                       avatar: FaIcon(
                         Ionicons.file_tray_full,
                         color:
                             Theme.of(context).indicatorColor.withOpacity(0.8),
                         size: 16,
                       ),
-                      label: Text('${etb.entries?.length} Einträge'),
                       labelStyle:
                           TextStyle(color: Theme.of(context).indicatorColor),
                       backgroundColor: Theme.of(context).dividerColor,
-                      elevation: 1.0,
-                      //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     Chip(
+                      label: Text('${etb.attachmentsSum} Anlagen'),
+                      elevation: 1.0,
                       visualDensity:
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       labelPadding: const EdgeInsets.all(1)
                           .copyWith(right: 8, top: 0, bottom: 0),
-                      //padding: EdgeInsets.all(0),
                       avatar: FaIcon(
                         Ionicons.attach,
                         color:
                             Theme.of(context).indicatorColor.withOpacity(0.8),
                         size: 16,
                       ),
-                      label: Text('${etb.attachmentsSum} Anlagen'),
                       labelStyle:
                           TextStyle(color: Theme.of(context).indicatorColor),
                       backgroundColor: Theme.of(context).dividerColor,
-                      elevation: 1.0,
-                      //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     ActionChip(
+                      label: const Text('Exportieren'),
+                      elevation: 1.0,
                       visualDensity:
                           const VisualDensity(horizontal: 0.0, vertical: -4),
                       labelPadding: const EdgeInsets.all(1)
@@ -265,18 +252,12 @@ class ETBsPage extends StatelessWidget {
                         Ionicons.share,
                         size: 16,
                       ),
-                      label: const Text('Exportieren'),
                       onPressed: () async {
-                        //final data = await PdfService.createHelloWord();
                         final data = await PdfService.createEtbPdf(etb);
                         PdfService.savePdfFile(
                             'ETB_${etb.id}_${etb.startedDateAsDTG.replaceAll(' ', '')}',
                             data);
                       },
-                      //labelStyle: TextStyle(color: Colors.white),
-                      //backgroundColor: Theme.of(context).unselectedWidgetColor,
-                      elevation: 1.0,
-                      //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     ActionChip(
                       label: const Text('Löschen'),
@@ -297,29 +278,4 @@ class ETBsPage extends StatelessWidget {
           ),
         ),
       );
-}
-
-// Build a Chip depending on the current status ('Laufend' or 'Abgeschlossen') of the ETB
-Chip buildETBStatusChip(bool finished, context) {
-  if (finished) {
-    return Chip(
-      label: const Text('Abgeschlossen'),
-      labelStyle: const TextStyle(color: Colors.white),
-      backgroundColor: Theme.of(context).errorColor.withOpacity(0.7),
-      visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      padding: const EdgeInsets.all(2),
-      elevation: 1.0,
-    );
-  } else {
-    return Chip(
-      label: const Text('Laufend'),
-      labelStyle: const TextStyle(color: Colors.white),
-      backgroundColor: Theme.of(context).primaryColor.withOpacity(0.8),
-      visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      padding: const EdgeInsets.all(2),
-      elevation: 1.0,
-    );
-  }
 }

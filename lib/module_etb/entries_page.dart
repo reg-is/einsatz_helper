@@ -9,8 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../theme.dart';
-import 'etbs_page.dart';
 import 'utils/global_variables.dart' as globals;
+import 'widgets/etb-status-Chip.dart';
 
 /// Page showing a list of all entries contained inside a ETB with key [etbKey].
 class EntriesPage extends StatefulWidget {
@@ -147,7 +147,7 @@ class _EntriesPageState extends State<EntriesPage> {
                                 ),
                               ),
                             ),
-                            buildETBStatusChip(etb.finished, context),
+                            etbStatusChip(etb.finished, context),
                           ],
                         ),
                       );
