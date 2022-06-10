@@ -54,7 +54,7 @@ dependencies:
   # pdf
   pdf: ^3.8.0
   path_provider: ^2.0.10
-  open_document: ^1.0.4
+  open_filex: ^3.4.0
 
 dev_dependencies:
   flutter_test:

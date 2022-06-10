@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
-import 'package:open_document/open_document.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -77,7 +77,7 @@ class PdfService {
     String filePath = '${output.path}/$fileName.pdf';
     final file = File(filePath);
     await file.writeAsBytes(byteList);
-    await OpenDocument.openDocument(filePath: filePath);
+    await OpenFilex.open(filePath);
   }
 
   static pw.Widget buildHeader(ETBData etb, pw.Context context) {
