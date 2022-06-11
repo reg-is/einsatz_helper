@@ -23,7 +23,7 @@ class EntriesPage extends StatefulWidget {
   State<EntriesPage> createState() => _EntriesPageState();
 }
 
-/// Dispose method that runs when EntriesPage is closed
+/// Dispose method that runs when EntriesPage is closed.
 class _EntriesPageState extends State<EntriesPage> {
   @override
   void dispose() {
@@ -32,7 +32,7 @@ class _EntriesPageState extends State<EntriesPage> {
     super.dispose();
   }
 
-  /// Build view with a list of all entries of an ETB
+  /// Build view with a list of all entries of an ETB.
   @override
   Widget build(BuildContext context) {
     bool noETBs = DataBox.getETBs().values.isEmpty;
@@ -70,7 +70,7 @@ class _EntriesPageState extends State<EntriesPage> {
         ],
       ),
       body: buildEntriesListView(context, widget.etbKey, noETBs),
-      // Button to create new Entry. Don't show if ETB is finished
+      // Button to create new Entry. Don't show if ETB is finished.
       floatingActionButton: Visibility(
         visible: (!noETBs && !finished),
         child: FloatingActionButton(
@@ -80,7 +80,7 @@ class _EntriesPageState extends State<EntriesPage> {
                     MaterialPageRoute(
                         builder: (context) => AddEntryPage(widget.etbKey)))
                 .then((value) {
-              // Reload entries page when coming back from creating a new entry
+              // Reload entries page when coming back from creating a new entry.
               setState(() {});
             });
           },
@@ -90,7 +90,7 @@ class _EntriesPageState extends State<EntriesPage> {
     );
   }
 
-  /// Build a ListView with entries from etb with key [etbKey]
+  /// Build a ListView with entries from etb with key [etbKey].
   Widget buildEntriesListView(
       BuildContext context, dynamic etbKey, bool noETBs) {
     return ValueListenableBuilder<Box<ETBData>>(
@@ -119,7 +119,7 @@ class _EntriesPageState extends State<EntriesPage> {
                 ),
               );
             } else {
-              // If ETB exists and has entries
+              // If ETB exists and has entries.
               return ListView.builder(
                   padding: const EdgeInsets.all(0),
                   itemCount: entries.length + 1,
@@ -132,7 +132,7 @@ class _EntriesPageState extends State<EntriesPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            // Chip with the number of the ETB
+                            // Chip with the number of the ETB.
                             Chip(
                               visualDensity: const VisualDensity(
                                   horizontal: 0.0, vertical: -4),
@@ -170,7 +170,7 @@ class _EntriesPageState extends State<EntriesPage> {
         });
   }
 
-  /// Builds a Card Widget for [entry]
+  /// Builds a Card Widget for [entry].
   Widget buildEntryCard(BuildContext context, ETBEntryData entry) => InkWell(
         onTap: () {
           Navigator.push(context,

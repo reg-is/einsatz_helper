@@ -1,22 +1,21 @@
-import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_font_icons/flutter_font_icons.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../utils/theme.dart';
+import '../../model/etb_entry_data.dart';
 
+/// Page showing the details of the ETB entry [entry].
 class EntryDetailsPage extends StatelessWidget {
-  //const EntryDetailsPage({ Key? key }) : super(key: key);
   final ETBEntryData entry;
 
   const EntryDetailsPage(this.entry, {Key? key}) : super(key: key);
 
+  /// Build page with list of all content/details of an entry.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Eintrag Details'),
-          actions: [
+          actions: const [
             //IconButton(
             //    onPressed: () {}, icon: const FaIcon(Ionicons.color_palette))
           ],
@@ -61,10 +60,7 @@ class EntryDetailsPage extends StatelessWidget {
             if (entry.comment != null)
               buildDetailsCard(context,
                   title: const Text('Bemerkung'),
-                  //details: Text('Anlagen: 2 (Nr. 42-3-1, 42-3-2)')),
                   details: Text(entry.comment!)),
-            // buildDetailsCard(
-            //     title: const Text('Digitale Anlagen'), details: Text('Todo')),
             if (entry.reference != null)
               buildDetailsCard(context,
                   title: const Text('Referenz'),
@@ -91,7 +87,7 @@ class EntryDetailsPage extends StatelessWidget {
   }
 }
 
-// Builds Card Widget for the details of an ETB Entry
+/// Build card widget for a detail of an ETB entry.
 Widget buildDetailsCard(BuildContext context,
         {Widget? title, Widget? details}) =>
     Card(

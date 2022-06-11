@@ -1,11 +1,8 @@
-import 'package:einsatz_helper/module_etb/model/etb_data.dart';
-import 'package:einsatz_helper/module_etb/model/template_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_extra_fields/form_builder_extra_fields.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:intl/intl.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_touch_spin/flutter_touch_spin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,7 +10,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/data_box.dart';
 import '../../model/attachment_data.dart';
 import '../../model/etb_entry_data.dart';
+import '../../model/etb_data.dart';
+import '../../model/template_data.dart';
 
+/// Page to add a new entry.
 class AddEntryPage extends StatefulWidget {
   final dynamic etbKey;
 
@@ -34,19 +34,18 @@ class _AddEntryPageState extends State<AddEntryPage> {
   TemplateData? selectedTemplate;
   String? selectedTemplateID;
 
+  /// Build form to create a new entry.
   @override
   Widget build(BuildContext context) {
     DateTime captureTime = DateTime.now();
+
+    // Get ID for new entry
     entryID = DataBox.getNextEntryID(widget.etbKey);
 
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final Color elevatedButtonColor = theme
-            .elevatedButtonTheme.style?.backgroundColor
-            ?.resolve(<MaterialState>{}) ??
-        colorScheme.primary;
-
+    // Get ETB
     ETBData? etb = DataBox.getETBByKey(widget.etbKey);
+
+    // Get templates
     List<TemplateData> templates = DataBox.getTemplates().values.toList() +
         [
           TemplateData.build(
@@ -63,12 +62,14 @@ class _AddEntryPageState extends State<AddEntryPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Eintrag anlegen'),
+        // Cancel button
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: const FaIcon(Ionicons.close_circle)),
         actions: [
+          // Save button
           IconButton(
               onPressed: () {
                 bool result = onPressAccept();
@@ -81,102 +82,21 @@ class _AddEntryPageState extends State<AddEntryPage> {
       ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
         const SizedBox(height: 4),
-        buildNewEntryForm(context, captureTime, elevatedButtonColor, templates),
+        buildNewEntryForm(context, captureTime, templates),
       ]),
     );
   }
 
+  /// Build form for creating a new entry.
   Widget buildNewEntryForm(BuildContext context, DateTime captureTime,
-      Color elevatedButtonColor, List<TemplateData> templates) {
+      List<TemplateData> templates) {
     return FormBuilder(
       key: _formKey,
       child: Wrap(
         spacing: 8,
         runSpacing: 16,
         children: [
-          // Center(
-          //     child: ElevatedButton(
-          //         onPressed: () {},
-          //         child: const Text('Aus Vorlage erstellen'))),
-          // Center(
-          //   child: DropdownButton2(
-          //     isExpanded: true,
-          //     hint: Row(
-          //       children: [
-          //         Icon(
-          //           Icons.list,
-          //           size: 16,
-          //           color: Colors.yellow,
-          //         ),
-          //         SizedBox(
-          //           width: 4,
-          //         ),
-          //         Expanded(
-          //           child: Text(
-          //             'Select Item',
-          //             style: TextStyle(
-          //               fontSize: 14,
-          //               //fontWeight: FontWeight.bold,
-          //               color: elevatedButtonColor,
-          //             ),
-          //             overflow: TextOverflow.ellipsis,
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //     items: templates
-          //         .map((item) => DropdownMenuItem<String>(
-          //               value: item,
-          //               child: Text(
-          //                 item,
-          //                 style: const TextStyle(
-          //                   fontSize: 14,
-          //                   fontWeight: FontWeight.bold,
-          //                   color: Colors.white,
-          //                 ),
-          //                 overflow: TextOverflow.ellipsis,
-          //               ),
-          //             ))
-          //         .toList(),
-          //     value: selectedTemplate,
-          //     onChanged: (value) {
-          //       setState(() {
-          //         selectedTemplate = value as String;
-          //       });
-          //     },
-          //     icon: const Icon(
-          //       Icons.arrow_forward_ios_outlined,
-          //     ),
-          //     iconSize: 14,
-          //     iconEnabledColor: Colors.yellow,
-          //     iconDisabledColor: Colors.grey,
-          //     buttonHeight: 50,
-          //     buttonWidth: 160,
-          //     buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-          //     buttonDecoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(14),
-          //       border: Border.all(
-          //         color: Colors.black26,
-          //       ),
-          //       color: Colors.redAccent,
-          //     ),
-          //     buttonElevation: 2,
-          //     itemHeight: 40,
-          //     itemPadding: const EdgeInsets.only(left: 14, right: 14),
-          //     dropdownMaxHeight: 200,
-          //     dropdownWidth: 200,
-          //     dropdownPadding: null,
-          //     dropdownDecoration: BoxDecoration(
-          //       borderRadius: BorderRadius.circular(14),
-          //       color: Colors.redAccent,
-          //     ),
-          //     dropdownElevation: 8,
-          //     scrollbarRadius: const Radius.circular(40),
-          //     scrollbarThickness: 6,
-          //     scrollbarAlwaysShow: true,
-          //     offset: const Offset(-20, 0),
-          //   ),
-          // ),
+          // Template form field.
           DropdownButtonFormField2(
             isExpanded: true,
             hint: const Text(
@@ -212,14 +132,13 @@ class _AddEntryPageState extends State<AddEntryPage> {
                 });
               });
             },
-            //buttonHeight: 40,
-            //buttonWidth: 200,
             itemHeight: 40,
             dropdownMaxHeight: 500,
             dropdownDecoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
             ),
           ),
+          // Capture time form field.
           FormBuilderDateTimePicker(
             name: 'captureTime',
             inputType: InputType.both,
@@ -229,6 +148,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             initialValue: captureTime,
             enabled: false,
           ),
+          // Event time form field.
           FormBuilderCupertinoDateTimePicker(
             name: 'eventTime',
             alwaysUse24HourFormat: true,
@@ -237,36 +157,14 @@ class _AddEntryPageState extends State<AddEntryPage> {
             ),
             initialValue: DateTime.now(),
           ),
+          // Counterpart form field.
           FormBuilderTextField(
             name: 'counterpart',
             decoration: const InputDecoration(
               labelText: 'Gegenstelle',
             ),
           ),
-          //   FormBuilderTypeAhead<String>(
-          //   decoration: const InputDecoration(
-          //       labelText: 'Gegenstelle',
-          //       ),
-          //   name: 'counterpart2',
-          //   itemBuilder: (context, continent) {
-          //     return ListTile(title: Text(continent));
-          //   },
-          //   suggestionsCallback: (query) {
-          //     if (query.isNotEmpty) {
-          //       var lowercaseQuery = query.toLowerCase();
-          //       return continents.where((continent) {
-          //         return continent.toLowerCase().contains(lowercaseQuery);
-          //       }).toList(growable: false)
-          //         ..sort((a, b) => a
-          //             .toLowerCase()
-          //             .indexOf(lowercaseQuery)
-          //             .compareTo(
-          //                 b.toLowerCase().indexOf(lowercaseQuery)));
-          //     } else {
-          //       return continents;
-          //     }
-          //   },
-          // ),
+          // Description form field.
           FormBuilderTextField(
             name: 'description',
             decoration: const InputDecoration(
@@ -277,6 +175,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             keyboardType: TextInputType.multiline,
             validator: FormBuilderValidators.required(),
           ),
+          // Attachment button.
           Center(
               child: ElevatedButton(
             child: const Text('Anlage hinzufügen'),
@@ -284,6 +183,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
               buildAttachmentAmountPicker(context);
             },
           )),
+          // Comment form field.
           FormBuilderTextField(
             name: 'comment',
             decoration: const InputDecoration(
@@ -292,6 +192,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             maxLines: null,
             keyboardType: TextInputType.multiline,
           ),
+          // Reference form field.
           FormBuilderTextField(
             name: 'reference',
             decoration: const InputDecoration(
@@ -310,6 +211,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
                       'Es muss eine bereits existierende Lfd. Nr. sein.'),
             ]),
           ),
+          // Buttons to cancel or save new entry
           Center(
             child: Wrap(
               runSpacing: 8,
@@ -339,6 +241,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
     );
   }
 
+  /// Build bottom sheet with picker to choose number of attachments.
   Future<dynamic> buildAttachmentAmountPicker(BuildContext context) {
     return showModalBottomSheet(
         context: context,
@@ -415,6 +318,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
             ));
   }
 
+  /// Build a bottom sheet with the confirmation of the new attachments.
   Future<dynamic> buildAttachmentConfirmation(BuildContext context) {
     final String title;
     final String subtitle;
@@ -455,11 +359,11 @@ class _AddEntryPageState extends State<AddEntryPage> {
             ])));
   }
 
-  // Is called when user accepts the inputted data.
+  /// Is called when user submits the form data.
+  /// Checks if form data is valide.
   bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      //print(_formKey.currentState!.value);
       addEntry();
       return true;
     } else {
@@ -468,7 +372,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
     }
   }
 
-  // Get user input data from form, create a new entry with them and append them to the etb in the database
+  /// Get user input data from form, create a new entry with them and append them to the etb in the database.
   Future addEntry() async {
     // Get user input data from form
     final Map formInput = _formKey.currentState!.value;
