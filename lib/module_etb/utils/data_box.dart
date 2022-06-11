@@ -36,7 +36,6 @@ class DataBox {
     ETBData? etb = etbBox.get(etbKey);
     if (etb != null) {
       List<ETBEntryData>? entries = etb.entries;
-      print('entries length: ${entries!.length}');
       return entries != null ? entries.length + 1 : 1;
     } else {
       print('etb is null');
