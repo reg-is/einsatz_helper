@@ -6,7 +6,7 @@ import 'package:einsatz_helper/module_etb/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'module_etb/etb_start_page.dart';
+import 'module_etb/etb_module_start_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 /// The main function is called when the the app starts.
