@@ -2,6 +2,8 @@ import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+
+  /// Test group to verify if the toDTG() function works as expected.
   group('Taktische Zeit Converter', () {
     test('UTG Test 1', () {
       DateTime testDate = DateTime(2022, 12, 1, 8, 0);

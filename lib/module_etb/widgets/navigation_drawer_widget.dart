@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../etb_module_start_page.dart';
-import '../pages/settings/settings_page.dart';
-
+/// Navigation drawer to switch between the modules of the app.
 class NavigationDrawerWidget extends StatelessWidget {
   final Function callback;
   const NavigationDrawerWidget(this.callback, {Key? key}) : super(key: key);
 
+  // Build a drawer to navigate between modules.
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -24,18 +23,18 @@ class NavigationDrawerWidget extends StatelessWidget {
           const Divider(height: 1, thickness: 3),
           moduleListTile(context,
               title: const Text('Modul Erkundung'),
-              backgroundColor: Color.fromARGB(255, 214, 185, 228),
+              backgroundColor: const Color.fromARGB(255, 214, 185, 228),
               iconData: Ionicons.map),
           const Divider(height: 1, thickness: 1),
           moduleListTile(context,
               title: const Text('Modul Ausrüstungsverwaltung'),
-              backgroundColor: Color.fromARGB(255, 184, 210, 247),
+              backgroundColor: const Color.fromARGB(255, 184, 210, 247),
               iconData: Ionicons.construct),
           const Divider(height: 1, thickness: 1),
           moduleListTile(
             context,
             title: const Text('Modul Einsatztagebuch'),
-            backgroundColor: Color.fromARGB(255, 166, 200, 165),
+            backgroundColor: const Color.fromARGB(255, 166, 200, 165),
             iconData: Ionicons.book,
             onTap: () {
               callback(0);
@@ -58,7 +57,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     );
   }
 
-  // Build an entry for Drawer
+  /// Build a row for the Drawer.
   static ListTile moduleListTile(BuildContext context,
       {required Color backgroundColor,
       required Widget title,

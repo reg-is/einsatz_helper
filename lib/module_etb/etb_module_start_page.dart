@@ -10,7 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'utils/global_variables.dart' as globals;
 import 'widgets/navigation_drawer_widget.dart';
 
-/// Page handling the navigationDrawer and bottomNavigationBar
+/// Page handling the navigationDrawer and bottomNavigationBar.
 class ETBModuleStartPage extends StatefulWidget {
   const ETBModuleStartPage({Key? key}) : super(key: key);
 
@@ -30,7 +30,7 @@ class _ETBModuleStartPageState extends State<ETBModuleStartPage> {
     const SettingsPage(),
   ];
 
-  /// Dispose method that runs when ETB-Module is closed
+  /// Dispose method that runs when ETB-Module is closed.
   @override
   void dispose() {
     // Close ETB box/database
@@ -41,14 +41,14 @@ class _ETBModuleStartPageState extends State<ETBModuleStartPage> {
     super.dispose();
   }
 
-  /// Callback function that drawer can call to change the [index] of bottomNavigationBar
+  /// Callback function that drawer can call to change the [index] of bottomNavigationBar.
   void callbackDrawer(int index) {
     setState(() {
       currentIndex = index;
     });
   }
 
-  /// Build view with navigationDrawer, bottomNavigationBar and the current page
+  /// Build view with navigationDrawer, bottomNavigationBar and the current page.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
