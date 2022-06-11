@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'data_box.dart';
+import 'utils/data_box.dart';
 import 'utils/global_variables.dart' as globals;
 
 class SettingsPage extends StatefulWidget {

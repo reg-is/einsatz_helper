@@ -1,4 +1,4 @@
-import 'package:einsatz_helper/module_etb/data_box.dart';
+import 'package:einsatz_helper/module_etb/utils/data_box.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:einsatz_helper/module_etb/pages/add_entry_page.dart';
