@@ -1,7 +1,6 @@
 import 'package:einsatz_helper/module_etb/utils/data_box.dart';
 import 'package:einsatz_helper/module_etb/pages/entries/entries_page.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
-import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:einsatz_helper/module_etb/utils/pdf_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
@@ -13,11 +12,11 @@ import 'new_etb_page.dart';
 import '../../utils/global_variables.dart' as globals;
 import '../../widgets/etb-status-Chip.dart';
 
-/// Page handling the overview of all ETBS
+/// Page handling the overview of all ETBS.
 class ETBsPage extends StatelessWidget {
   const ETBsPage({Key? key}) : super(key: key);
 
-  /// Build view with a list of all ETBs
+  /// Build view with a list of all ETBs.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +54,7 @@ class ETBsPage extends StatelessWidget {
     );
   }
 
-  /// Build a ListView with ETBs from [etbs]
+  /// Build a ListView with ETBs from [etbs].
   Widget buildETBListView(context, List<ETBData> etbs) {
     // Check if ETBs exist
     if (etbs.isEmpty) {
@@ -121,7 +120,7 @@ class ETBsPage extends StatelessWidget {
     );
   }
 
-  /// Build a Card Widget with key information of [etb]
+  /// Build a Card Widget with key information of [etb].
   Widget buildETBOverviewCard(context, ETBData etb, dynamic etbKey) => InkWell(
         // Open EntriesPage when taped
         onTap: () {

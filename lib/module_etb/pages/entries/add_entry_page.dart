@@ -34,7 +34,7 @@ class _AddEntryPageState extends State<AddEntryPage> {
   TemplateData? selectedTemplate;
   String? selectedTemplateID;
 
-  /// Build form to create a new entry.
+  /// Build page with form to create a new entry.
   @override
   Widget build(BuildContext context) {
     DateTime captureTime = DateTime.now();

@@ -11,14 +11,14 @@ import '../../model/etb_data.dart';
 import '../../model/etb_entry_data.dart';
 import 'new_etb_confirm_page.dart';
 
-/// Page to create a new ETB
+/// Page to create a new ETB.
 class NewETBPage extends StatelessWidget {
   NewETBPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
   late ETBData etb;
 
-  /// Build Form to create a new ETB
+  /// Build page with form to create a new ETB.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +53,7 @@ class NewETBPage extends StatelessWidget {
         ]));
   }
 
-  /// Build form for creating a new ETB
+  /// Build form for creating a new ETB.
   Widget buildNewETBForm(BuildContext context) {
     return FormBuilder(
         key: _formKey,
@@ -120,25 +120,6 @@ class NewETBPage extends StatelessWidget {
             maxLines: null,
             keyboardType: TextInputType.multiline,
           ),
-          // FormBuilderField(
-          //   name: 'units2',
-          //   builder: (FormFieldState<dynamic> field) {
-          //     return InputDecorator(
-          //         decoration: InputDecoration(
-          //           labelText: 'Einheiten und Stärke',
-          //           //contentPadding: EdgeInsets.only(top: 10.0, bottom: 0.0),
-          //           //border: InputBorder.none,
-          //           errorText: field.errorText,
-          //         ),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Text('Einheiten und Stärke'),
-          //             Icon(Ionicons.chevron_forward)
-          //           ],
-          //         ));
-          //   },
-          // ),
           FormBuilderTextField(
             name: 'damage',
             decoration: const InputDecoration(
@@ -204,39 +185,14 @@ class NewETBPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          // FormBuilderField(
-          //   name: "name",
-          //   // validator: FormBuilderValidators.compose([
-          //   //   FormBuilderValidators.required(context),
-          //   // ]),
-          //   builder: (FormFieldState<dynamic> field) {
-          //     return InputDecorator(
-          //       decoration: InputDecoration(
-          //         labelText: "Select option",
-          //         contentPadding: EdgeInsets.only(top: 10.0, bottom: 0.0),
-          //         border: InputBorder.none,
-          //         errorText: field.errorText,
-          //       ),
-          //       child: Container(
-          //         height: 200,
-          //         child: CupertinoPicker(
-          //           itemExtent: 30,
-          //           children: options.map((c) => Text(c)).toList(),
-          //           onSelectedItemChanged: (index) {
-          //             field.didChange(options[index]);
-          //           },
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // ),
         ]));
   }
 
+  /// Is called when user submits the form data.
+  /// Checks if form data is valide.
   bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      //print(_formKey.currentState!.value);
       etb = createETB();
       return true;
     } else {
@@ -245,21 +201,19 @@ class NewETBPage extends StatelessWidget {
     }
   }
 
+  /// Create and return a ETB with a first entry containing the form input.
   ETBData createETB() {
     // Get user input data from form
     final Map formInput = _formKey.currentState!.value;
 
-    // Create first Entry for new ETB
+    // Create first entry for new ETB
     final firstEntry = ETBEntryData()
       ..id = 1
       ..captureTime = DateTime.now()
       ..eventTime = formInput['startedDate']
-      //..counterpart = ''
-      //..comment = ''
-      //..reference = 0
       ..description = createDescription();
 
-    // Crate new ETB with first Entry
+    // Crate new ETB with first entry
     final etb = ETBData()
       ..name = formInput['name']
       ..attachmentsSum = 0
@@ -272,6 +226,7 @@ class NewETBPage extends StatelessWidget {
     return etb;
   }
 
+  /// Return the entry description based on the form input.
   String createDescription() {
     // Get user input data from form
     final Map formInput = _formKey.currentState!.value;
@@ -302,6 +257,8 @@ class NewETBPage extends StatelessWidget {
   }
 }
 
+/// Class for weather options. 
+/// Needs a [name] of the weather and a corresponding icon [iconData].
 class Weather {
   String name;
   IconData iconData;

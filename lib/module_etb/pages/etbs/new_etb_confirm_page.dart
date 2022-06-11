@@ -7,24 +7,27 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 
 import '../../utils/data_box.dart';
 
+/// Page to confirm the creation of a new ETB.
 class NewETBConfirmPage extends StatelessWidget {
   late ETBData etb;
   NewETBConfirmPage({Key? key, required this.etb}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
-  //final String description = '';
 
+  /// Build page with confirmation option for new ETB.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('ETB beginnen'),
+          // Button to go back
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context, 'Back');
               },
               icon: const FaIcon(Ionicons.arrow_back_circle)),
           actions: [
+            // Button to save new ETB
             IconButton(
                 onPressed: () {
                   bool result = onPressAccept();
@@ -42,6 +45,7 @@ class NewETBConfirmPage extends StatelessWidget {
         ]));
   }
 
+  // Build form to confirm new ETB.
   Widget buildConfirmNewETBForm(BuildContext context) {
     return FormBuilder(
         key: _formKey,
@@ -65,22 +69,7 @@ class NewETBConfirmPage extends StatelessWidget {
             maxLines: null,
             keyboardType: TextInputType.multiline,
             validator: FormBuilderValidators.required(),
-            // validator: (description) =>
-            //     description != null && description.isEmpty
-            //         ? 'Füge eine Beschreibung hinzu'
-            //         : null,
           ),
-          // Center(
-          //     child: ElevatedButton(
-          //         onPressed: () {}, child: const Text('Anlage hinzufügen'))),
-          // FormBuilderTextField(
-          //   name: 'comment',
-          //   decoration: const InputDecoration(
-          //     labelText: 'Bemerkung',
-          //   ),
-          //   maxLines: null,
-          //   keyboardType: TextInputType.multiline,
-          // ),
           Center(
             child: Wrap(
               runSpacing: 8,
@@ -109,10 +98,11 @@ class NewETBConfirmPage extends StatelessWidget {
         ]));
   }
 
+  /// Is called when user submits the form data.
+  /// Checks if form data is valide.
   bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
-      print(_formKey.currentState!.value);
       addETB();
       return true;
     } else {
@@ -121,6 +111,7 @@ class NewETBConfirmPage extends StatelessWidget {
     }
   }
 
+  /// Get form data, create a new etb with it and add it to the database.
   Future addETB() async {
     final Map formInput = _formKey.currentState!.value;
 
