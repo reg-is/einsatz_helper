@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/data_box.dart';
 import '../../utils/global_variables.dart' as globals;
 
+/// Page for settings.
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -19,6 +20,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   final TextEditingController _etbWriterController = TextEditingController();
 
+  /// Build page with ListView containing settings.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +35,6 @@ class _SettingsPageState extends State<SettingsPage> {
         body: ListView(
           padding: const EdgeInsets.only(top: 8, bottom: 8),
           children: [
-            // const Divider(height: 8, thickness: 0),
             SwitchListTile(
                 title: const Text('Kürzel ausschreiben'),
                 subtitle:
@@ -107,7 +108,7 @@ class _SettingsPageState extends State<SettingsPage> {
         ));
   }
 
-  // Show Dialog with text field to input name of etb-writer
+  /// Show Dialog with text field to input name of etb-writer.
   Future<void> _showEtbWriterInputDialog(BuildContext context) async {
     return showDialog(
         context: context,
@@ -132,7 +133,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ));
   }
 
-  // Delete all templates and reset to defaults
+  /// Delete all templates and reset to defaults.
   Future _deleteTemplates(context) {
     return showDialog<String>(
       context: context,
