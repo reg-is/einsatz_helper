@@ -8,10 +8,10 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'utils/theme.dart';
-import 'pages/new_etb_page.dart';
-import 'utils/global_variables.dart' as globals;
-import 'widgets/etb-status-Chip.dart';
+import '../../utils/theme.dart';
+import 'new_etb_page.dart';
+import '../../utils/global_variables.dart' as globals;
+import '../../widgets/etb-status-Chip.dart';
 
 /// Page handling the overview of all ETBS
 class ETBsPage extends StatelessWidget {
