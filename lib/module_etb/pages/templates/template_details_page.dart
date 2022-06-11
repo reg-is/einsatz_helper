@@ -20,6 +20,7 @@ class TemplateDetailsPage extends StatefulWidget {
 class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
+  /// Build page with form to create or modify a template.
   @override
   Widget build(BuildContext context) {
     TemplateData? template = (widget.templateKey == null)
@@ -27,6 +28,7 @@ class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
         : DataBox.getTemplates().get(widget.templateKey);
     return Scaffold(
       appBar: (template == null)
+          // If creating a template
           ? AppBar(
               title: const Text('Vorlage anlegen'),
               leading: IconButton(
@@ -45,6 +47,7 @@ class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
                     icon: const FaIcon(Ionicons.checkmark_circle)),
               ],
             )
+          // If modifying a template
           : AppBar(
               title: const Text('Vorlage'),
               leading: IconButton(
@@ -70,12 +73,13 @@ class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
             ),
       body: ListView(padding: const EdgeInsets.all(8), children: <Widget>[
         const SizedBox(height: 8),
-        buildNewTemplateForm(context, template),
+        buildTemplateForm(context, template),
       ]),
     );
   }
 
-  Widget buildNewTemplateForm(BuildContext context, TemplateData? template) {
+  /// Build to create or modify a template.
+  Widget buildTemplateForm(BuildContext context, TemplateData? template) {
     return FormBuilder(
       key: _formKey,
       child: Wrap(
@@ -146,7 +150,8 @@ class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
     );
   }
 
-  // Is called when user accepts the inputted data.
+  /// Is called when user submits the form data.
+  /// Checks if form data is valide, than saves template.
   bool onPressAccept() {
     _formKey.currentState!.save();
     if (_formKey.currentState!.validate()) {
@@ -159,7 +164,7 @@ class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
     }
   }
 
-  // Get user input data from form, create a new template and append it to the templateBox
+  /// Get user input data from form, create a new template and append it to the templateBox
   Future saveTemplate() async {
     // Get user input data from form
     final Map formInput = _formKey.currentState!.value;
@@ -182,6 +187,7 @@ class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
     }
   }
 
+  /// Delete [template] and show confirmation alert dialog before deleting.
   Future deleteTemplate(BuildContext context, TemplateData template) {
     return showDialog<String>(
       context: context,

@@ -5,7 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../utils/data_box.dart';
 import '../../model/template_data.dart';
-import 'add_template_page.dart';
+import 'template_details_page.dart';
 import '../../utils/global_variables.dart' as globals;
 
 /// Page showing a list of all templates.
