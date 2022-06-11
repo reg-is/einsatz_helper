@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         FormBuilderLocalizations.delegate,
       ],
-      home: const ETBStartPage(),
+      home: const ETBModuleStartPage(),
     );
   }
 }

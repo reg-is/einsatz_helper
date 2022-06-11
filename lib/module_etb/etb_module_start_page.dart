@@ -11,14 +11,14 @@ import 'utils/global_variables.dart' as globals;
 import 'widgets/navigation_drawer_widget.dart';
 
 /// Page handling the navigationDrawer and bottomNavigationBar
-class ETBStartPage extends StatefulWidget {
-  const ETBStartPage({Key? key}) : super(key: key);
+class ETBModuleStartPage extends StatefulWidget {
+  const ETBModuleStartPage({Key? key}) : super(key: key);
 
   @override
-  State<ETBStartPage> createState() => _ETBStartPageState();
+  State<ETBModuleStartPage> createState() => _ETBModuleStartPageState();
 }
 
-class _ETBStartPageState extends State<ETBStartPage> {
+class _ETBModuleStartPageState extends State<ETBModuleStartPage> {
   // Index of the bottomNavigationBar
   int currentIndex = 0;
 
