@@ -3,7 +3,7 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../etb_start_page.dart';
-import '../settings_page.dart';
+import '../pages/settings/settings_page.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final Function callback;
