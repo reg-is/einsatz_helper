@@ -95,7 +95,7 @@ class ETBsPage extends StatelessWidget {
   }
 
   /// Delete [etb] with all its entries.
-  /// Shows confirmation Dialog before deleting.
+  /// Show confirmation alert dialog before deleting.
   Future deleteETB(context, ETBData etb) {
     return showDialog<String>(
       context: context,

@@ -1,21 +1,16 @@
 import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-class PdfService {
-  static Future<Uint8List> createHelloWord() {
-    final pdf = pw.Document();
-    pdf.addPage(pw.Page(build: (pw.Context context) {
-      return pw.Center(child: pw.Text('Hello'));
-    }));
-    return pdf.save();
-  }
+import '../model/etb_data.dart';
 
+/// Service to create PDFs of ETBs and open them.
+class PdfService {
+  
+  /// Create PDF of [etb].
   static Future<Uint8List> createEtbPdf(ETBData etb) {
     final pdf = pw.Document();
 
@@ -32,6 +27,69 @@ class PdfService {
     return pdf.save();
   }
 
+  /// Build the header for the pdf.
+  static pw.Widget buildHeader(ETBData etb, pw.Context context) {
+    return pw.Column(
+      children: [
+        pw.Table(
+            border: pw.TableBorder.all(width: 0.5),
+            defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
+            columnWidths: const {
+              0: pw.FractionColumnWidth(0.2),
+              1: pw.FractionColumnWidth(0.6),
+              2: pw.FractionColumnWidth(0.2),
+            },
+            children: [
+              pw.TableRow(children: [
+                pw.Container(
+                  padding: const pw.EdgeInsets.all(4),
+                  alignment: pw.Alignment.center,
+                  child: pw.Text('ETB-Nr.: ${etb.id}'),
+                ),
+                pw.Container(
+                  padding: const pw.EdgeInsets.all(4),
+                  alignment: pw.Alignment.center,
+                  color: PdfColors.grey300,
+                  child: pw.Text('Einsatztagebuch',
+                      style: pw.TextStyle(
+                          fontSize: 16, fontWeight: pw.FontWeight.bold)),
+                ),
+                // For Logo:
+                pw.Container(
+                  padding: const pw.EdgeInsets.all(4),
+                  alignment: pw.Alignment.center,
+                  child: pw.Text(''),
+                ),
+              ])
+            ]),
+        pw.SizedBox(height: 3 * PdfPageFormat.mm),
+        pw.Table(
+            border: pw.TableBorder.all(width: 0.5),
+            defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
+            columnWidths: const {
+              0: pw.FlexColumnWidth(),
+              1: pw.FractionColumnWidth(0.2),
+            },
+            children: [
+              pw.TableRow(children: [
+                pw.Container(
+                  padding: const pw.EdgeInsets.all(4),
+                  child: pw.Text('Einsatz: ${etb.name}'),
+                ),
+                pw.Container(
+                  padding: const pw.EdgeInsets.all(4),
+                  child: pw.Text(
+                      'Datum ${etb.startedDateFormatted('dd.MM.yyyy')}\n'
+                      'Seite: ${context.pageNumber} von ${context.pagesCount}'),
+                ),
+              ])
+            ]),
+        pw.SizedBox(height: 3 * PdfPageFormat.mm),
+      ],
+    );
+  }
+
+  /// Build a table with all entries for the pdf.
   static pw.Widget buildEntriesTable(ETBData etb) {
     final headers = [
       'Lfd.\nNr.',
@@ -71,80 +129,9 @@ class PdfService {
         border: pw.TableBorder.all(width: 0.5));
   }
 
-  // Source: https://github.com/md-weber/pdf_invoice_generator_flutter/blob/master/lib/invoice_service.dart
-  static Future<void> savePdfFile(String fileName, Uint8List byteList) async {
-    final output = await getTemporaryDirectory();
-    String filePath = '${output.path}/$fileName.pdf';
-    final file = File(filePath);
-    await file.writeAsBytes(byteList);
-    await OpenFilex.open(filePath);
-  }
-
-  static pw.Widget buildHeader(ETBData etb, pw.Context context) {
-    return pw.Column(
-      children: [
-        pw.Table(
-            border: pw.TableBorder.all(width: 0.5),
-            defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
-            columnWidths: const {
-              0: pw.FractionColumnWidth(0.2),
-              1: pw.FractionColumnWidth(0.6),
-              2: pw.FractionColumnWidth(0.2),
-            },
-            children: [
-              pw.TableRow(children: [
-                pw.Container(
-                  padding: const pw.EdgeInsets.all(4),
-                  alignment: pw.Alignment.center,
-                  child: pw.Text('ETB-Nr.: ${etb.id}'),
-                ),
-                pw.Container(
-                  padding: const pw.EdgeInsets.all(4),
-                  alignment: pw.Alignment.center,
-                  color: PdfColors.grey300,
-                  child: pw.Text('Einsatztagebuch',
-                      style: pw.TextStyle(
-                          fontSize: 16, fontWeight: pw.FontWeight.bold)),
-                ),
-                pw.Container(
-                  // For Logo
-                  padding: const pw.EdgeInsets.all(4),
-                  alignment: pw.Alignment.center,
-                  child: pw.Text(''),
-                ),
-              ])
-            ]),
-        pw.SizedBox(height: 3 * PdfPageFormat.mm),
-        pw.Table(
-            border: pw.TableBorder.all(width: 0.5),
-            defaultVerticalAlignment: pw.TableCellVerticalAlignment.middle,
-            columnWidths: const {
-              0: pw.FlexColumnWidth(),
-              1: pw.FractionColumnWidth(0.2),
-              //1: pw.IntrinsicColumnWidth(),
-            },
-            children: [
-              pw.TableRow(children: [
-                pw.Container(
-                  padding: const pw.EdgeInsets.all(4),
-                  child: pw.Text('Einsatz: ${etb.name}'),
-                ),
-                pw.Container(
-                  padding: const pw.EdgeInsets.all(4),
-                  child: pw.Text(
-                      'Datum ${etb.startedDateFormatted('dd.MM.yyyy')}\n'
-                      'Seite: ${context.pageNumber} von ${context.pagesCount}'),
-                ),
-              ])
-            ]),
-        pw.SizedBox(height: 3 * PdfPageFormat.mm),
-      ],
-    );
-  }
-
+  /// Build the footer, containing the signature fields, for the pdf.
   static pw.Widget buildFooter(ETBData etb) {
     return pw.Column(children: [
-      //pw.SizedBox(height: 3 * PdfPageFormat.mm),
       pw.Container(
           height: 0.3 * PdfPageFormat.mm, color: const PdfColorGrey(0.5)),
       pw.SizedBox(height: 0.3 * PdfPageFormat.mm),
@@ -154,6 +141,7 @@ class PdfService {
       pw.Row(
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
+          // Signature field for leader
           pw.Expanded(
             child: pw.Center(
               child: pw.Column(
@@ -175,6 +163,7 @@ class PdfService {
               ),
             ),
           ),
+          // Signature field for ETB-Writer
           pw.Expanded(
             child: pw.Center(
                 child: pw.Column(
@@ -198,5 +187,15 @@ class PdfService {
         ],
       ),
     ]);
+  }
+
+  /// Save pdf file on device and open it.
+  /// Source: https://github.com/md-weber/pdf_invoice_generator_flutter/blob/master/lib/invoice_service.dart
+  static Future<void> savePdfFile(String fileName, Uint8List byteList) async {
+    final output = await getTemporaryDirectory();
+    String filePath = '${output.path}/$fileName.pdf';
+    final file = File(filePath);
+    await file.writeAsBytes(byteList);
+    await OpenFilex.open(filePath);
   }
 }
