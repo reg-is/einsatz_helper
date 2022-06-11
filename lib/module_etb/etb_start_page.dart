@@ -1,4 +1,4 @@
-import 'package:einsatz_helper/module_etb/entries_page.dart';
+import 'package:einsatz_helper/module_etb/pages/entries/entries_page.dart';
 import 'package:einsatz_helper/module_etb/etbs_page.dart';
 import 'package:einsatz_helper/module_etb/settings_page.dart';
 import 'package:einsatz_helper/module_etb/templates_page.dart';

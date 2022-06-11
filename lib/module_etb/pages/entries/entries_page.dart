@@ -8,9 +8,9 @@ import 'package:einsatz_helper/module_etb/entry_details_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'utils/theme.dart';
-import 'utils/global_variables.dart' as globals;
-import 'widgets/etb-status-Chip.dart';
+import '../../utils/theme.dart';
+import '../../utils/global_variables.dart' as globals;
+import '../../widgets/etb-status-Chip.dart';
 
 /// Page showing a list of all entries contained inside a ETB with key [etbKey].
 class EntriesPage extends StatefulWidget {
