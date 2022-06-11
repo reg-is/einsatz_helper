@@ -7,16 +7,17 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import '../../utils/data_box.dart';
 import '../../model/template_data.dart';
 
-class AddTemplatePage extends StatefulWidget {
+/// Page to add or edit a template.
+class TemplateDetailsPage extends StatefulWidget {
   dynamic templateKey;
 
-  AddTemplatePage({Key? key, this.templateKey}) : super(key: key);
+  TemplateDetailsPage({Key? key, this.templateKey}) : super(key: key);
 
   @override
-  State<AddTemplatePage> createState() => _AddTemplatePageState();
+  State<TemplateDetailsPage> createState() => _TemplateDetailsPageState();
 }
 
-class _AddTemplatePageState extends State<AddTemplatePage> {
+class _TemplateDetailsPageState extends State<TemplateDetailsPage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   @override

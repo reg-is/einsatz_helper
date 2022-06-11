@@ -8,9 +8,11 @@ import '../../model/template_data.dart';
 import 'add_template_page.dart';
 import '../../utils/global_variables.dart' as globals;
 
+/// Page showing a list of all templates.
 class TemplatesPage extends StatelessWidget {
   const TemplatesPage({Key? key}) : super(key: key);
 
+  /// Build page with a list of all templates.
   @override
   Widget build(BuildContext context) {
     addDefaultTemplates();
@@ -23,6 +25,7 @@ class TemplatesPage extends StatelessWidget {
             },
             icon: const FaIcon(Ionicons.menu)),
         actions: [
+          // Search button
           IconButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -38,16 +41,18 @@ class TemplatesPage extends StatelessWidget {
           return buildTemplateListView(context, templates);
         },
       ),
+      // Button to create new template
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AddTemplatePage())),
+              MaterialPageRoute(builder: (context) => TemplateDetailsPage())),
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
+  /// Build a ListView of [templates].
   Widget buildTemplateListView(context, List<TemplateData> templates) {
     if (templates.isEmpty) {
       return Center(
@@ -69,14 +74,13 @@ class TemplatesPage extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AddTemplatePage())),
+                                builder: (context) => TemplateDetailsPage())),
                       }),
             ],
           ),
         ),
       );
     } else {
-      var templatesReversed = List<TemplateData>.from(templates.reversed);
       return ListView.separated(
           padding: const EdgeInsets.all(0),
           separatorBuilder: (BuildContext context, int index) =>
@@ -90,7 +94,7 @@ class TemplatesPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AddTemplatePage(
+                        builder: (context) => TemplateDetailsPage(
                               templateKey: templates[index].key,
                             ))),
               },
@@ -99,7 +103,7 @@ class TemplatesPage extends StatelessWidget {
     }
   }
 
-  // Add some default templates if not already present.
+  /// Add default templates if they are not already available.
   void addDefaultTemplates() {
     List<TemplateData> defaultTemplates = [
       TemplateData.build(

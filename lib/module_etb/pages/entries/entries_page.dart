@@ -32,7 +32,7 @@ class _EntriesPageState extends State<EntriesPage> {
     super.dispose();
   }
 
-  /// Build view with a list of all entries of an ETB.
+  /// Build page with a list of all entries of an ETB.
   @override
   Widget build(BuildContext context) {
     bool noETBs = DataBox.getETBs().values.isEmpty;

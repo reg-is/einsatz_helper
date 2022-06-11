@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/data_box.dart';
 import '../../utils/global_variables.dart' as globals;
 
-/// Page for settings.
+/// Page showing all the settings.
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
