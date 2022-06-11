@@ -1,7 +1,7 @@
 import 'package:einsatz_helper/module_etb/pages/entries/entries_page.dart';
 import 'package:einsatz_helper/module_etb/pages/etbs/etbs_page.dart';
 import 'package:einsatz_helper/module_etb/settings_page.dart';
-import 'package:einsatz_helper/module_etb/templates_page.dart';
+import 'package:einsatz_helper/module_etb/pages/templates/templates_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

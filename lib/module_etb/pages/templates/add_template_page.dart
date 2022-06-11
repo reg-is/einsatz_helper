@@ -4,8 +4,8 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-import '../utils/data_box.dart';
-import '../model/template_data.dart';
+import '../../utils/data_box.dart';
+import '../../model/template_data.dart';
 
 class AddTemplatePage extends StatefulWidget {
   dynamic templateKey;

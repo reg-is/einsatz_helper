@@ -3,10 +3,10 @@ import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import 'utils/data_box.dart';
-import 'model/template_data.dart';
-import 'pages/add_template_page.dart';
-import 'utils/global_variables.dart' as globals;
+import '../../utils/data_box.dart';
+import '../../model/template_data.dart';
+import 'add_template_page.dart';
+import '../../utils/global_variables.dart' as globals;
 
 class TemplatesPage extends StatelessWidget {
   const TemplatesPage({Key? key}) : super(key: key);
