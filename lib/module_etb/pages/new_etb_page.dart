@@ -11,23 +11,27 @@ import '../model/etb_data.dart';
 import '../model/etb_entry_data.dart';
 import 'new_etb_confirm_page.dart';
 
+/// Page to create a new ETB
 class NewETBPage extends StatelessWidget {
   NewETBPage({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormBuilderState>();
   late ETBData etb;
 
+  /// Build Form to create a new ETB
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('ETB beginnen'),
+          // Close Button
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
               },
               icon: const FaIcon(Ionicons.close_circle)),
           actions: [
+            // Continue Button
             IconButton(
                 onPressed: () {
                   bool result = onPressAccept();
@@ -49,6 +53,7 @@ class NewETBPage extends StatelessWidget {
         ]));
   }
 
+  /// Build form for creating a new ETB
   Widget buildNewETBForm(BuildContext context) {
     return FormBuilder(
         key: _formKey,
