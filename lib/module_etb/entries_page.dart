@@ -23,6 +23,7 @@ class EntriesPage extends StatefulWidget {
   State<EntriesPage> createState() => _EntriesPageState();
 }
 
+/// Dispose method that runs when EntriesPage is closed
 class _EntriesPageState extends State<EntriesPage> {
   @override
   void dispose() {
@@ -31,6 +32,7 @@ class _EntriesPageState extends State<EntriesPage> {
     super.dispose();
   }
 
+  /// Build view with a list of all entries of an ETB
   @override
   Widget build(BuildContext context) {
     bool noETBs = DataBox.getETBs().values.isEmpty;
@@ -51,12 +53,14 @@ class _EntriesPageState extends State<EntriesPage> {
                 icon: const FaIcon(Ionicons.menu))
             : null,
         actions: [
+          // Filter button
           IconButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Funktion noch nicht implementiert.')));
               },
               icon: const FaIcon(Ionicons.funnel)),
+          // Search button
           IconButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -66,6 +70,7 @@ class _EntriesPageState extends State<EntriesPage> {
         ],
       ),
       body: buildEntriesListView(context, widget.etbKey, noETBs),
+      // Button to create new Entry. Don't show if ETB is finished
       floatingActionButton: Visibility(
         visible: (!noETBs && !finished),
         child: FloatingActionButton(
@@ -85,11 +90,13 @@ class _EntriesPageState extends State<EntriesPage> {
     );
   }
 
+  /// Build a ListView with entries from etb with key [etbKey]
   Widget buildEntriesListView(
       BuildContext context, dynamic etbKey, bool noETBs) {
     return ValueListenableBuilder<Box<ETBData>>(
         valueListenable: DataBox.getETBs().listenable(),
         builder: (context, box, _) {
+          // If no ETB exists
           if (noETBs) {
             return const Center(
               child: Text(
@@ -102,6 +109,7 @@ class _EntriesPageState extends State<EntriesPage> {
             final ETBData? etb = DataBox.getETBByKey(etbKey);
             final entries =
                 etb?.entries?.cast<ETBEntryData>().reversed.toList();
+            // If ETB has no entry
             if (etb == null || entries == null || entries.isEmpty) {
               return const Center(
                 child: Text(
@@ -111,6 +119,7 @@ class _EntriesPageState extends State<EntriesPage> {
                 ),
               );
             } else {
+              // If ETB exists and has entries
               return ListView.builder(
                   padding: const EdgeInsets.all(0),
                   itemCount: entries.length + 1,
@@ -136,6 +145,7 @@ class _EntriesPageState extends State<EntriesPage> {
                               materialTapTargetSize:
                                   MaterialTapTargetSize.shrinkWrap,
                             ),
+                            // Name of the ETB
                             Flexible(
                               child: Padding(
                                 padding:
@@ -160,7 +170,7 @@ class _EntriesPageState extends State<EntriesPage> {
         });
   }
 
-// Builds a Card Widget for an ETB Entry
+  /// Builds a Card Widget for [entry]
   Widget buildEntryCard(BuildContext context, ETBEntryData entry) => InkWell(
         onTap: () {
           Navigator.push(context,
@@ -202,7 +212,6 @@ class _EntriesPageState extends State<EntriesPage> {
                         ),
                       ),
                     ),
-                    //const Spacer(),
                     // Chip with the number of attachments of the entry
                     buildAttachmentsChip((entry.attachments == null)
                         ? 0
@@ -221,9 +230,10 @@ class _EntriesPageState extends State<EntriesPage> {
         ),
       );
 
-// Build a Chip depending on number of attachments an entry has
+  /// Build Chip with number of [attachments] if [attachments] > 0.
   Widget buildAttachmentsChip(int attachments) {
     if (attachments > 0) {
+      // Return Chip with number of attachments
       return Chip(
         visualDensity: const VisualDensity(horizontal: 0.0, vertical: -4),
         labelPadding:
@@ -235,13 +245,10 @@ class _EntriesPageState extends State<EntriesPage> {
         label: (attachments == 1)
             ? Text(attachments.toString() + ' Anlage')
             : Text(attachments.toString() + ' Anlagen'),
-        //labelStyle: TextStyle(color: Colors.white),
-        //backgroundColor: Theme.of(context).unselectedWidgetColor,
         elevation: 1.0,
-        //materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
       );
     } else {
-      // Display no Attachment Chip if there are no Attachments
+      // Return nothing
       return const SizedBox.shrink();
     }
   }
