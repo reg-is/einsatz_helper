@@ -4,6 +4,7 @@ import 'etb_entry_data.dart';
 
 part 'etb_data.g.dart';
 
+/// Data model for an ETB.
 @HiveType(typeId: 0)
 class ETBData extends HiveObject {
   @HiveField(0)
@@ -30,15 +31,16 @@ class ETBData extends HiveObject {
   @HiveField(7)
   List<ETBEntryData>? entries;
 
+  /// Returns an [ETBData] object as string.
   @override
   String toString() {
     return '{id=$id, name=$name, leader=$leader, etbWriter=$etbWriter, finished=$finished, startedDate=$startedDate, attachmentsSum=$attachmentsSum, entries=${entries.toString()}}';
   }
 
-  // Get startedDate in Date Time Group (DTG) format
+  /// Get [startedDate] in Date Time Group (DTG) format.
   String get startedDateAsDTG => toDTG(startedDate);
 
-  // Get startedDate in chosen format
+  /// Get [startedDate] in format [format].
   String startedDateFormatted(String format) =>
       DateFormat(format).format(startedDate);
 }

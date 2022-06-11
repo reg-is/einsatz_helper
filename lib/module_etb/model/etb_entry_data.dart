@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 
 part 'etb_entry_data.g.dart';
 
+/// Data model for an entry.
 @HiveType(typeId: 1)
 class ETBEntryData extends HiveObject {
   @HiveField(0)
@@ -29,21 +30,22 @@ class ETBEntryData extends HiveObject {
   @HiveField(7)
   List<AttachmentData>? attachments;
 
+  /// Returns an [ETBEntryData] object as string.
   @override
   String toString() {
     return '{id=$id, captureTime=$captureTime, eventTime=$eventTime, counterpart=$counterpart, description=$description, comment=$comment, reference=$reference, attachments=${attachments.toString()}}';
   }
 
-  // Get captureTime in Date Time Group (DTG) format
+  /// Get [captureTime] in Date Time Group (DTG) format.
   String get captureTimeAsDTG => toDTG(captureTime);
 
-  // Get eventTime in Date Time Group (DTG) format
+  /// Get [eventTime] in Date Time Group (DTG) format.
   String get eventTimeAsDTG {
     return (eventTime != null) ? toDTG(eventTime!) : '';
   }
 }
 
-// Converts a DateTime object to a String in Date Time Group (DTG) format
+/// Converts [dateTime] to a String in Date Time Group (DTG) format.
 String toDTG(DateTime dateTime) {
   dateTime.toUtc();
   List<String> months = [
@@ -63,7 +65,8 @@ String toDTG(DateTime dateTime) {
   return '${dateTime.day.toString().padLeft(2, '0')} ${dateTime.hour.toString().padLeft(2, '0')}${dateTime.minute.toString().padLeft(2, '0')}${months[dateTime.month - 1]}${dateTime.year.toString().substring(2, 4)}';
 }
 
-// Create a list of AttachmentData and generate attachment IDs
+/// Create a list of AttachmentData of size [attachmentsCount]
+/// and generate attachment IDs with [entryID].
 List<AttachmentData> createAttachments(int entryID, int attachmentsCount) {
   List<AttachmentData> attachments = [];
   for (var i = 1; i <= attachmentsCount; i++) {
@@ -72,7 +75,7 @@ List<AttachmentData> createAttachments(int entryID, int attachmentsCount) {
   return attachments;
 }
 
-// Converts a list of AttachmentData to a String with comma separated IDs 
+/// Converts a list of AttachmentData [attachments] to a String with comma separated IDs.
 String attachmentsAsText(List<AttachmentData> attachments) {
   String text = '';
   for (int i = 0; i < attachments.length; i++) {

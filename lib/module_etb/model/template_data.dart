@@ -2,6 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'template_data.g.dart';
 
+/// Data model for an template.
 @HiveType(typeId: 2)
 class TemplateData extends HiveObject {
   @HiveField(0)
@@ -36,6 +37,7 @@ class TemplateData extends HiveObject {
       required this.creationTime,
       required this.modificationTime});
 
+  /// Returns an [TemplateData] object as string.
   @override
   String toString() {
     return '{name=$name, id=$id, counterpart=$counterpart, description=$description, comment=$comment, creationTime=$creationTime, modificationTime=$modificationTime}';
