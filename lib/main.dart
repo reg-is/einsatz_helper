@@ -2,7 +2,7 @@ import 'package:einsatz_helper/module_etb/model/attachment_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_data.dart';
 import 'package:einsatz_helper/module_etb/model/etb_entry_data.dart';
 import 'package:einsatz_helper/module_etb/model/template_data.dart';
-import 'package:einsatz_helper/theme.dart';
+import 'package:einsatz_helper/module_etb/utils/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:hive_flutter/hive_flutter.dart';

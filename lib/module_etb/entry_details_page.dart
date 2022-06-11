@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_font_icons/flutter_font_icons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../theme.dart';
+import 'utils/theme.dart';
 
 class EntryDetailsPage extends StatelessWidget {
   //const EntryDetailsPage({ Key? key }) : super(key: key);
