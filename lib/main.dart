@@ -26,7 +26,7 @@ Future<void> main() async {
 }
 
 /// Widget displayed when App starts.
-/// Loads ETBStartPage() on the screen.
+/// Loads ETBModuleStartPage() on the screen.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
