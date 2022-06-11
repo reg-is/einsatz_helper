@@ -10,9 +10,9 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter_touch_spin/flutter_touch_spin.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../utils/data_box.dart';
-import '../model/attachment_data.dart';
-import '../model/etb_entry_data.dart';
+import '../../utils/data_box.dart';
+import '../../model/attachment_data.dart';
+import '../../model/etb_entry_data.dart';
 
 class AddEntryPage extends StatefulWidget {
   final dynamic etbKey;
