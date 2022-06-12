@@ -57,7 +57,7 @@ class NewETBConfirmPage extends StatelessWidget {
             ),
             initialValue: etb.name,
             maxLines: null,
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.multiline,
             validator: FormBuilderValidators.required(),
           ),
           FormBuilderTextField(

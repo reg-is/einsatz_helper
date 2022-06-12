@@ -63,7 +63,7 @@ class NewETBPage extends StatelessWidget {
               labelText: 'Einsatzname*',
             ),
             maxLines: null,
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.multiline,
             validator: FormBuilderValidators.required(),
           ),
           FormBuilderCupertinoDateTimePicker(
@@ -81,7 +81,7 @@ class NewETBPage extends StatelessWidget {
               labelText: 'Einsatzort',
             ),
             maxLines: null,
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.multiline,
           ),
           FormBuilderTextField(
             name: 'request',
