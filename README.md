@@ -32,8 +32,7 @@ This folder contains custom widgets.
 ## Compatible Platforms
 - [x] Android
 - [x] iOS
-- [ ] web
-    - missing pdf export
+- [ ] web (is working, but missing pdf export)
 - [ ] windows
 - [ ] linux
 - [ ] macOS
